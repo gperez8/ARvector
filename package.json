@@ -10,11 +10,26 @@
     "type": "git",
     "url": "git+https://github.com/gperez8/ARvector.git"
   },
-  "keywords": [Augmented Reality, TIC, ARJS, Vector Calculus],
+  "keywords": [
+    "Augmented Reality",
+    "TIC",
+    "ARJS",
+    "Vector Calculus"
+  ],
   "author": "Gregory Perez",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gperez8/ARvector/issues"
   },
-  "homepage": "https://github.com/gperez8/ARvector#readme"
+  "homepage": "https://github.com/gperez8/ARvector#readme",
+  "dependencies": {
+    "angular": "^1.6.4",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.5"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0"
+  }
 }
