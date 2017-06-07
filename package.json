@@ -1,0 +1,20 @@
+{
+  "name": "ARvector",
+  "version": "1.0.0",
+  "description": "Tesis de Pre-grado Universidad de Carabobo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gperez8/ARvector.git"
+  },
+  "keywords": [Augmented Reality, TIC, ARJS, Vector Calculus],
+  "author": "Gregory Perez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gperez8/ARvector/issues"
+  },
+  "homepage": "https://github.com/gperez8/ARvector#readme"
+}
