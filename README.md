@@ -1,3 +1,3 @@
 # ARvector
-Tesis de Pre-grado Universidad de Carabobo prueb
+Tesis de Pre-grado Universidad de Carabobo prueba
 
