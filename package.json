@@ -25,10 +25,12 @@
   "dependencies": {
     "angular": "^1.6.4",
     "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.6",
     "ejs-locals": "^1.0.2",
     "express": "^4.15.3",
-    "mongoose": "^4.10.5"
+    "mongoose": "^4.10.5",
+    "morgan": "^1.8.2"
   },
   "devDependencies": {
     "eslint": "^3.19.0",
