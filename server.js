@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded());
 
 // view engine setup
 app.engine('html', engine);
-app.set('views', path.join(directoryToServe, 'views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 app.get('/', (req, res) => {
@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 });
 
 const httpsOptions = {
-	cert: fs.readFileSync(path.join(__dirname, 'server/ssl', 'cert.pem'), 'utf8'),
-	key: fs.readFileSync(path.join(__dirname, 'server/ssl', 'key.pem'), 'utf8'),
+	cert: fs.readFileSync(path.join(__dirname, '/app/certificate_SSL', 'cert.pem'), 'utf8'),
+	key: fs.readFileSync(path.join(__dirname, '/app/certificate_SSL', 'key.pem'), 'utf8'),
 };
 
 const httpServer = http.createServer(app);
