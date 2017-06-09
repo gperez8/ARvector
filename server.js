@@ -48,4 +48,10 @@ const httpsServer = https.createServer(httpsOptions, app);
 httpServer.listen(httpPort);
 httpsServer.listen(httpsPort);
 
+app.use((req, res, next) => {
+	const err = new Error('Not Found');
+	err.status = 404;
+	res.send('NOT FOUND');
+});
+
 module.exports = app;
