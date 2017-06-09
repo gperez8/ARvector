@@ -1,13 +1,24 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Prueba</title>
-</head>
-<body>
-	<% if (data) { %>
-  	<h2><%= data.name %></h2>
-	<% } %>
+<html ng-app='test1'>
+	<head>
+		<title>Prueba</title>
+	</head>
+	
+	<body ng-controller='test2'>
+		<% if (data) { %>
+	  	<h2><%= data.name %></h2>
+		<% } %>
 
-	<h1>hola mundo</h1>
-</body>
+		<h1>hola mundo</h1>
+
+		<p>{{ algo }}</p>
+
+
+		<script src="/node_modules/angular/angular.min.js">
+		</script>
+		<script src="src/js/modules/module.js">
+		</script>
+		<script src="src/js/controllers/ctrlTest.js">
+		</script>
+	</body>
 </html>
