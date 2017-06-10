@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
+const mongoose = require('mongoose');
 
 //	Se inicializan Variables
 const app = express();
@@ -17,8 +18,6 @@ const httpsPort = 3001;
 //	Se establece directorio estatico
 app.use('/src', express.static(directoryToServe));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
-
-console.log(path.join(__dirname, '/node_modules'));
 
 app.use(logger('dev'));
 app.use(cookieParser());
@@ -51,10 +50,21 @@ const httpsServer = https.createServer(httpsOptions, app);
 httpServer.listen(httpPort);
 httpsServer.listen(httpsPort);
 
-app.use((req, res, next) => {
+// URL desconocidas 404
+app.use((req, res) => {
 	const err = new Error('Not Found');
 	err.status = 404;
 	res.send('NOT FOUND');
 });
 
+
+/* Conexion a la dase de datos */
+mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
+	if (err) {
+		return console.log(`Error al conectar con la DB: ${err}`);
+	}
+	console.log('conectado a la db');
+});
+
 module.exports = app;
+module.exports = mongoose;
