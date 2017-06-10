@@ -18,6 +18,7 @@ const httpsPort = 3001;
 //	Se establece directorio estatico
 app.use('/src', express.static(directoryToServe));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
+app.use('/dist', express.static(path.join(__dirname,'/dist')))
 
 app.use(logger('dev'));
 app.use(cookieParser());
