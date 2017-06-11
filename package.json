@@ -29,6 +29,7 @@
     "ejs": "^2.5.6",
     "ejs-locals": "^1.0.2",
     "express": "^4.15.3",
+    "materialize-css": "^0.98.2",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
     "webpack": "^2.6.1"
