@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
 const mongoose = require('mongoose');
+const routes = require('./app/routes/routes');
 
 //	Se inicializan Variables
 const app = express();
@@ -18,13 +19,12 @@ const httpsPort = 3001;
 //	Se establece directorio estatico
 app.use('/src', express.static(directoryToServe));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
-app.use('/dist', express.static(path.join(__dirname,'/dist')))
+app.use('/dist', express.static(path.join(__dirname, '/dist')));
 
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-
 
 //	Configuracion del Motor de vistas
 app.engine('html', engine);
@@ -32,9 +32,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
 //	aterrizaje por default
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
 	res.render('index', { data: { name: 'Gregory' } });
-});
+});*/
 
 //	Certificado SSL
 const httpsOptions = {
@@ -51,20 +51,22 @@ const httpsServer = https.createServer(httpsOptions, app);
 httpServer.listen(httpPort);
 httpsServer.listen(httpsPort);
 
-// URL desconocidas 404
-app.use((req, res) => {
-	const err = new Error('Not Found');
-	err.status = 404;
-	res.send('NOT FOUND');
-});
-
-
 /* Conexion a la dase de datos */
 mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
 	if (err) {
 		return console.log(`Error al conectar con la DB: ${err}`);
 	}
 	console.log('conectado a la db');
+});
+
+// manejo de rutas
+app.use('/', routes);
+
+// URL desconocidas 404
+app.use((req, res) => {
+	const err = new Error('Not Found');
+	err.status = 404;
+	res.send('NOT FOUND HOLA');
 });
 
 module.exports = app;

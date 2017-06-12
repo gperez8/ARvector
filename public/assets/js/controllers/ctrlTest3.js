@@ -1,5 +1,4 @@
-
 angular.module('test1')
-	.controller('test2', ($scope) => {
+	.controller('test4', ($scope) => {
 		$scope.algo = 'INDEX';
 	});

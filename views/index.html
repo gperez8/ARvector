@@ -1,41 +1,16 @@
 <!DOCTYPE html>
 <html ng-app='test1'>
 	<head>
+		<base href="/">
 		<title>Prueba</title>
 		<link rel="stylesheet" href="src/css/font/font.css">
 		<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
-	</head>
-	
-	<body ng-controller='test2'>
-		<% if (data) { %>
-	  	<h2><%= data.name %></h2>
-		<% } %>
 
-		<h1>hola mundo</h1>
-
-		<p>{{ algo }}</p>
-
-		<div class="parallax-container">
-    <div class="parallax"><img src="src/images/parallax1.jpg"></div>
-  </div>
-  <div class="section white">
-    <div class="row container">
-      <h2 class="header">Parallax</h2>
-      <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
-    </div>
-  </div>
-  <div class="parallax-container">
-    <div class="parallax"><img src="src/images/parallax2.jpg"></div>
-  </div>
-
-
-  		
 
 		<!-- Dependencias -->
 		<script src="node_modules/angular/angular.min.js">
 		</script>
-		<script src="node_modules/angular-route/angular-route.min.js">
-		</script>
+		<script src="node_modules/angular-route/angular-route.min.js"></script>
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 		<!-- FIN Dependencias -->
@@ -43,18 +18,31 @@
 
 		<!-- Javascript Propios -->
 		<script src="src/js/modules/module.js">
+		</script> 
+		<script src="src/js/routes/routes.js">
 		</script>
 		<script src="src/js/controllers/ctrlTest.js">
 		</script>
-		<!-- FIN Javascript Propios -->
-
-		<script type="text/javascript">
-			
-			$(document).ready(function(){
-      $('.parallax').parallax();
-    });
+		<script src="src/js/controllers/ctrlTest2.js">
 		</script>
+		<script src="src/js/controllers/ctrlTest3.js">
+		</script>
+		<!-- FIN Javascript Propios -->
+		
+	</head>
+	
+	<body>
 
+	  	<div ng-controller="test4">
+	  		{{ algo }}
+	  	</div>
+
+		<a href="/">Index</a>
+		<a href="/about">About</a>
+		
+		<div ng-view="">
+		</div>	
+	
 		<!-- <script src="dist/bundle.js"></script> -->
 	</body>
 </html>
