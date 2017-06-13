@@ -1,12 +1,12 @@
 angular.module('test1')
-	.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+	.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'home.html',
+				templateUrl: 'views/home.html',
 				controller: 'test2',
 			})
 			.when('/about', {
-				templateUrl: 'about.html',
+				templateUrl: 'views/about.html',
 				controller: 'test3',
 			})
 			.otherwise({

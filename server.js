@@ -60,6 +60,7 @@ mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
 });
 
 // manejo de rutas
+app.use('/views', express.static(path.join(__dirname, 'views')));
 app.use('/', routes);
 
 // URL desconocidas 404

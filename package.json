@@ -4,7 +4,8 @@
   "description": "Tesis de Pre-grado Universidad de Carabobo",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "webpack": "webpack --watch"
   },
   "repository": {
     "type": "git",
