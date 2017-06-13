@@ -1,5 +1,5 @@
 import './modules/module';
 import './routes/routes';
-import './controllers/ctrlTest';
+import './controllers/about';
 import './controllers/ctrlTest2';
-import './controllers/ctrlTest3';
+import './controllers/homeCtrl';

@@ -1,13 +1,13 @@
-angular.module('test1')
+angular.module('app')
 	.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/home.html',
-				controller: 'test2',
+				controller: 'homeCtrl',
 			})
 			.when('/about', {
 				templateUrl: 'views/about.html',
-				controller: 'test3',
+				controller: 'aboutCtrl',
 			})
 			.otherwise({
 				redirectTo: '/',

@@ -1,23 +1,16 @@
 <!DOCTYPE html>
-<html ng-app='test1'>
+<html ng-app='app'>
 	<head>
 		<base href="/">
 		<title>Prueba</title>
 		<link rel="stylesheet" href="src/css/font/font.css">
 		<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
-
-
-		
 	</head>
 	
-	<body>
+	<body ng-controller="test3">
 
-	  	<div ng-controller="test4">
-	  		{{ algo }}
-	  	</div>
-
-		<a href="/">Index</a>
-		<a href="/about">About</a>
+	   <button ng-click="home()"> home </button>
+	   <button ng-click="about()"> about </button>		
 		
 		<div ng-view="">
 		</div>	
@@ -30,19 +23,6 @@
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/materialize-css/dist/js/materialize.min.js"></script>
 		<!-- FIN Dependencias -->
-		
-
-		<!-- Javascript Propios -->
-		<!-- <script src="src/js/modules/module.js">-->
-		<!--</script> 
-		<script src="src/js/routes/routes.js">
-		</script>-->
-		<!--<script src="src/js/controllers/ctrlTest.js">
-		</script>
-		<script src="src/js/controllers/ctrlTest2.js">
-		</script>
-		<script src="src/js/controllers/ctrlTest3.js">
-		</script>-->
 
 		<script src="dist/bundle.js"></script>
 		<!-- FIN Javascript Propios -->

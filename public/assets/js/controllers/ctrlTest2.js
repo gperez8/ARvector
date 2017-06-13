@@ -1,4 +1,10 @@
-angular.module('test1')
-	.controller('test3', ($scope) => {
-		$scope.algo = 'ABOUT';
+angular.module('app')
+	.controller('test3', ($scope, $location) => {
+		$scope.home = () => {
+			$location.path('/home');
+		};
+
+		$scope.about = () => {
+			$location.path('/about');
+		};
 	});
