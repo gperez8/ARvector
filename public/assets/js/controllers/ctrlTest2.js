@@ -5,6 +5,6 @@ angular.module('app')
 		};
 
 		$scope.about = () => {
-			$location.path('/about');
+			$location.path('/createMarker');
 		};
 	});
