@@ -1,27 +1,44 @@
- /* global $, angular, document */
+ /* global angular, document, THREEx */
 
 angular.module('app')
-	.controller('markerGenerateCtrl', function($scope) {
+	.controller('markerGenerateCtrl', ($scope) => {
+		$scope.entrada = 'gregory';
+		$scope.updateFullMarkerImage = (image) => {
+			THREEx.ArPatternFile.buildFullMarker(image, function onComplete(markerUrl) {
+				const fullMarkerImage = document.createElement('img');
+				fullMarkerImage.src = markerUrl;
 
-		$scope.entrada = 'hola';
+				// put fullMarkerImage into #imageContainer
+				const container = document.querySelector('#qr');
+				while (container.firstChild) container.removeChild(container.firstChild);
+				container.appendChild(fullMarkerImage);
 
-		/* Se Genera el canvas donde se dibujará */
-		const canvas = document.createElement('canvas');
-		canvas.width = 512;
-		canvas.height = 512;
-		canvas.style.width = '512px';
-		canvas.style.height = '512px';
-		document.querySelector('#qr').appendChild(canvas);
-		const context = canvas.getContext('2d');
+				THREEx.ArPatternFile.encodeImageURL(image, function onComplete(patternFileString) {
+					let file = new FileReader();
 
+					file.readAsDataURL(new Blob([patternFileString], {type: 'text/plain'}));
+					file.onload = () => {
 
-		const imageMarker = new Image();
-		imageMarker.src = 'src/images/markers/HIRO.jpg';
-		imageMarker.onload = () => {
-			context.drawImage(imageMarker, 20, 20, canvas.width,
-			canvas.height);
+						// Se quita esto del archivo a enviar
+						// data:text/plain;base64
+						file = file.result.substr(22);
+						const data = {};
+						data.file = file;
+
+						$.ajax({
+							type: 'POST',
+							url: '/createMarker',
+							data: data,
+							dataType: 'json',
+						});
+					};
+
+					// THREEx.ArPatternFile.triggerDownload(patternFileString);
+				}); 
+			});
 		};
 
+		/* se genera el codigo QR */
 		const container = document.createElement('div');
 		const qrcode = new QRCode(container, {
 			text: $scope.entrada,
@@ -30,11 +47,10 @@ angular.module('app')
 			colorDark: '#000000',
 			colorLight: '#ffffff',
             // correctLevel : QRCode.CorrectLevel.H
-        });
-
-		const qrCodeImage = container.querySelector('img');
-		qrCodeImage.addEventListener('load', () => {
-			context.drawImage(qrCodeImage, canvas.width * 0.51,
-				canvas.height * 0.30, canvas.width * 0.15, canvas.height * 0.15);
 		});
+
+		/* Se dibuja el codigo QR sobre la imagen base */
+		const canvasImg = container.querySelector('canvas');
+		const image = canvasImg.toDataURL('image/png');
+		$scope.updateFullMarkerImage(image);
 	});

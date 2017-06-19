@@ -59,6 +59,19 @@ mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
 // manejo de rutas
 app.use('/', routes);
 
+app.route('/createMarker')
+	.post((req, res) => {
+		const file = req.body.file;
+		const filepath = "public/assets/model/qr.patt";
+
+		fs.writeFile(filepath, new Buffer(file, 'base64'), 'ascii', (err) => {
+			if (err) console.log(err);
+
+			console.log("The file was succesfully saved!");
+
+		});
+	});
+
 // URL desconocidas 404
 app.use((req, res) => {
 	res.sendFile(path.join(__dirname, 'public/views/index.html'));
