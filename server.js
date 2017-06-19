@@ -67,9 +67,10 @@ app.route('/createMarker')
 		fs.writeFile(filepath, new Buffer(file, 'base64'), 'ascii', (err) => {
 			if (err) console.log(err);
 
-			console.log("The file was succesfully saved!");
+			console.log('The file was succesfully saved!');
 
 		});
+		res.send('200');
 	});
 
 // URL desconocidas 404
