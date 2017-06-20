@@ -12,7 +12,7 @@ angular.module('app')
 				const container = document.querySelector('#qr');
 				while (container.firstChild) container.removeChild(container.firstChild);
 				container.appendChild(markerImage);
-				// $scope.pattFileGenerate(image);
+				$scope.pattFileGenerate(image);
 			});
 		};
 
@@ -24,8 +24,9 @@ angular.module('app')
 					const data = {};
 
 					// Se quita esto del archivo a enviar data:text/plain;base64
-					file = file.result.substr(22);
-					data.file = file;
+					data.file = file.result.substr(23);
+					data.name = 'carmen';
+					data.asignature = 'vectorial';
 
 					$http.post('/createMarker', data, 'json')
 						.then((response) => {

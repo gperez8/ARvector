@@ -8,7 +8,7 @@ const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
 const mongoose = require('mongoose');
-const routes = require('./app/routes/routes');
+const httpRequestHandling = require('./app/routes/routes');
 
 //	Se inicializan Variables
 const app = express();
@@ -41,7 +41,7 @@ const httpsOptions = {
 
 //	Se crean los servidores HTTP y HTTPS
 const httpServer = http.createServer(app);
-//const httpsServer = https.createServer(httpsOptions, app);
+//	const httpsServer = https.createServer(httpsOptions, app);
 
 //	Se ponen a escuchar a los servidores por los
 //	puertos 3000 y 3001
@@ -56,22 +56,8 @@ mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
 	console.log('conectado a la db');
 });
 
-// manejo de rutas
-app.use('/', routes);
-
-app.route('/createMarker')
-	.post((req, res) => {
-		const file = req.body.file;
-		const filepath = "public/assets/model/qr.patt";
-
-		fs.writeFile(filepath, new Buffer(file, 'base64'), 'ascii', (err) => {
-			if (err) console.log(err);
-
-			console.log('The file was succesfully saved!');
-
-		});
-		res.send('200');
-	});
+// manejador de peticiones de las rutas
+app.use('/', httpRequestHandling);
 
 // URL desconocidas 404
 app.use((req, res) => {
