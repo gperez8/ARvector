@@ -13,6 +13,10 @@ angular.module('app')
 				templateUrl: 'views/createMarker.html',
 				controller: 'markerGenerateCtrl',
 			})
+			.when('/testMarker', {
+				templateUrl: 'views/testMarker.html',
+				controller: 'testMarkerCtrl',
+			})
 			.otherwise({
 				redirectTo: '/',
 			});
