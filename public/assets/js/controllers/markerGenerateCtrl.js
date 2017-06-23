@@ -23,9 +23,9 @@ angular.module('app')
 				file.onload = () => {
 					const data = {};
 
-					// Se quita esto del archivo a enviar data:text/plain;base64
+					// Se quita esto del archivo a enviar data:text/plain;base64,
 					data.file = file.result.substr(23);
-					data.name = 'carmen';
+					data.name = 'gregory';
 					data.asignature = 'vectorial';
 
 					$http.post('/createMarker', data, 'json')
