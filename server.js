@@ -14,7 +14,7 @@ const httpRequestHandling = require('./app/routes/routes');
 const app = express();
 const directoryToServe = path.join(__dirname, '/public/assets');
 const httpPort = 3000;
-//const httpsPort = 3001;
+const httpsPort = 3001;
 
 //	Se establece directorio estatico
 app.use('/views', express.static(path.join(__dirname, '/public/views')));
@@ -41,12 +41,12 @@ const httpsOptions = {
 
 //	Se crean los servidores HTTP y HTTPS
 const httpServer = http.createServer(app);
-//	const httpsServer = https.createServer(httpsOptions, app);
+const httpsServer = https.createServer(httpsOptions, app);
 
 //	Se ponen a escuchar a los servidores por los
 //	puertos 3000 y 3001
 httpServer.listen(httpPort);
-//httpsServer.listen(httpsPort);
+httpsServer.listen(httpsPort);
 
 /* Conexion a la dase de datos */
 mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
