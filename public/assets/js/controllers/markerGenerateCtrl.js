@@ -1,4 +1,4 @@
- /* global angular, document, THREEx */
+ /* global angular, document, THREEx, pdfMake */
 
 angular.module('app')
 	.controller('markerGenerateCtrl', ($scope, $http) => {
@@ -61,5 +61,18 @@ angular.module('app')
 			const image = canvasImg.toDataURL('image/png');
 			$scope.imageQr = image;
 			$scope.buildMarker(image);
+		};
+
+		$scope.generatePdf = () => {
+			const docDefinition = {
+				content: [
+					{
+						image: $scope.markerGenerated.src,
+						width: 300,
+						alignment: 'center',
+					},
+				],
+			};
+			pdfMake.createPdf(docDefinition).open();
 		};
 	});
