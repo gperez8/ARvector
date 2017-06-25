@@ -1,4 +1,10 @@
-<input type="text" ng-model="entrada" ng-change="markerGenerate()">
+<input 
+	type="text" 
+	ng-model="entrada" 
+	ng-change="markerGenerate()"
+	maxlength="976">
+
+<button ng-click="pattFileGenerate(imageQr,markerGenerated)">Generar Marker</button>
 
 <div class="container center-align">
 	<div id="qr"></div>

@@ -3,6 +3,8 @@
 angular.module('app')
 	.controller('markerGenerateCtrl', ($scope, $http) => {
 		$scope.entrada = '';
+		$scope.imageQr = '';
+		$scope.markerGenerated = '';
 
 		$scope.buildMarker = (imageQr) => {
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
@@ -12,32 +14,35 @@ angular.module('app')
 				const container = document.querySelector('#qr');
 				while (container.firstChild) container.removeChild(container.firstChild);
 				container.appendChild(markerImage);
-
-				console.log('imagen ->',markerImage);
-
-				$scope.pattFileGenerate(imageQr, markerImage);
+				$scope.markerGenerated = markerImage;
+				// $scope.pattFileGenerate(imageQr, markerImage);
 			});
 		};
 
 		$scope.pattFileGenerate = (imageQr, markerGenerated) => {
-			THREEx.ArPatternFile.encodeImageURL(imageQr, (patternFileString) => {
-				let file = new FileReader();
-				file.readAsDataURL(new Blob( [patternFileString], { type: 'text/plain' } ));
-				file.onload = () => {
-					const data = {};
-					// Se quita esto del archivo a enviar data:text/plain;base64,
-					data.pattFile = file.result.substr(23);
-					data.pattFileImage = markerGenerated.src.substr(21);
-					data.name = 'gregory';
-					data.asignature = 'vectorial';
-					$http.post('/createMarker', data, 'json')
-						.then((response) => {
-							console.log('response', response);
-						}, (error) => {
-							console.log('error', error);
-						});
-				};
-			});
+			if (imageQr !== null &&
+				imageQr !== undefined &&
+				markerGenerated !== null &&
+				markerGenerated !== undefined) {
+				THREEx.ArPatternFile.encodeImageURL(imageQr, (patternFileString) => {
+					const file = new FileReader();
+					file.readAsDataURL(new Blob( [patternFileString], { type: 'text/plain' } ));
+					file.onload = () => {
+						const data = {};
+						// Se quita esto del archivo a enviar data:text/plain;base64,
+						data.pattFile = file.result.substr(23);
+						data.pattFileImage = markerGenerated.src.substr(21);
+						data.name = 'gregory';
+						data.asignature = 'vectorial';
+						$http.post('/createMarker', data, 'json')
+							.then((response) => {
+								console.log('response', response);
+							}, (error) => {
+								console.log('error', error);
+							});
+					};
+				});
+			}
 		};
 
 		$scope.markerGenerate = () => {
@@ -54,6 +59,7 @@ angular.module('app')
 			/* Se dibuja el codigo QR sobre la imagen base */
 			const canvasImg = container.querySelector('canvas');
 			const image = canvasImg.toDataURL('image/png');
+			$scope.imageQr = image;
 			$scope.buildMarker(image);
 		};
 	});
