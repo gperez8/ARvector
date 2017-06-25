@@ -5,17 +5,43 @@ const httpRequestHandling = express();
 
 httpRequestHandling.route('/createMarker')
 	.post((req, res) => {
-		const file = req.body.file;
-		const dir = './public/assets/' + `${req.body.asignature}`;
-		const filepath = 'public/assets/' + `${req.body.asignature}` + '/' + `${req.body.name}` + '.patt';
+		const file = req.body.pattFile;
+		const img = req.body.pattFileImage;
 
-		if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+		// carpetas para archivos .patt y png
+		const pattFileDir = './public/assets/' +
+			`${req.body.asignature}` +
+			'/pattern-files';
 
-		fs.writeFile(filepath, new Buffer(file, 'base64'), 'ascii', (err) => {
+		const imgFileDir = './public/assets/' +
+			`${req.body.asignature}` +
+			'/pattern-images';
+
+		// ruta y nombres de archivos .patt y png
+		const pattFilePath = `${pattFileDir}` +
+			'/' +
+			`${req.body.name}` +
+			'.patt';
+
+		const imgFilePath = `${imgFileDir}` +
+			'/' +
+			`${req.body.name}` +
+			'.png';
+
+		if (!fs.existsSync(pattFileDir)) fs.mkdirSync(pattFileDir);
+		if (!fs.existsSync(imgFileDir)) fs.mkdirSync(imgFileDir);
+
+		fs.writeFile(pattFilePath, new Buffer(file, 'base64'), 'ascii', (err) => {
 			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
 			console.log('The file was succesfully saved!');
-			res.send('200');
 		});
+
+		fs.writeFile(imgFilePath, new Buffer(img, 'base64'), 'ascii', (err) => {
+			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
+			console.log('The file IMG was succesfully saved!');
+		});
+
+		res.send('200');
 	});
 
 module.exports = httpRequestHandling;
