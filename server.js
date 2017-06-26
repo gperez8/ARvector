@@ -23,6 +23,8 @@ app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 app.use('/dist', express.static(path.join(__dirname, '/dist')));
 app.use('/lib', express.static(path.join(__dirname, '/lib')));
 
+app.set('port', (process.env.PORT || 8080));
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -40,13 +42,13 @@ const httpsOptions = {
 };
 
 //	Se crean los servidores HTTP y HTTPS
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(httpsOptions, app);
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(httpsOptions, app);
 
 //	Se ponen a escuchar a los servidores por los
 //	puertos 3000 y 3001
-httpServer.listen(httpPort);
-httpsServer.listen(httpsPort);
+httpServer.listen(app.get('port'));
+//httpsServer.listen(httpsPort);
 
 /* Conexion a la dase de datos */
 mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
