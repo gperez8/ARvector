@@ -51,12 +51,12 @@ httpsServer.listen(app.get('port'));
 //httpsServer.listen(httpsPort);
 
 /* Conexion a la dase de datos */
-mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
+/* mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
 	if (err) {
 		return console.log(`Error al conectar con la DB: ${err}`);
 	}
 	console.log('conectado a la db');
-});
+}); */
 
 // manejador de peticiones de las rutas
 app.use('/', httpRequestHandling);
