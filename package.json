@@ -48,6 +48,6 @@
     "eslint-plugin-import": "^2.3.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "6.10.3"
   }
 }

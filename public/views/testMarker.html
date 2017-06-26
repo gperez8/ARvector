@@ -1,0 +1,35 @@
+<a-scene>
+    <a-assets>
+        <a-asset-item 
+            id="crate-obj" 
+            src="src/model/violin_case.obj">    
+        </a-asset-item>
+        <a-asset-item 
+            id="crate-mtl" 
+            src="src/model/vp.mtl">
+        </a-asset-item>
+        <a-asset-item 
+            id="model" 
+            src="src/model/model2.gltf">    
+        </a-asset-item>
+    </a-assets>
+
+    <a-marker type='pattern' url='src/vectorial/carmen.patt'>
+        <a-obj-model 
+            src="#crate-obj" 
+            mtl="#crate-mtl"
+            position="1 0.5 0"
+            scale="0.5 0.5 0.5">        
+        </a-obj-model>
+    </a-marker>
+
+    <a-marker type='pattern' url='src/vectorial/gregory.patt'>
+        <a-gltf-model 
+            src="#model" 
+            position="-0.025 0.5 0"
+            scale="0.005 0.005 0.005">        
+        </a-gltf-model>
+    </a-marker>
+
+    <a-entity camera></a-entity>
+</a-scene> 
