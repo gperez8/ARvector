@@ -43,11 +43,11 @@ const httpsOptions = {
 
 //	Se crean los servidores HTTP y HTTPS
 // const httpServer = http.createServer(app);
-// const httpsServer = https.createServer(httpsOptions, app);
+const httpsServer = https.createServer(httpsOptions, app);
 
 //	Se ponen a escuchar a los servidores por los
 //	puertos 3000 y 3001
-httpServer.listen(app.get('port'));
+httpsServer.listen(app.get('port'));
 //httpsServer.listen(httpsPort);
 
 /* Conexion a la dase de datos */
