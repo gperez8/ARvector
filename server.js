@@ -23,6 +23,8 @@ app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 app.use('/dist', express.static(path.join(__dirname, '/dist')));
 app.use('/lib', express.static(path.join(__dirname, '/lib')));
 
+app.set('port', (process.env.PORT || 5000));
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
