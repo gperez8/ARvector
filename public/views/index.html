@@ -6,6 +6,7 @@
 		<link rel="stylesheet" href="src/css/main.css">
 		<link rel="stylesheet" href="src/css/font/font.css">
 		<link rel="stylesheet" href="node_modules/materialize-css/dist/css/materialize.min.css">
+		<link rel="stylesheet" href="lib/mathBox/mathbox.css">
 	</head>
 
 	<body ng-controller="test3" style='margin : 0px; overflow: hidden;'>
@@ -29,12 +30,14 @@
 					</li>
 				</ul>
 			</div>
-		</nav>
+		</nav>-->
 
 	   <button ng-click="home()"> home </button>
-	   <button ng-click="about()"> about </button>		
+	   <button ng-click="createMarker()"> createMarker </button>
+	   <button ng-click="testMarker()"> testMarker </button>		
+	   <button ng-click="createModel()"> createModel </button>
 		
-		<div class="container">
+		<!-- <div class="container">
 			<div class="col s12">
 				<div>	-->
 					<div ng-view="">
@@ -92,10 +95,15 @@
 		dist/aframe-orbit-controls-component.min.js"></script>
 		<!-- FIN Dependencias AR -->
 		
+		<!-- Dependencias create Model -->
+		<script src="lib/datGui/dat-gui.js"></script>
+		<script src="lib/mathBox/mathbox-bundle.js "></script>
+		<!-- FIN Dependencias create Model -->
 
+		<!-- FIN Javascript Propios -->
 		<script src="dist/bundle.js"></script>
 		<!-- FIN Javascript Propios -->
 
-		<!-- <script src="dist/bundle.js"></script> -->
+		 
 	</body>
 </html>

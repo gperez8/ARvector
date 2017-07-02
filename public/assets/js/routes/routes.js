@@ -1,3 +1,5 @@
+/* global angular */
+
 angular.module('app')
 	.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
 		$routeProvider
@@ -25,6 +27,6 @@ angular.module('app')
 				redirectTo: '/',
 			});
 		$locationProvider.html5Mode(true);
-}]);
+	}]);
 
 console.log('router');

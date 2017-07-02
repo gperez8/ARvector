@@ -9,3 +9,4 @@ import './controllers/modelGenerateCtrl';
 import './controllers/testMarkerCtrl';
 
 import '../../../lib/arjs/threex-arpatternfile';
+

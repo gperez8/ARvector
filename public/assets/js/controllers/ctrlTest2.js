@@ -4,7 +4,15 @@ angular.module('app')
 			$location.path('/home');
 		};
 
-		$scope.about = () => {
+		$scope.createMarker = () => {
 			$location.path('/createMarker');
+		};
+
+		$scope.testMarker = () => {
+			$location.path('/testMarker');
+		};
+
+		$scope.createModel = () => {
+			$location.path('/createModel');
 		};
 	});
