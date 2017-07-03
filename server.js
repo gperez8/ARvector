@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const httpRequestHandling = require('./app/routes/routes');
 
 //	Se inicializan Variables
