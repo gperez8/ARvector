@@ -1,3 +1,3 @@
 web: npm install
-web: npm webpack
+web: ./node_modules/.bin/webpack
 web: node server.js
