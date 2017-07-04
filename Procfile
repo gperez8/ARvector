@@ -1,3 +1,1 @@
-web: npm install
-web: npm run start 
-web: npm run webpack
+web: ./bin/www npm start
