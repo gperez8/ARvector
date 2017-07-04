@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/gperez8/ARvector#readme",
   "dependencies": {
+    "aframe-orbit-controls-component-2": "^0.1.8",
     "angular": "^1.6.4",
     "angular-route": "^1.6.4",
     "body-parser": "^1.17.2",
