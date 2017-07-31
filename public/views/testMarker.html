@@ -1,5 +1,5 @@
 <a-scene id="a-scene">
-    <a-entity
+    <!--<a-entity
         id="camera"
         camera="fov: 80; zoom: 1;"
         position="0 2 5"
@@ -22,7 +22,7 @@
             rotation="90 0 0" 
             material="color: #0099ff; transparent: true; opacity:0.5">
         </a-entity>
-    </a-entity>
+    </a-entity> -->
 
     <a-assets>
         <!-- <a-asset-item 
@@ -35,7 +35,11 @@
         </a-asset-item> -->
         <a-asset-item 
             id="model" 
-            src="src/model/model2.gltf">    
+            src="src/model/testEditor.gltf">    
+        </a-asset-item>
+        <a-asset-item 
+            id="silla" 
+            src="src/model/silla.obj">    
         </a-asset-item>
     </a-assets>
 
@@ -49,11 +53,16 @@
             </a-obj-model>
         </a-marker> -->
 
+        <!-- <a-marker type='pattern' url='src/vectorial/pattern-file/gregory.patt'> 
+            <a-obj-model 
+                src="#silla">        
+            </a-obj-model>
+        </a-marker> -->
+
         <a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
             <a-gltf-model 
                 src="#model" 
-                position="-0.025 0.5 0"
-                scale="0.025 0.025 0.025">        
+               >        
             </a-gltf-model>
         </a-marker>
     </a-entity>

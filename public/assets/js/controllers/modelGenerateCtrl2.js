@@ -1,7 +1,7 @@
-/* global angular, document, THREE, Parse, window*/
+/* global angular, document, THREE, Parser, window*/
 
 angular.module('app')
-	.controller('modelGenerateCtrl2', ($scope) => {
+	.controller('modelGenerateCtrl2', ($scope,$http) => {
 		let graphMesh;
 		const segments = 100;
 		const xMin = -3;
@@ -14,7 +14,7 @@ angular.module('app')
 		let zMax = 3;
 		let zRange = zMax - zMin;
 
-		const zFuncText = 'sin(x^2 + y^2)';
+		const zFuncText = 'x^2 - y^2';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 		const scene = new THREE.Scene();
@@ -160,6 +160,24 @@ angular.module('app')
 			renderer.render(scene, camera);
 		}
 
-		const exporter = new THREE.OBJExporter();
-		console.log(exporter.parse(scene.children[3]));
+		$scope.exporter = () => {
+			const exporter = new THREE.OBJExporter();
+			let model = exporter.parse(scene.children[3]);
+			const file = new FileReader();
+			file.readAsDataURL(new Blob([model], { type: 'text/plain' }));
+
+			file.onload = () => {
+				const data = {};
+				// Se quita esto del archivo a enviar data:text/plain;base64,
+				data.model = file.result.substr(23);
+				data.name = 'model';
+				data.asignature = 'vectorial';
+				$http.post('/createModel2', data, 'json')
+					.then((response) => {
+						console.log('response', response);
+					}, (error) => {
+						console.log('error', error);
+					});
+			};
+		};
 	});

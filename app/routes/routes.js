@@ -44,4 +44,24 @@ httpRequestHandling.route('/createMarker')
 		res.send('200');
 	});
 
+httpRequestHandling.route('/createModel2')
+	.post((req, res) => {
+		const model = req.body.model;
+
+		// carpetas para archivos .patt y png
+		const modelFileDir = './public/assets/model';
+
+		// ruta y nombres de archivos .patt y png
+		const modelFilePath = `${modelFileDir}` +
+			'/' +
+			`${req.body.name}` +
+			'.obj';
+
+		fs.writeFile(modelFilePath, new Buffer(model, 'base64'), 'ascii', (err) => {
+			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
+			console.log('The file was succesfully saved!');
+		});
+		res.send('200');
+	});
+
 module.exports = httpRequestHandling;

@@ -27,7 +27,7 @@ app.set('port', (process.env.PORT || 3000));
 
 app.use(logger('dev'));
 app.use(cookieParser());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded());
 
 //	Configuracion del Motor de vistas

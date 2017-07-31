@@ -157,4 +157,20 @@ angular.module('app')
 		}
 
 		updateGraphFunc();
+
+		$scope.generateModel = () => {
+
+			/* console.log('three1->', three.scene);
+			console.log('three2->', three.scene.children[0].children[0]); */
+			//console.log('graphData->' graphData);
+
+			/* var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var mesh = new THREE.Mesh( geometry, material );
+			
+			console.log('mesh', mesh);*/
+
+			/* var exporter = new THREE.OBJExporter();
+			console.log(exporter.parse( three.scene.children[0].children[12] )); */
+		}
 	});
