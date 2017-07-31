@@ -6,6 +6,7 @@ import './controllers/ctrlTest2';
 import './controllers/homeCtrl';
 import './controllers/markerGenerateCtrl';
 import './controllers/modelGenerateCtrl';
+import './controllers/modelGenerateCtrl2';
 import './controllers/testMarkerCtrl';
 
 import '../../../lib/arjs/threex-arpatternfile';

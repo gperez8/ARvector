@@ -19,6 +19,10 @@ angular.module('app')
 				templateUrl: 'views/createModel.html',
 				controller: 'modelGenerateCtrl',
 			})
+			.when('/createModel2', {
+				templateUrl: 'views/createModel2.html',
+				controller: 'modelGenerateCtrl2',
+			})
 			.when('/testMarker', {
 				templateUrl: 'views/testMarker.html',
 				controller: 'testMarkerCtrl',
