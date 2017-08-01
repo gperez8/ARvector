@@ -1,7 +1,7 @@
 /* global angular, document, THREE, Parser, window*/
 
 angular.module('app')
-	.controller('modelGenerateCtrl2', ($scope,$http) => {
+	.controller('modelGenerateCtrl2', ($scope, $http) => {
 		let graphMesh;
 		const segments = 100;
 		const xMin = -3;
@@ -14,7 +14,7 @@ angular.module('app')
 		let zMax = 3;
 		let zRange = zMax - zMin;
 
-		const zFuncText = 'x^2 - y^2';
+		const zFuncText = 'x^2 + y^2';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 		const scene = new THREE.Scene();
@@ -153,6 +153,7 @@ angular.module('app')
 			graphGeometry,
 			vertexColorMaterial,
 		);
+		graphMesh.side = THREE.DoubleSide;
 		scene.add(graphMesh);
 
 
