@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -492,10 +492,199 @@ angular.module('app').controller('modelGenerateCtrl', function ($scope) {
 	};
 
 	updateGraphFunc();
+
+	$scope.generateModel = function () {
+
+		/* console.log('three1->', three.scene);
+  console.log('three2->', three.scene.children[0].children[0]); */
+		//console.log('graphData->' graphData);
+
+		/* var material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+  var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+  var mesh = new THREE.Mesh( geometry, material );
+  
+  console.log('mesh', mesh);*/
+
+		/* var exporter = new THREE.OBJExporter();
+  console.log(exporter.parse( three.scene.children[0].children[12] )); */
+	};
 });
 
 /***/ }),
 /* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/* global angular, document, THREE, Parser, window*/
+
+angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) {
+	var graphMesh = void 0;
+	var segments = 100;
+	var xMin = -3;
+	var xMax = 3;
+	var xRange = xMax - xMin;
+	var yMin = -3;
+	var yMax = 3;
+	var yRange = yMax - yMin;
+	var zMin = -3;
+	var zMax = 3;
+	var zRange = zMax - zMin;
+
+	var zFuncText = 'x^2 + y^2';
+	var zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
+
+	var scene = new THREE.Scene();
+	scene.background = new THREE.Color(0xf0f0f0);
+
+	/* Configuracion de la camara */
+	var SCREEN_WIDTH = window.innerWidth;
+	var SCREEN_HEIGHT = window.innerHeight;
+	var VIEW_ANGLE = 45;
+	var ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT;
+	var NEAR = 0.1;
+	var FAR = 20000;
+
+	var camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
+
+	camera.position.set(2 * xMax, 0.5 * yMax, 4 * zMax);
+	camera.up = new THREE.Vector3(0, 0, 1);
+	camera.lookAt(scene.position);
+	scene.add(camera);
+	/* FIN de la Configuracion de la camara */
+
+	/* control sobre la scena */
+	var controls = new THREE.OrbitControls(camera);
+	controls.addEventListener('change', render);
+	/* FIn control sobre la scena */
+
+	/* Plano r3 */
+	var helper = new THREE.GridHelper(6, 10);
+	helper.rotateX(Math.PI / 2);
+	helper.material.opacity = 0.25;
+	helper.material.transparent = true;
+	scene.add(helper);
+	/* FIN de Plano r3 */
+
+	/* Ejes XYZ */
+	var axis = new THREE.AxisHelper(10);
+	scene.add(axis);
+	/* FIN de Ejes XYZ */
+
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+	camera.position.z = 5;
+
+	// "wireframe texture"
+	var wireTexture = new THREE.ImageUtils.loadTexture();
+	wireTexture.wrapS = THREE.RepeatWrapping;
+	wireTexture.wrapT = THREE.RepeatWrapping;
+	wireTexture.repeat.set(40, 40);
+
+	var wireMaterial = new THREE.MeshBasicMaterial({
+		map: wireTexture,
+		vertexColors: THREE.VertexColors,
+		side: THREE.DoubleSide
+	});
+
+	var vertexColorMaterial = new THREE.MeshBasicMaterial({
+		vertexColors: THREE.VertexColors,
+		side: THREE.DoubleSide
+	});
+
+	renderer.setClearColor(0x888888, 1);
+
+	xRange = xMax - xMin;
+	yRange = yMax - yMin;
+	zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
+
+	function meshFunction(a, b) {
+		var x = xRange * a + xMin;
+		var y = yRange * b + yMin;
+		var z = zFunc(x, y);
+
+		var value = isNaN(z) ? new THREE.Vector3(0, 0, 0) : new THREE.Vector3(x, y, z);
+		return value;
+	}
+
+	// true => sensible image tile repeat...
+	var graphGeometry = new THREE.ParametricGeometry(meshFunction, segments, segments, true);
+
+	///////////////////////////////////////////////
+	// calculate vertex colors based on Z values //
+	///////////////////////////////////////////////
+	graphGeometry.computeBoundingBox();
+	zMin = graphGeometry.boundingBox.min.z;
+	zMax = graphGeometry.boundingBox.max.z;
+	zRange = zMax - zMin;
+
+	var color = void 0;
+	var point = void 0;
+	var face = void 0;
+	var numberOfSides = void 0;
+	var vertexIndex = void 0;
+	var faceIndices = ['a', 'b', 'c', 'd'];
+
+	// first, assign colors to vertices as desired
+	for (var i = 0; i < graphGeometry.vertices.length; i++) {
+		point = graphGeometry.vertices[i];
+		color = new THREE.Color(0x0000ff);
+		color.setHSL(0.7 * (zMax - point.z) / zRange, 1, 0.5);
+		graphGeometry.colors[i] = color; // use this array for convenience
+	}
+
+	// copy the colors as necessary to the face's vertexColors array.
+	for (var _i = 0; _i < graphGeometry.faces.length; _i++) {
+		face = graphGeometry.faces[_i];
+		numberOfSides = face instanceof THREE.Face3 ? 3 : 4;
+		for (var j = 0; j < numberOfSides; j++) {
+			vertexIndex = face[faceIndices[j]];
+			face.vertexColors[j] = graphGeometry.colors[vertexIndex];
+		}
+	}
+	///////////////////////
+	// end vertex colors //
+	///////////////////////
+
+	// material choices: vertexColorMaterial, wireMaterial , normMaterial , shadeMaterial
+
+	if (graphMesh) scene.remove(graphMesh);
+
+	wireMaterial.map.repeat.set(segments, segments);
+
+	graphMesh = new THREE.Mesh(graphGeometry, vertexColorMaterial);
+	graphMesh.side = THREE.DoubleSide;
+	scene.add(graphMesh);
+
+	function render() {
+		renderer.render(scene, camera);
+	}
+
+	$scope.exporter = function () {
+		var exporter = new THREE.OBJExporter();
+		var model = exporter.parse(scene.children[3]);
+		var file = new FileReader();
+		file.readAsDataURL(new Blob([model], { type: 'text/plain' }));
+
+		file.onload = function () {
+			var data = {};
+			// Se quita esto del archivo a enviar data:text/plain;base64,
+			data.model = file.result.substr(23);
+			data.name = 'model';
+			data.asignature = 'vectorial';
+			$http.post('/createModel2', data, 'json').then(function (response) {
+				console.log('response', response);
+			}, function (error) {
+				console.log('error', error);
+			});
+		};
+	};
+});
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -522,7 +711,7 @@ angular.module('app').controller('testMarkerCtrl', function ($scope) {
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -531,7 +720,7 @@ angular.module('app').controller('testMarkerCtrl', function ($scope) {
 angular.module('app', ['ngRoute']);
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -552,6 +741,9 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function ($
 	}).when('/createModel', {
 		templateUrl: 'views/createModel.html',
 		controller: 'modelGenerateCtrl'
+	}).when('/createModel2', {
+		templateUrl: 'views/createModel2.html',
+		controller: 'modelGenerateCtrl2'
 	}).when('/testMarker', {
 		templateUrl: 'views/testMarker.html',
 		controller: 'testMarkerCtrl'
@@ -564,15 +756,15 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function ($
 console.log('router');
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(7);
-
 __webpack_require__(8);
+
+__webpack_require__(9);
 
 __webpack_require__(1);
 
@@ -585,6 +777,8 @@ __webpack_require__(4);
 __webpack_require__(5);
 
 __webpack_require__(6);
+
+__webpack_require__(7);
 
 __webpack_require__(0);
 
