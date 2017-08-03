@@ -27,6 +27,10 @@ angular.module('app')
 				templateUrl: 'views/testMarker.html',
 				controller: 'testMarkerCtrl',
 			})
+			.when('/mathEditor', {
+				templateUrl: 'views/mathEditor.html',
+				controller: 'mathEditorCtrl',
+			})
 			.otherwise({
 				redirectTo: '/',
 			});
