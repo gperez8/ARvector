@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -329,6 +329,62 @@ angular.module('app').controller('markerGenerateCtrl', function ($scope, $http) 
 "use strict";
 
 
+var _ImageImport = __webpack_require__(11);
+
+var _ImageResize = __webpack_require__(12);
+
+/* global angular, document, Quill, window */
+angular.module('app').controller('mathEditorCtrl', function ($scope) {
+	Quill.register('modules/imageImport', _ImageImport.ImageImport);
+	Quill.register('modules/imageResize', _ImageResize.ImageResize);
+	var toolbarOptions = [[{ header: [1, 2, 3, 4, 5, 6, false] }], [{ font: [] }], [{ size: ['small', false, 'large', 'huge'] }], ['blockquote', 'code-block'], ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+
+	// custom button values
+	[{ list: 'ordered' }, { list: 'bullet' }], [{ align: [] }], [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+	[{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+	[{ direction: 'rtl' }], // text direction
+
+	// custom dropdown
+	[{ color: [] }, { background: [] }], ['link', 'image', 'video', 'formula'], // dropdown with defaults from theme
+	['clean']];
+
+	var quill = new Quill('#editor', {
+		theme: 'snow',
+		modules: {
+			formula: true,
+			toolbar: toolbarOptions,
+			history: {
+				delay: 1000,
+				maxStack: 50,
+				userOnly: false
+			},
+			imageImport: true,
+			imageResize: {
+				displaySize: true
+			}
+		}
+	});
+
+	$scope.hola = function () {
+		var remove = document.querySelector('.ql-toolbar');
+		var editor = document.querySelector('#editor');
+		var parent = remove.parentNode;
+
+		parent.removeChild(remove);
+		window.print();
+		window.close();
+
+		parent.insertBefore(remove, editor);
+	};
+});
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 /* global angular, mathBox, THREE */
 
 angular.module('app').controller('modelGenerateCtrl', function ($scope) {
@@ -511,7 +567,7 @@ angular.module('app').controller('modelGenerateCtrl', function ($scope) {
 });
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -684,7 +740,7 @@ angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) 
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -711,7 +767,7 @@ angular.module('app').controller('testMarkerCtrl', function ($scope) {
 });
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -720,7 +776,7 @@ angular.module('app').controller('testMarkerCtrl', function ($scope) {
 angular.module('app', ['ngRoute']);
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -759,80 +815,7 @@ angular.module('app').config(['$routeProvider', '$locationProvider', function ($
 console.log('router');
 
 /***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(8);
-
-__webpack_require__(9);
-
-__webpack_require__(1);
-
-__webpack_require__(2);
-
-__webpack_require__(3);
-
-__webpack_require__(4);
-
-__webpack_require__(5);
-
-__webpack_require__(6);
-
-__webpack_require__(7);
-
-__webpack_require__(11);
-
-__webpack_require__(0);
-
-/***/ }),
 /* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _ImageImport = __webpack_require__(12);
-
-var _ImageResize = __webpack_require__(13);
-
-/* global angular, Quill */
-angular.module('app').controller('mathEditorCtrl', function ($scope) {
-	Quill.register('modules/imageImport', _ImageImport.ImageImport);
-	Quill.register('modules/imageResize', _ImageResize.ImageResize);
-	var toolbarOptions = [[{ header: [1, 2, 3, 4, 5, 6, false] }], [{ font: [] }], [{ size: ['small', false, 'large', 'huge'] }], ['blockquote', 'code-block'], ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-
-	// custom button values
-	[{ list: 'ordered' }, { list: 'bullet' }], [{ align: [] }], [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
-	[{ indent: '-1' }, { indent: '+1' }], // outdent/indent
-	[{ direction: 'rtl' }], // text direction
-
-	// custom dropdown
-	[{ color: [] }, { background: [] }], ['link', 'image', 'video', 'formula'], // dropdown with defaults from theme
-	['clean']];
-
-	var quill = new Quill('#editor', {
-		theme: 'snow',
-		modules: {
-			formula: true,
-			toolbar: toolbarOptions,
-			history: {
-				delay: 1000,
-				maxStack: 50,
-				userOnly: false
-			},
-			imageImport: true,
-			imageResize: {
-				displaySize: true
-			}
-		}
-	});
-});
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -930,7 +913,7 @@ var ImageImport = exports.ImageImport = function () {
 }();
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1229,6 +1212,35 @@ var ImageResize = exports.ImageResize = function () {
 
 	return ImageResize;
 }();
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(9);
+
+__webpack_require__(10);
+
+__webpack_require__(1);
+
+__webpack_require__(2);
+
+__webpack_require__(3);
+
+__webpack_require__(4);
+
+__webpack_require__(6);
+
+__webpack_require__(7);
+
+__webpack_require__(8);
+
+__webpack_require__(5);
+
+__webpack_require__(0);
 
 /***/ })
 /******/ ]);
