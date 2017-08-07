@@ -588,7 +588,7 @@ angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) 
 	var zMax = 3;
 	var zRange = zMax - zMin;
 
-	var zFuncText = 'x^2 + y^2';
+	var zFuncText = 'x^2 - y^2';
 	var zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 	var scene = new THREE.Scene();
@@ -712,6 +712,8 @@ angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) 
 
 	graphMesh = new THREE.Mesh(graphGeometry, vertexColorMaterial);
 	graphMesh.side = THREE.DoubleSide;
+
+	console.log('graphMesh-->', graphMesh);
 	scene.add(graphMesh);
 
 	function render() {

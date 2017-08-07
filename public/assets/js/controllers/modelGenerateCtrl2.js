@@ -14,7 +14,7 @@ angular.module('app')
 		let zMax = 3;
 		let zRange = zMax - zMin;
 
-		const zFuncText = 'x^2 + y^2';
+		const zFuncText = 'x^2 - y^2';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 		const scene = new THREE.Scene();
@@ -154,6 +154,8 @@ angular.module('app')
 			vertexColorMaterial,
 		);
 		graphMesh.side = THREE.DoubleSide;
+
+		console.log('graphMesh-->', graphMesh);
 		scene.add(graphMesh);
 
 
