@@ -1,0 +1,141 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "obj2gltf",
+        "scope": null,
+        "escapedName": "obj2gltf",
+        "name": "obj2gltf",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/gregory/ARvector"
+    ]
+  ],
+  "_from": "obj2gltf@latest",
+  "_id": "obj2gltf@1.2.0",
+  "_inCache": true,
+  "_location": "/obj2gltf",
+  "_nodeVersion": "6.10.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/obj2gltf-1.2.0.tgz_1499789301553_0.7872311975806952"
+  },
+  "_npmUser": {
+    "name": "lilleyse",
+    "email": "lilleyse@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {
+    "code-point-at": "1.1.0",
+    "decamelize": "1.2.0",
+    "execa": "0.7.0",
+    "get-caller-file": "1.0.2",
+    "is-fullwidth-code-point": "1.0.0",
+    "lcid": "1.0.0",
+    "mem": "1.1.0",
+    "read-pkg-up": "2.0.0",
+    "require-directory": "2.1.1",
+    "require-main-filename": "1.0.1",
+    "set-blocking": "2.0.0",
+    "strip-ansi": "3.0.1",
+    "wrap-ansi": "2.1.0",
+    "y18n": "3.2.1"
+  },
+  "_requested": {
+    "raw": "obj2gltf",
+    "scope": null,
+    "escapedName": "obj2gltf",
+    "name": "obj2gltf",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/obj2gltf/-/obj2gltf-1.2.0.tgz",
+  "_shasum": "19236353941366d6c6c671fd3c4577fc7a4ed35f",
+  "_shrinkwrap": null,
+  "_spec": "obj2gltf",
+  "_where": "/home/gregory/ARvector",
+  "bin": {
+    "obj2gltf": "./bin/obj2gltf.js"
+  },
+  "bugs": {
+    "url": "https://github.com/AnalyticalGraphicsInc/obj2gltf/issues"
+  },
+  "contributors": [
+    {
+      "name": "Analytical Graphics, Inc. and Contributors",
+      "url": "https://github.com/AnalyticalGraphicsInc/obj2gltf/graphs/contributors"
+    }
+  ],
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "cesium": "^1.35.2",
+    "fs-extra": "^3.0.1",
+    "gltf-pipeline": "^1.0.0",
+    "mime": "^1.3.6",
+    "pngjs": "^3.2.0",
+    "uuid": "^3.1.0",
+    "yargs": "^8.0.2"
+  },
+  "description": "Convert OBJ model format to glTF",
+  "devDependencies": {
+    "coveralls": "^2.13.1",
+    "eslint": "^4.2.0",
+    "eslint-config-cesium": "^2.0.1",
+    "gulp": "^3.9.1",
+    "jasmine": "^2.6.0",
+    "jasmine-spec-reporter": "^4.1.1",
+    "jsdoc": "^3.5.1",
+    "nyc": "^11.0.3",
+    "open": "^0.0.5",
+    "requirejs": "^2.3.3"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "19236353941366d6c6c671fd3c4577fc7a4ed35f",
+    "tarball": "https://registry.npmjs.org/obj2gltf/-/obj2gltf-1.2.0.tgz"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "gitHead": "8701c877678acb0d667e3be80ac50391e4683c8a",
+  "homepage": "https://github.com/AnalyticalGraphicsInc/obj2gltf",
+  "keywords": [
+    "obj",
+    "gltf"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "analyticalgraphics",
+      "email": "todd@agi.com"
+    },
+    {
+      "name": "lilleyse",
+      "email": "lilleyse@gmail.com"
+    }
+  ],
+  "name": "obj2gltf",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/AnalyticalGraphicsInc/obj2gltf.git"
+  },
+  "scripts": {
+    "coverage": "gulp coverage",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "eslint": "eslint \"./**/*.js\" --cache --quiet",
+    "jsdoc": "jsdoc ./lib -R ./README.md -d doc",
+    "test": "gulp test",
+    "test-watch": "gulp test-watch"
+  },
+  "version": "1.2.0"
+}

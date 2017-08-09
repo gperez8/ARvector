@@ -1,5 +1,6 @@
 const express = require('express');
 const fs = require('fs');
+const obj2gltf = require('../../lib/obj2gltf/');
 
 const httpRequestHandling = express();
 
@@ -57,11 +58,54 @@ httpRequestHandling.route('/createModel2')
 			`${req.body.name}` +
 			'.obj';
 
+		const modelGltfFilePath = `${modelFileDir}` +
+			'/' +
+			`${req.body.name}` +
+			'.gltf';
+
 		fs.writeFile(modelFilePath, new Buffer(model, 'base64'), 'ascii', (err) => {
-			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
+			if (err) {
+			  res.status(500);
+			  res.send({
+			    error: {
+			      message: err.message,
+			      stack: err.stack,
+			    },
+			  });
+			  return console.log(`error al escribir archivo (.patt) ${err}`);
+		  }
+
 			console.log('The file was succesfully saved!');
+
+		  const options = {
+			  separateTextures: true,
+			  kmc: { "doubleSided": true },
+			  optimize: true,
+			  outputUpAxis: ['X', 'Y', 'Z'],
+		  };
+
+      console.log(modelFilePath);
+      console.log(modelGltfFilePath);
+
+      	console.log('obj2gltf.defaults',obj2gltf.defaults);
+
+		  obj2gltf(modelFilePath, modelGltfFilePath, options)
+			  .then(function() {
+				  console.log('Converted model');
+    		  res.send('200'); // Mover la respuesta dentro del `then`, porque las promesas son asíncronas.
+			  })
+        .catch(function(err) {
+			    res.status(500);
+			    res.send({
+			      error: {
+			        message: err.message,
+			        stack: err.stack,
+			      },
+			    });
+
+          console.error(err);
+        });
 		});
-		res.send('200');
 	});
 
 module.exports = httpRequestHandling;
