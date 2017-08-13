@@ -1,12 +1,14 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
+var compression = require('compression')
 const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
+const compress = require('compression');
 // const mongoose = require('mongoose');
 const httpRequestHandling = require('./app/routes/routes');
 
@@ -15,6 +17,9 @@ const app = express();
 const directoryToServe = path.join(__dirname, '/public/assets');
 const httpPort = 3000;
 const httpsPort = 3001;
+
+// comprimir todas las respuestas
+app.use(compression());
 
 //	Se establece directorio estatico
 app.use('/views', express.static(path.join(__dirname, '/public/views')));

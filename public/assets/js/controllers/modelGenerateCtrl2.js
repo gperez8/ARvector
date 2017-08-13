@@ -1,9 +1,11 @@
-/* global angular, document, THREE, Parser, window*/
+/* global angular, document, THREE, Parser, window, LZMA*/
 
 angular.module('app')
 	.controller('modelGenerateCtrl2', ($scope, $http) => {
+
+
 		let graphMesh;
-		const segments = 60;
+		const segments = 100;
 		const xMin = -3;
 		const xMax = 3;
 		let xRange = xMax - xMin;
@@ -161,23 +163,30 @@ angular.module('app')
 		}
 
 		$scope.exporter = () => {
+			console.time('file');
 			const exporter = new THREE.OBJExporter();
-			let model = exporter.parse(scene.children[3]);
-			const file = new FileReader();
-			file.readAsDataURL(new Blob([model], { type: 'text/plain' }));
+			let model = LZMA.compress(exporter.parse(scene.children[3]), 9);
 
-			file.onload = () => {
+
+
+			/*const file = new FileReader();
+			file.readAsDataURL(new Blob([model], { type: 'text/plain' }));*/
+				
+
+			//file.onload = () => {
 				const data = {};
 				// Se quita esto del archivo a enviar data:text/plain;base64,
-				data.model = file.result.substr(23);
+				//data.model = file.result.substr(23);
+				data.model = model;
 				data.name = 'model';
 				data.asignature = 'vectorial';
 				$http.post('/createModel2', data, 'json')
 					.then((response) => {
+						console.timeEnd('file end');
 						console.log('response', response);
 					}, (error) => {
 						console.log('error', error);
 					});
-			};
+			//};
 		};
 	});

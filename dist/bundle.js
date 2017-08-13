@@ -573,11 +573,12 @@ angular.module('app').controller('modelGenerateCtrl', function ($scope) {
 "use strict";
 
 
-/* global angular, document, THREE, Parser, window*/
+/* global angular, document, THREE, Parser, window, LZMA*/
 
 angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) {
+
 	var graphMesh = void 0;
-	var segments = 50;
+	var segments = 100;
 	var xMin = -3;
 	var xMax = 3;
 	var xRange = xMax - xMin;
@@ -719,23 +720,27 @@ angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) 
 	}
 
 	$scope.exporter = function () {
+		console.time('file');
 		var exporter = new THREE.OBJExporter();
-		var model = exporter.parse(scene.children[3]);
-		var file = new FileReader();
-		file.readAsDataURL(new Blob([model], { type: 'text/plain' }));
+		var model = LZMA.compress(exporter.parse(scene.children[3]), 9);
 
-		file.onload = function () {
-			var data = {};
-			// Se quita esto del archivo a enviar data:text/plain;base64,
-			data.model = file.result.substr(23);
-			data.name = 'model';
-			data.asignature = 'vectorial';
-			$http.post('/createModel2', data, 'json').then(function (response) {
-				console.log('response', response);
-			}, function (error) {
-				console.log('error', error);
-			});
-		};
+		/*const file = new FileReader();
+  file.readAsDataURL(new Blob([model], { type: 'text/plain' }));*/
+
+		//file.onload = () => {
+		var data = {};
+		// Se quita esto del archivo a enviar data:text/plain;base64,
+		//data.model = file.result.substr(23);
+		data.model = model;
+		data.name = 'model';
+		data.asignature = 'vectorial';
+		$http.post('/createModel2', data, 'json').then(function (response) {
+			console.timeEnd('file end');
+			console.log('response', response);
+		}, function (error) {
+			console.log('error', error);
+		});
+		//};
 	};
 });
 

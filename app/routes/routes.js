@@ -46,9 +46,9 @@ httpRequestHandling.route('/createMarker')
 		res.send('200');
 	});
 
-	httpRequestHandling.route('/createModel2')
+httpRequestHandling.route('/createModel2')
 	.post((req, res) => {
-		const model = req.body.model;
+		const model = lzma.decompress(req.body.model);
 
 		// carpetas para archivos .patt y png
 		const modelFileDir = './public/assets/model';
@@ -64,7 +64,7 @@ httpRequestHandling.route('/createMarker')
 		`${req.body.name}` +
 		'.gltf';
 
-		fs.writeFile(modelFilePath, new Buffer(model, 'base64'), 'ascii', (err) => {
+		fs.writeFile(modelFilePath, model, 'ascii', (err) => {
 			if (err) {
 				res.status(500);
 				res.send({
@@ -119,7 +119,6 @@ httpRequestHandling.route('/createMarker')
 							stack: err.stack,
 						},
 					});
-
 					console.error(err);
 				});
 		});
