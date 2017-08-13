@@ -3,7 +3,7 @@
 angular.module('app')
 	.controller('modelGenerateCtrl2', ($scope, $http) => {
 		let graphMesh;
-		const segments = 10;
+		const segments = 60;
 		const xMin = -3;
 		const xMax = 3;
 		let xRange = xMax - xMin;
