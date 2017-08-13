@@ -3,7 +3,7 @@
 angular.module('app')
 	.controller('modelGenerateCtrl2', ($scope, $http) => {
 		let graphMesh;
-		const segments = 80;
+		const segments = 60;
 		const xMin = -3;
 		const xMax = 3;
 		let xRange = xMax - xMin;
@@ -14,7 +14,7 @@ angular.module('app')
 		let zMax = 3;
 		let zRange = zMax - zMin;
 
-		const zFuncText = 'sin(x^2 - y^2)';
+		const zFuncText = 'x^2 - y^2';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 		const scene = new THREE.Scene();
