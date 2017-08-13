@@ -14,7 +14,7 @@ angular.module('app')
 		let zMax = 3;
 		let zRange = zMax - zMin;
 
-		const zFuncText = 'x^2 - y^2';
+		const zFuncText = 'sin(x^2 - y^2)';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 		const scene = new THREE.Scene();
