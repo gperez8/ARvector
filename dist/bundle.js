@@ -577,7 +577,7 @@ angular.module('app').controller('modelGenerateCtrl', function ($scope) {
 
 angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) {
 	var graphMesh = void 0;
-	var segments = 60;
+	var segments = 80;
 	var xMin = -3;
 	var xMax = 3;
 	var xRange = xMax - xMin;
