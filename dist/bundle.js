@@ -576,9 +576,8 @@ angular.module('app').controller('modelGenerateCtrl', function ($scope) {
 /* global angular, document, THREE, Parser, window, LZMA*/
 
 angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) {
-
 	var graphMesh = void 0;
-	var segments = 100;
+	var segments = 10;
 	var xMin = -3;
 	var xMax = 3;
 	var xRange = xMax - xMin;
@@ -589,7 +588,7 @@ angular.module('app').controller('modelGenerateCtrl2', function ($scope, $http) 
 	var zMax = 3;
 	var zRange = zMax - zMin;
 
-	var zFuncText = 'sin(x^2 + y^2)';
+	var zFuncText = 'x^2 - y^2';
 	var zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 	var scene = new THREE.Scene();
