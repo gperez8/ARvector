@@ -129,7 +129,7 @@ angular.module('app')
 			color.setHSL((0.7 * (zMax - point.z)) / zRange, 1, 0.5);
 			graphGeometry.colors[i] = color; // use this array for convenience
 		}
-	
+
 		// copy the colors as necessary to the face's vertexColors array.
 		for (let i = 0; i < graphGeometry.faces.length; i++) {
 			face = graphGeometry.faces[i];
@@ -163,28 +163,18 @@ angular.module('app')
 		$scope.exporter = () => {
 			console.time('file');
 			const exporter = new THREE.OBJExporter();
-			let model = LZMA.compress(exporter.parse(scene.children[3]), 9);
+			let model = LZMA.compress(exporter.parse(scene.children[3]), 3);
+			const data = {};
 
-
-
-			/*const file = new FileReader();
-			file.readAsDataURL(new Blob([model], { type: 'text/plain' }));*/
-				
-
-			//file.onload = () => {
-				const data = {};
-				// Se quita esto del archivo a enviar data:text/plain;base64,
-				//data.model = file.result.substr(23);
-				data.model = model;
-				data.name = 'model';
-				data.asignature = 'vectorial';
-				$http.post('/createModel2', data, 'json')
-					.then((response) => {
-						console.timeEnd('file end');
-						console.log('response', response);
-					}, (error) => {
-						console.log('error', error);
-					});
-			//};
+			data.model = model;
+			data.name = 'model';
+			data.asignature = 'vectorial';
+			$http.post('/createModel2', data, 'json')
+				.then((response) => {
+					console.timeEnd('file end');
+					console.log('response', response);
+				}, (error) => {
+					console.log('error', error);
+				});
 		};
 	});

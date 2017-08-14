@@ -1,14 +1,13 @@
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-var compression = require('compression')
 const express = require('express');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
-const compress = require('compression');
+const compression = require('compression');
 // const mongoose = require('mongoose');
 const httpRequestHandling = require('./app/routes/routes');
 
