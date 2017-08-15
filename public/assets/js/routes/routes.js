@@ -15,10 +15,6 @@ angular.module('app')
 				templateUrl: 'views/createMarker.html',
 				controller: 'markerGenerateCtrl',
 			})
-			.when('/createModel', {
-				templateUrl: 'views/createModel.html',
-				controller: 'modelGenerateCtrl',
-			})
 			.when('/createModel2', {
 				templateUrl: 'views/createModel2.html',
 				controller: 'modelGenerateCtrl2',
@@ -36,5 +32,3 @@ angular.module('app')
 			});
 		$locationProvider.html5Mode(true);
 	}]);
-
-console.log('router');

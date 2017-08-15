@@ -1,4 +1,5 @@
 const path = require('path');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
 	resolve: {
@@ -7,8 +8,8 @@ module.exports = {
 	context: __dirname,
 	entry: './public/assets/js/index.js',
 	output: {
-		filename: 'bundle.js',
 		path: path.join(__dirname, '/dist'),
+		filename: 'bundle.js',
 	},
 	module: {
 		loaders: [{
@@ -20,4 +21,10 @@ module.exports = {
 			},
 		}],
 	},
+	plugins: [
+		new UglifyJSPlugin({
+			ecma: 6,
+			mangle: false,
+        }),
+	],
 };
