@@ -8,9 +8,27 @@ const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
 const compression = require('compression');
-// const mongoose = require('mongoose');
 const httpRequestHandling = require('./app/routes/routes');
+const { Pool, Client } = require('pg');
 
+const client = new Client({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'arvector',
+  password: 'C375035E',
+  port: 5432,
+});
+
+client.connect();
+
+client.query('SELECT NOW()', (err, res) => {
+ if (err) {
+    console.log('sdfsd',err.stack)
+  } else {
+    console.log('sdfsdfdssdf',res.rows[0])
+  }
+   client.end();
+});
 //	Se inicializan Variables
 const app = express();
 const directoryToServe = path.join(__dirname, '/public/assets');
@@ -53,14 +71,6 @@ const httpServer = http.createServer(app);
 //	puertos 3000 y 3001
 httpServer.listen(app.get('port'));
 //httpsServer.listen(httpsPort);
-
-/* Conexion a la dase de datos */
-/* mongoose.connect('mongodb://localhost:27017/arvector', (err) => {
-	if (err) {
-		return console.log(`Error al conectar con la DB: ${err}`);
-	}
-	console.log('conectado a la db');
-}); */
 
 // manejador de peticiones de las rutas
 app.use('/', httpRequestHandling);
