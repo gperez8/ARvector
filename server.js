@@ -9,26 +9,8 @@ const engine = require('ejs-locals');
 const path = require('path');
 const compression = require('compression');
 const httpRequestHandling = require('./app/routes/routes');
-const { Pool, Client } = require('pg');
+const client = require('./app/bd/bd');
 
-const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'arvector',
-  password: 'C375035E',
-  port: 5432,
-});
-
-client.connect();
-
-client.query('SELECT NOW()', (err, res) => {
- if (err) {
-    console.log('sdfsd',err.stack)
-  } else {
-    console.log('sdfsdfdssdf',res.rows[0])
-  }
-   client.end();
-});
 //	Se inicializan Variables
 const app = express();
 const directoryToServe = path.join(__dirname, '/public/assets');
