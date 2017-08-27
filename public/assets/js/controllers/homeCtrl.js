@@ -8,21 +8,21 @@ angular.module('app')
 		});
 
 		$scope.peticionGet = () => {
-			$http.get('/career')
+			$http.get('/resourceMarker')
 				.then((data) => {
-					console.log('res->',data.data.res);
+					console.log('res->', data.data.res);
 				});
-		}
+		};
 		$scope.peticionPost = () => {
-			$http.post('/career')
+			$http.post('/resourceMarker')
 				.then((data) => {
 					console.log('res->', data);
 				});
-		}
+		};
 		$scope.peticionPut = () => {
-			$http.patch('/career');
-		}
+			$http.patch('/resourceMarker');
+		};
 		$scope.peticionDelete = () => {
-			$http.delete('/career');
-		}
+			$http.delete('/resourceMarker');
+		};
 	});

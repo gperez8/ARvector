@@ -124,7 +124,7 @@ create table BD.section(
 	on delete cascade
 	on update cascade,
 
-	primary key(code_asignature,num_section,schedule)
+	primary key(ci_teacher,ci_student,num_section)
 );
 
 create table BD.guide(
