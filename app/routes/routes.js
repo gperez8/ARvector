@@ -2,6 +2,8 @@ const express = require('express');
 const fs = require('fs');
 const obj2gltf = require('../../lib/obj2gltf/');
 const lzma = require('lzma');
+const auth = require('./auth');
+const middleware = require('./middleware');
 
 const httpRequestHandling = express();
 
@@ -44,6 +46,9 @@ httpRequestHandling.route('/createMarker')
 		});
 
 		res.send('200');
+	})
+	.get((req, res) => {
+		middleware.ensureAuthenticated(req, res);
 	});
 
 httpRequestHandling.route('/createModel2')
@@ -124,5 +129,14 @@ httpRequestHandling.route('/createModel2')
 		});
 	});
 
+httpRequestHandling.route('/signup')
+	.post((req, res) => {
+		auth.emailSignup(req, res);
+	});
+
+httpRequestHandling.route('/login')
+	.post((req, res) => {
+		auth.emailLogin(req, res);
+	});
 
 module.exports = httpRequestHandling;

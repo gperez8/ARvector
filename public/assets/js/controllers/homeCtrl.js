@@ -1,7 +1,8 @@
  /* global $, angular, document */
 
 angular.module('app')
-	.controller('homeCtrl', ($scope, $http) => {
+	.controller('homeCtrl', ($scope, $http, $auth, $location) => {
+
 		$scope.algo = 'INDEX';
 		$(document).ready(() => {
 			$('.carousel').carousel();
@@ -14,10 +15,17 @@ angular.module('app')
 				});
 		};
 		$scope.peticionPost = () => {
-			$http.post('/resourceMarker')
-				.then((data) => {
-					console.log('res->', data);
-				});
+			$auth.login({
+				email: 'gregory.facyt@gmail.com',
+				password: 'skdjsfldkjdfl',
+			})
+			.then((data) => {
+				console.log('data', data);
+				$location.path('/createMarker');
+			})
+			.catch((response) => {
+				console.log('log incorrecto');
+			});
 		};
 		$scope.peticionPut = () => {
 			$http.patch('/resourceMarker');

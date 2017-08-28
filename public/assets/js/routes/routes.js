@@ -1,8 +1,11 @@
 /* global angular */
 
 angular.module('app')
-	.config(['$routeProvider', '$locationProvider', ($routeProvider, $locationProvider) => {
-		$routeProvider
+	.config(($authProvider, $routeProvider, $locationProvider) => {
+		$authProvider.loginUrl = 'http://localhost:3000/login';
+        $authProvider.tokenName = 'token';
+        $authProvider.tokenPrefix = 'ARvector';
+        $routeProvider
 			.when('/', {
 				templateUrl: 'views/home.html',
 				controller: 'homeCtrl',
@@ -31,4 +34,4 @@ angular.module('app')
 				redirectTo: '/',
 			});
 		$locationProvider.html5Mode(true);
-	}]);
+	});
