@@ -19,7 +19,7 @@ CREATE DOMAIN BD.type_ci varchar(20);
 CREATE DOMAIN BD.type_semester integer CHECK (VALUE >= 1 AND VALUE <= 10);
 CREATE DOMAIN BD.type_email text CHECK (VALUE ~ '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$');
 CREATE DOMAIN BD.type_school varchar(11) check (VALUE in ('computacion','fisica','quimica','matematica','biologia','X','Y'));
-
+CREATE DOMAIN BD.type_rol varchar(7) check (VALUE in ('admin','student','teacher'));
 -- FIN Create Domain BD
 
 create table BD.teacher(
@@ -156,6 +156,12 @@ create table BD.resourceMarker(
 	on update cascade,
 
 	primary key(code_asignature,num_guide,id)
+);
+
+create table BD.users(
+	email BD.type_email,
+	password text,
+	rol BD.type_rol
 );
 
 -- Teacher

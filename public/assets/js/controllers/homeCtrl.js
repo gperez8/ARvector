@@ -3,17 +3,8 @@
 angular.module('app')
 	.controller('homeCtrl', ($scope, $http, $auth, $location) => {
 		$scope.form;
-		/*$scope.peticionGet = () => {
-			$http.get('/resourceMarker')
-				.then((data) => {
-					console.log('res->', data.data.res);
-				});
-		};*/
 		$scope.login = () => {
-			
-			console.log("scope.form", $scope.form);
-
-			$auth.login($scope.form)
+			$http.post('/users', $scope.form, 'json')
 				.then((data) => {
 					console.log('data', data);
 					$location.path('/createMarker');
@@ -22,10 +13,4 @@ angular.module('app')
 					console.log('log incorrecto');
 				});
 		};
-		/*$scope.peticionPut = () => {
-			$http.patch('/resourceMarker');
-		};
-		$scope.peticionDelete = () => {
-			$http.delete('/resourceMarker');
-		};*/
 	});

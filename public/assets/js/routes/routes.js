@@ -2,7 +2,6 @@
 
 angular.module('app')
 	.config(($authProvider, $routeProvider, $locationProvider) => {
-		$authProvider.loginUrl = 'http://localhost:3000/login';
         $authProvider.tokenName = 'token';
         $authProvider.tokenPrefix = 'ARvector';
         $routeProvider
@@ -29,6 +28,10 @@ angular.module('app')
 			.when('/mathEditor', {
 				templateUrl: 'views/mathEditor.html',
 				controller: 'mathEditorCtrl',
+			})
+			.when('/register', {
+				templateUrl: 'views/register.html',
+				controller: 'registerCtrl',
 			})
 			.otherwise({
 				redirectTo: '/',

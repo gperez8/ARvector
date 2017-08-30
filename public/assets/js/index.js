@@ -8,6 +8,7 @@ import './controllers/markerGenerateCtrl';
 import './controllers/modelGenerateCtrl2';
 import './controllers/testMarkerCtrl';
 import './controllers/mathEditorCtrl';
+import './controllers/registerCtrl';
 
 import '../../../lib/arjs/threex-arpatternfile';
 

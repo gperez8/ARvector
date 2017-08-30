@@ -1,0 +1,62 @@
+<div class="row">
+    <form class="col s12">
+
+    	<div class="row">
+    		<div class="input-field col s4">
+    			<label>nombre</label>
+    			<input ng-model="form.name">
+    		</div>
+
+    		<div class="input-field col s4">
+    			<label>Apellido</label>
+    			<input ng-model="form.lastName">
+    		</div>
+
+    		<div class="input-field col s4">
+    			<label>Cedula</label>
+    			<input ng-model="form.ci">
+    		</div>
+    	</div>
+
+        <div class="row">
+             <div class="input-field col s4"> 
+                <label>semestre</label>
+                <input ng-model="form.semester">
+            </div>
+
+            <div class="input-field col s4"> 
+                <label for="Email">Email</label>
+                <input ng-model="form.email">
+            </div>
+
+            <div class="input-field col s4"> 
+                <label>Telefono</label>
+                <input ng-model="form.phone">
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="input-field col s4"> 
+                <label for="Password">Password</label>
+                <input ng-model="form.password1" 
+                   >
+            </div>
+
+             <div class="input-field col s4"> 
+                <label for="Password">Password</label>
+                <input ng-model="form.password2" 
+                   >
+            </div>
+            <div 
+            	class="input-field col s4" 
+            	ng-if="form.password1 === form.password2 && 
+                form.password1 !== '' && form.password2 !== ''"> 
+            	<span> Bien ;) </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <button class="" ng-click="register()">register</button>
+        </div>
+    </form>
+</div>

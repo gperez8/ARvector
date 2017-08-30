@@ -1,5 +1,6 @@
 const { Pool, Client } = require('pg');
 const httpRequestHandling = require('../routes/routes');
+const service = require('../routes/service');
 
 const client = new Pool({
 	user: 'postgres',
@@ -243,11 +244,13 @@ httpRequestHandling.route('/teacher')
 
 /* CRUD TABLA student*/
 httpRequestHandling.route('/student')
-	.post((req, resp) => {
+	.post((req, resp) => {		
 		console.log('hola POST');
 
 		const text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
-		const values = ['carmen', 'araque', '21065987', '9', 'cdaraque@gmail.com',''];
+		//const values = ['carmen', 'araque', '21065987', '9', 'cdaraque@gmail.com',''];
+		const values = Object.keys(req.body).map(key => req.body[key]);
+
 
 		client.connect();
 		client.query(text, values, (err) => {
@@ -298,6 +301,7 @@ httpRequestHandling.route('/student')
 		});
 	});
 /* FIN CRUD TABLA student*/
+
 
 /* CRUD TABLA section*/
 httpRequestHandling.route('/section')
@@ -656,5 +660,90 @@ httpRequestHandling.route('/resourceMarker')
 	});
 /* FIN CRUD TABLA ResourceMarker */
 
-module.exports = client;
+/* ENDPOINT LOGIN */
+httpRequestHandling.route('/users')
+	.post((req, resp) => {
+		const text = 'select * from bd.users where email=($1) and password=($2)';
+		const values = [];
+		values.push(req.body.email);
+		values.push(req.body.password);
 
+		client.connect();
+		client.query(text, values, (err, data) => {
+			if (err) return err.stack;
+
+			if (data.rows.length > 0) {
+				return resp
+					.status(200)
+					.send({ status: 200, token: service.createToken(data.rows) });
+			}
+
+			return resp
+				.status(500)
+				.send({ status: 500, err: 'usuario no registrado' });
+		});
+	});
+/* FIN ENDPOINT LOGIN */
+
+/* ENDPOINT REGISTER */
+httpRequestHandling.route('/register')
+	.post((req, resp) => {
+		let text = 'select * from bd.student where email=($1) or ci=($2)';
+		let values = [];
+		values.push(req.body.email);
+		values.push(req.body.ci);
+
+		(async () => {
+			client.connect();
+			const result = await client.query(text, values);
+
+			if (typeof result.rows[0] === 'object') {
+				return resp.status(500).json({ success: false, msj: 'usuario registrado' });
+			}
+
+			text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
+			values = Object.keys(req.body).map(key => req.body[key]);
+			values.pop();
+			values.pop();
+			await client.query(text, values, (err) => {
+				if (err) resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
+			});
+
+			text = 'INSERT INTO bd.users(email,password,rol) VALUES ($1,$2,$3)';
+			values = [];
+			values.push(req.body.email);
+			values.push(req.body.password1);
+			values.push('student');
+			console.log('values', values);
+
+			client.query(text, values, (err) => {
+				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
+			});
+		})();
+
+		return resp.status(200).json({ status: 200 });
+	});
+
+/*httpRequestHandling.route('/resgisterUser')
+	.post((req, resp) => {
+
+		console.log('HOLAAAAAAAAAAAAAAA');
+
+		const text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
+		
+		
+		console.log('values', values);
+		client.connect();
+		client.query(text, values, (err, data) => {
+			if (err) return err.stack;
+
+			if (data) {
+				return resp
+					.status(200)
+					.send({ status: 200 });
+			}
+		});
+	});*/
+/* FIN ENDPOINT REGISTER*/
+
+module.exports = httpRequestHandling;
