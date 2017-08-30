@@ -3,7 +3,6 @@ const http = require('http');
 const https = require('https');
 const express = require('express');
 const logger = require('morgan');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const engine = require('ejs-locals');
 const path = require('path');
@@ -30,7 +29,6 @@ app.use('/lib', express.static(path.join(__dirname, '/lib')));
 app.set('port', (process.env.PORT || 3000));
 
 app.use(logger('dev'));
-app.use(cookieParser());
 app.use(bodyParser.json({ limit: '50mb', extended: true }));
 app.use(bodyParser.urlencoded());
 
