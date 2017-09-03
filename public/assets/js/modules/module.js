@@ -1,2 +1,2 @@
-angular.module('app', ['ngRoute', 'satellizer']);
+angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap']);
 

@@ -1,9 +1,12 @@
 /* global angular */
 
 angular.module('app')
-	.config(($authProvider, $routeProvider, $locationProvider) => {
+	.config(($authProvider, $routeProvider, $httpProvider,  $locationProvider) => {
         $authProvider.tokenName = 'token';
         $authProvider.tokenPrefix = 'ARvector';
+        $authProvider.tokenHeader = 'Authorization';
+		$authProvider.tokenType = 'Bearer';
+		$authProvider.storageType = 'localStorage';
         $routeProvider
 			.when('/', {
 				templateUrl: 'views/home.html',
@@ -37,4 +40,24 @@ angular.module('app')
 				redirectTo: '/',
 			});
 		$locationProvider.html5Mode(true);
+
+		$httpProvider.interceptors.push(($q, $location, $localStorage) => {
+            return {
+                'request': function (config) {
+                	console.log('entro por aca request');
+                    config.headers = config.headers || {};
+
+                    if (localStorage.getItem("token")) {
+                        config.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
+                    }
+                    return config;
+                },
+                'responseError': function(response) {
+                    if(response.status === 401 || response.status === 403) {
+                        $location.path('/home');
+                    }
+                    return $q.reject(response);
+                }
+            };
+        });
 	});

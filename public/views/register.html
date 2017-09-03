@@ -1,62 +1,96 @@
-<div class="row">
-    <form class="col s12">
-
-    	<div class="row">
-    		<div class="input-field col s4">
-    			<label>nombre</label>
-    			<input ng-model="form.name">
-    		</div>
-
-    		<div class="input-field col s4">
-    			<label>Apellido</label>
-    			<input ng-model="form.lastName">
-    		</div>
-
-    		<div class="input-field col s4">
-    			<label>Cedula</label>
-    			<input ng-model="form.ci">
-    		</div>
-    	</div>
+<div class="container">
+    <form>
+        <legend>Form title</legend>
 
         <div class="row">
-             <div class="input-field col s4"> 
-                <label>semestre</label>
-                <input ng-model="form.semester">
-            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="" 
+                            placeholder="nombre"
+                            ng-model="form.name">
+                    </div>
+                </div>
 
-            <div class="input-field col s4"> 
-                <label for="Email">Email</label>
-                <input ng-model="form.email">
-            </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="lastName">Apellido</label>
+                        <input type="text" class="form-control" id="" placeholder="Apellido"
+                        ng-model="form.lastName">
+                    </div>
+                </div>
 
-            <div class="input-field col s4"> 
-                <label>Telefono</label>
-                <input ng-model="form.phone">
-            </div>
-        </div>
-
-         <div class="row">
-            <div class="input-field col s4"> 
-                <label for="Password">Password</label>
-                <input ng-model="form.password1" 
-                   >
-            </div>
-
-             <div class="input-field col s4"> 
-                <label for="Password">Password</label>
-                <input ng-model="form.password2" 
-                   >
-            </div>
-            <div 
-            	class="input-field col s4" 
-            	ng-if="form.password1 === form.password2 && 
-                form.password1 !== '' && form.password2 !== ''"> 
-            	<span> Bien ;) </span>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="ci">Cedula</label>
+                        <input type="text" class="form-control" id="" placeholder="Cedula"
+                        ng-model="form.ci">
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="row">
-            <button class="" ng-click="register()">register</button>
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <label for="Carrera">Carrera</label>
+                    <select name="" id="input" class="form-control" required="required" >
+                        <option value="">Seleccione carrera</option>
+                        <option value="{{option.code_career}}" ng-repeat="option in view.career">{{option.school}}</option>
+                    </select>
+
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="semester">Semestre</label>
+                        <input type="text" class="form-control" id="" placeholder="semestre"
+                        ng-model="form.semester">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="" placeholder="student@gmail.com"
+                        ng-model="form.email">
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="phone">Telefono</label>
+                        <input type="tel" class="form-control" id="" placeholder="0412-123456"
+                        ng-model="form.phone">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="Password" class="form-control" id="" placeholder="contraseña" ng-model="form.password1">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="Password">Password</label>
+                        <input type="Password" class="form-control" id="" placeholder="contraseña" ng-model="form.password2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        
+    
+        <button class="btn btn-primary" ng-click="register()">Submit</button>
     </form>
 </div>

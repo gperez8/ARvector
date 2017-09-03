@@ -1,79 +1,128 @@
-<a-scene id="a-scene">
-    <a-entity
-        id="camera"
-        camera="fov: 80; zoom: 1;"
-        position="0 2 5"
-        orbit-controls="
-            invertZoom: true;
-            autoRotate: false;
-            target: #target;
-            enableDamping: true;
-            dampingFactor: 0.125;
-            rotateSpeed:0.25;
-            minDistance:3;
-            maxDistance:100;"
-        mouse-cursor=""
-        >
+<div id="wrapper">
 
-        <a-entity 
-            geometry="primitive:cone; radius-bottom:1; radius-top:0" scale=".33 1 .33" 
-            position="0 0 0" 
-            rotation="0 0 0" 
-            material="color: #0099ff; transparent: true; opacity:0.5">
-        </a-entity>
-    </a-entity> 
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Start Bootstrap
+                </a>
+            </li>
+            <li>
+                <a href="" ng-clik="">Grafica</a>
+            </li>
+            <li>
+                <a href="" ng-clik="">visualizar</a>
+            </li>
+            <li>
+                <a href="#">Overview</a>
+            </li>
+            <li>
+                <a href="#">Events</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Services</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
 
-    <a-assets>
-        <a-asset-item 
-            id="crate-obj" 
-            src="src/model/violin_case.obj">    
-        </a-asset-item>
-        <a-asset-item 
-            id="crate-mtl" 
-            src="src/model/vp.mtl">
-        </a-asset-item> 
-        <a-asset-item 
-            id="silla" 
-            src="src/model/testEditor.gltf">    
-        </a-asset-item>
-        <a-asset-item 
-            id="model" 
-            src="src/model/model.gltf">
-        </a-asset-item>
-    </a-assets>
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                <a-scene embedded>
+                    <a-entity
+                        id="camera"
+                        camera="fov: 80; zoom: 1;"
+                        position="0 2 5"
+                        orbit-controls="
+                            invertZoom: true;
+                            autoRotate: false;
+                            target: #target;
+                            enableDamping: true;
+                            dampingFactor: 0.125;
+                            rotateSpeed:0.25;
+                            minDistance:3;
+                            maxDistance:100;"
+                        mouse-cursor=""
+                        >
 
-    <a-entity id="target"> 
-        <!--<a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
-            <a-obj-model 
-                src="#crate-obj" 
-                mtl="#crate-mtl"
-                position="1 0.5 0"
-                scale="0.5 0.5 0.5">        
-            </a-obj-model>
-        </a-marker> --> 
+                        <a-entity 
+                            geometry="primitive:cone; radius-bottom:1; radius-top:0" scale=".33 1 .33" 
+                            position="0 0 0" 
+                            rotation="0 0 0" 
+                            material="color: #0099ff; transparent: true; opacity:0.5">
+                        </a-entity>
+                    </a-entity> 
 
-        <!-- <a-marker type='pattern' url='src/vectorial/pattern-file/gregory.patt'> 
-            <a-obj-model 
-                src="#silla">        
-            </a-obj-model>
-        </a-marker> -->
+                    <a-assets>
+                        <a-asset-item 
+                            id="crate-obj" 
+                            src="src/model/violin_case.obj">    
+                        </a-asset-item>
+                        <a-asset-item 
+                            id="crate-mtl" 
+                            src="src/model/vp.mtl">
+                        </a-asset-item> 
+                        <a-asset-item 
+                            id="silla" 
+                            src="src/model/testEditor.gltf">    
+                        </a-asset-item>
+                        <a-asset-item 
+                            id="model" 
+                            src="src/model/model.gltf">
+                        </a-asset-item>
+                    </a-assets>
 
-       <!-- <a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
-            <a-gltf-model 
-                src="#model" 
-               >        
-            </a-gltf-model>
-        </a-marker> -->
+                    <a-entity id="target"> 
+                        <!--<a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
+                            <a-obj-model 
+                                src="#crate-obj" 
+                                mtl="#crate-mtl"
+                                position="1 0.5 0"
+                                scale="0.5 0.5 0.5">        
+                            </a-obj-model>
+                        </a-marker> --> 
 
-        <a-marker 
-            type='pattern' 
-            url='src/vectorial/pattern-files/gregory.patt'>
-             <a-gltf-model 
-                src="#model"
-                position="0 0.5 0"
-                scale="0.5 0.5 0.5" 
-               >        
-            </a-gltf-model>
-        </a-marker> 
-    </a-entity>
-</a-scene>
+                        <!-- <a-marker type='pattern' url='src/vectorial/pattern-file/gregory.patt'> 
+                            <a-obj-model 
+                                src="#silla">        
+                            </a-obj-model>
+                        </a-marker> -->
+
+                       <!-- <a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
+                            <a-gltf-model 
+                                src="#model" 
+                               >        
+                            </a-gltf-model>
+                        </a-marker> -->
+
+                        <a-marker 
+                            type='pattern' 
+                            url='src/vectorial/pattern-files/gregory.patt'>
+                             <a-gltf-model 
+                                src="#model"
+                                position="0 0.5 0"
+                                scale="0.5 0.5 0.5" 
+                               >        
+                            </a-gltf-model>
+                        </a-marker> 
+                    </a-entity>
+                </a-scene>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+
+

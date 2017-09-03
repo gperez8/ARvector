@@ -13,6 +13,13 @@ angular.module('app')
 		let zMin = -3;
 		let zMax = 3;
 		let zRange = zMax - zMin;
+		
+		$scope.visible = false;
+
+		$("#menu-toggle").click(function(e) {
+	        e.preventDefault();
+	        $("#wrapper").toggleClass("toggled");
+	    });
 
 		const zFuncText = 'x^2 - y^2';
 		let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
@@ -62,9 +69,14 @@ angular.module('app')
 
 		const renderer = new THREE.WebGLRenderer();
 		renderer.setSize(window.innerWidth, window.innerHeight);
-		document.body.appendChild(renderer.domElement);
+		
+
+		const container = document.getElementById('scene');
+		container.appendChild(renderer.domElement);
 		camera.position.z = 5;
 
+		const windowResize = THREEx.WindowResize(renderer, camera);
+		windowResize.stop();
 		// "wireframe texture"
 		const wireTexture = new THREE.ImageUtils.loadTexture();
 		wireTexture.wrapS = THREE.RepeatWrapping;

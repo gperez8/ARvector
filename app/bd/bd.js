@@ -685,6 +685,16 @@ httpRequestHandling.route('/users')
 	});
 /* FIN ENDPOINT LOGIN */
 
+/* ENDPOINT LOGOUT */
+httpRequestHandling.route('/logout')
+	.post((req, resp) => {
+		if (!req.headers.authorization) return;
+
+		return resp.status(200).json({ status: 200, token: ''});
+	});
+
+/* ENDPOINT LOGOUT */
+
 /* ENDPOINT REGISTER */
 httpRequestHandling.route('/register')
 	.post((req, resp) => {
@@ -718,32 +728,24 @@ httpRequestHandling.route('/register')
 
 			client.query(text, values, (err) => {
 				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
+			
+				return resp.status(200).json({ status: 200 });
 			});
 		})();
+		
+	})
+	.get((req, resp) => {
+		const text = 'select * from bd.career';
 
-		return resp.status(200).json({ status: 200 });
+		client.connect();
+		client.query(text, (err, res) => {
+			if (err) {
+				console.log('sdfsd', err.stack);
+				return resp.status(500).json({ success: false, res: err });
+			} 
+			return resp.json({ success: true, career: res.rows });
+		});
 	});
 
-/*httpRequestHandling.route('/resgisterUser')
-	.post((req, resp) => {
-
-		console.log('HOLAAAAAAAAAAAAAAA');
-
-		const text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
-		
-		
-		console.log('values', values);
-		client.connect();
-		client.query(text, values, (err, data) => {
-			if (err) return err.stack;
-
-			if (data) {
-				return resp
-					.status(200)
-					.send({ status: 200 });
-			}
-		});
-	});*/
-/* FIN ENDPOINT REGISTER*/
 
 module.exports = httpRequestHandling;

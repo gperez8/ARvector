@@ -9,6 +9,7 @@ const httpRequestHandling = express();
 
 httpRequestHandling.route('/createMarker')
 	.post((req, res) => {
+
 		const file = req.body.pattFile;
 		const img = req.body.pattFileImage;
 
@@ -134,9 +135,9 @@ httpRequestHandling.route('/signup')
 		auth.emailSignup(req, res);
 	});
 
-httpRequestHandling.route('/login')
+/*httpRequestHandling.route('/login')
 	.post((req, res) => {
 		auth.emailLogin(req, res);
-	});
+	});*/
 
 module.exports = httpRequestHandling;

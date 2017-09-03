@@ -18,4 +18,10 @@ angular.module('app')
 			if (scene.hasLoaded) addEventListeners();
 			else scene.addEventListener('loaded', handleSceneLoaded);
 		});
+
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
 	});
