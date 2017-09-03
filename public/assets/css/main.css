@@ -21,3 +21,22 @@ body {
 	margin-top: 0px !important;
 }
 	
+.error {
+  border-color: #b94a48 !important;
+  color: #b94a48;
+}
+
+.error > input#email{
+  border-color: #b94a48 !important;
+  color: #b94a48;
+}
+
+.success {
+ border-color: #9AC361;
+ color: #b94a48;
+}
+
+.success > input#email{
+  border-color: #9AC361 !important;
+  color: #9AC361;
+}

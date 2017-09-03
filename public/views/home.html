@@ -1,34 +1,76 @@
 <div class="container">
-
-    <div class="row" style="margin-top:20px">
+    <div class="row" style="margin-top:13vh">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form role="form">
+            <form name="formLogin">
                 <fieldset>
                     <h2>Please Sign In</h2>
                     <hr class="colorgraph">
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control input-lg" placeholder="Email Address">
+                    <div 
+                        class="form-group" 
+                        ng-class="{ 'error' :  !formLogin.$pristine && (
+                        !formLogin.email.$error.required || 
+                        formLogin.email.$invalid), 'success': !formLogin.email.$invalid &&
+                        !formLogin.email.$error.required }">
+                        <input 
+                            type="email" 
+                            name="email"
+                            id="email"
+                            class="form-control input-lg"
+                            placeholder="Email Address"
+                            ng-model="form.email"
+                            ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" required>
+                        <span 
+                            ng-show="
+                            !formLogin.$pristine && 
+                            formLogin.email.$error.required"> 
+
+                            Email requerido
+                        </span>
+
+                         <span 
+                            ng-show="
+                                formLogin.email.$invalid &&
+                                !formLogin.email.$error.required"> 
+
+                            Email invalido
+                        </span>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Password">
+                        <input 
+                            type="password" 
+                            name="password" 
+                            id="password" 
+                            class="form-control input-lg" 
+                            placeholder="Password" 
+                            ng-model="form.password">
+                        <span 
+                            ng-show="
+                            !formLogin.$pristine && 
+                            formLogin.password.$error.required"> 
+                            hola soy un error 
+                        </span>
                     </div>
                     <span class="button-checkbox">
-                        <button type="button" class="btn" data-color="info">Remember Me</button>
-                        <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-                        <a href="" class="btn btn-link pull-right">Forgot Password?</a>
+                        <a 
+                            href="" 
+                            class="btn btn-link pull-right">Forgot Password?</a>
+                        <br>
                     </span>
                     <hr class="colorgraph">
                     <div class="row">
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="submit" class="btn btn-lg btn-success btn-block" value="Sign In">
+                            <input 
+                                type="submit" 
+                                class="btn btn-lg btn-success btn-block" 
+                                value="Sign In" 
+                                ng-click="login()">
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a href="" class="btn btn-lg btn-primary btn-block">Register</a>
+                            <a href="" class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</a>
                         </div>
                     </div>
                 </fieldset>
             </form>
         </div>
     </div>
-
 </div>

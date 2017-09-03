@@ -1,7 +1,7 @@
  /* global angular, document, THREEx, pdfMake */
 
 angular.module('app')
-	.controller('markerGenerateCtrl', ($scope, $http) => {
+	.controller('markerGenerateCtrl', ($scope, $http, $location) => {
 		$scope.entrada = '';
 		$scope.imageQr = '';
 		$scope.markerGenerated = '';
@@ -75,4 +75,9 @@ angular.module('app')
 			};
 			pdfMake.createPdf(docDefinition).open();
 		};
+
+		$scope.logout = () => {
+			localStorage.setItem('token', '');
+			$location.path('/home');
+		}
 	});
