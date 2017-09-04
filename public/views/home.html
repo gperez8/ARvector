@@ -7,7 +7,7 @@
                     <hr class="colorgraph">
                     <div 
                         class="form-group" 
-                        ng-class="{ 'error' :  !formLogin.$pristine && (
+                        ng-class="{ 'error' :  !formLogin.email.$pristine && (
                         !formLogin.email.$error.required || 
                         formLogin.email.$invalid), 'success': !formLogin.email.$invalid &&
                         !formLogin.email.$error.required }">
@@ -21,7 +21,7 @@
                             ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" required>
                         <span 
                             ng-show="
-                            !formLogin.$pristine && 
+                            !formLogin.email.$pristine && 
                             formLogin.email.$error.required"> 
 
                             Email requerido
@@ -38,7 +38,7 @@
                     <div 
                         class="form-group"  
                         ng-class="{ 
-                            'error': !formLogin.$pristine && 
+                            'error': !formLogin.password.$pristine && 
                             formLogin.password.$error.required,
                             'success': !formLogin.$pristine && !formLogin.password.$error.required
                         }">
@@ -51,7 +51,7 @@
                             ng-model="form.password" required>
                         <span 
                             ng-show="
-                            !formLogin.$pristine && 
+                            !formLogin.password.$pristine && 
                             formLogin.password.$error.required"> 
                             Password requerido 
                         </span>
