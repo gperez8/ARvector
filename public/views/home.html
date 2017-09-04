@@ -35,19 +35,25 @@
                             Email invalido
                         </span>
                     </div>
-                    <div class="form-group">
+                    <div 
+                        class="form-group"  
+                        ng-class="{ 
+                            'error': !formLogin.$pristine && 
+                            formLogin.password.$error.required,
+                            'success': !formLogin.$pristine && !formLogin.password.$error.required
+                        }">
                         <input 
                             type="password" 
                             name="password" 
                             id="password" 
                             class="form-control input-lg" 
                             placeholder="Password" 
-                            ng-model="form.password">
+                            ng-model="form.password" required>
                         <span 
                             ng-show="
                             !formLogin.$pristine && 
                             formLogin.password.$error.required"> 
-                            hola soy un error 
+                            Password requerido 
                         </span>
                     </div>
                     <span class="button-checkbox">
