@@ -735,16 +735,36 @@ httpRequestHandling.route('/register')
 		
 	})
 	.get((req, resp) => {
-		const text = 'select * from bd.career';
 
-		client.connect();
-		client.query(text, (err, res) => {
-			if (err) {
-				console.log('sdfsd', err.stack);
-				return resp.status(500).json({ success: false, res: err });
-			} 
-			return resp.json({ success: true, career: res.rows });
-		});
+		/*const text = 'select * from bd.career';
+			client.connect();
+			client.query(text, (err, res) => {
+				if (err) {
+					console.log('sdfsd', err.stack);
+					return resp.status(500).json({ success: false, res: err });
+				} 
+				return resp.json({ success: true, career: res.rows });
+			});*/
+
+		(async () => {
+
+			let text = 'select * from bd.career';
+			client.connect();
+			const career = await client.query(text);
+
+			if (career.rows.length === 0) {
+				return resp.status(500).json({ success: false, res: 'no existen carreras' });
+			}
+
+			text = 'select * from bd.roles where not rol = 1';
+			const roles = await client.query(text);
+
+			if (roles.rows.length === 0) {
+				return resp.status(500).json({ success: false, res: 'no existen roles' });
+			}
+
+			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows });
+		})();
 	});
 
 

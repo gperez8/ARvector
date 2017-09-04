@@ -19,13 +19,6 @@ body {
 	height: 100vh !important; 
 	margin-left: 0px !important;
 	margin-top: 0px !important;
-
-  background-image: url("../images/fondo.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-
 }
 	
 .error {
@@ -56,4 +49,14 @@ body {
 .success > input#password{
   border-color: #9AC361 !important;
   color: #9AC361;
+}
+
+.image-background{
+  background-image: url("../images/fondo.jpg");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100vw;
+  height: 100vh;
 }

@@ -1,83 +1,85 @@
-<div class="container">
-    <div class="row" style="margin-top:13vh">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form name="formLogin">
-                <fieldset>
-                    <h2>Please Sign In</h2>
-                    <hr class="colorgraph">
-                    <div 
-                        class="form-group" 
-                        ng-class="{ 'error' :  !formLogin.email.$pristine && (
-                        !formLogin.email.$error.required || 
-                        formLogin.email.$invalid), 'success': !formLogin.email.$invalid &&
-                        !formLogin.email.$error.required }">
-                        <input 
-                            type="email" 
-                            name="email"
-                            id="email"
-                            class="form-control input-lg"
-                            placeholder="Email Address"
-                            ng-model="form.email"
-                            ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" required>
-                        <span 
-                            ng-show="
-                            !formLogin.email.$pristine && 
-                            formLogin.email.$error.required"> 
-
-                            Email requerido
-                        </span>
-
-                         <span 
-                            ng-show="
-                                formLogin.email.$invalid &&
-                                !formLogin.email.$error.required"> 
-
-                            Email invalido
-                        </span>
-                    </div>
-                    <div 
-                        class="form-group"  
-                        ng-class="{ 
-                            'error': !formLogin.password.$pristine && 
-                            formLogin.password.$error.required,
-                            'success': !formLogin.$pristine && !formLogin.password.$error.required
-                        }">
-                        <input 
-                            type="password" 
-                            name="password" 
-                            id="password" 
-                            class="form-control input-lg" 
-                            placeholder="Password" 
-                            ng-model="form.password" required>
-                        <span 
-                            ng-show="
-                            !formLogin.password.$pristine && 
-                            formLogin.password.$error.required"> 
-                            Password requerido 
-                        </span>
-                    </div>
-                    <span class="button-checkbox">
-                        <a 
-                            href="" 
-                            class="btn btn-link pull-right">Forgot Password?</a>
-                        <br>
-                    </span>
-                    <hr class="colorgraph">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
+<div class="image-background">
+    <div class="container">
+        <div class="row" style="margin-top:13vh">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+                <form name="formLogin">
+                    <fieldset>
+                        <h2>Please Sign In</h2>
+                        <hr class="colorgraph">
+                        <div 
+                            class="form-group" 
+                            ng-class="{ 'error' :  !formLogin.email.$pristine && (
+                            !formLogin.email.$error.required || 
+                            formLogin.email.$invalid), 'success': !formLogin.email.$invalid &&
+                            !formLogin.email.$error.required }">
                             <input 
-                                type="submit" 
-                                class="btn btn-lg btn-success btn-block" 
-                                value="Sign In" 
-                                ng-disabled="!formLogin.$valid"
-                                ng-click="login()">
+                                type="email" 
+                                name="email"
+                                id="email"
+                                class="form-control input-lg"
+                                placeholder="Email Address"
+                                ng-model="form.email"
+                                ng-pattern="/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/" required>
+                            <span 
+                                ng-show="
+                                !formLogin.email.$pristine && 
+                                formLogin.email.$error.required"> 
+
+                                Email requerido
+                            </span>
+
+                             <span 
+                                ng-show="
+                                    formLogin.email.$invalid &&
+                                    !formLogin.email.$error.required"> 
+
+                                Email invalido
+                            </span>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <a href="" class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</a>
+                        <div 
+                            class="form-group"  
+                            ng-class="{ 
+                                'error': !formLogin.password.$pristine && 
+                                formLogin.password.$error.required,
+                                'success': !formLogin.$pristine && !formLogin.password.$error.required
+                            }">
+                            <input 
+                                type="password" 
+                                name="password" 
+                                id="password" 
+                                class="form-control input-lg" 
+                                placeholder="Password" 
+                                ng-model="form.password" required>
+                            <span 
+                                ng-show="
+                                !formLogin.password.$pristine && 
+                                formLogin.password.$error.required"> 
+                                Password requerido 
+                            </span>
                         </div>
-                    </div>
-                </fieldset>
-            </form>
+                        <span class="button-checkbox">
+                            <a 
+                                href="" 
+                                class="btn btn-link pull-right">Forgot Password?</a>
+                            <br>
+                        </span>
+                        <hr class="colorgraph">
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="" class="btn btn-lg btn-primary btn-block" ng-click="register()">Register</a>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input 
+                                    type="submit" 
+                                    class="btn btn-lg btn-success btn-block" 
+                                    value="Sign In" 
+                                    ng-disabled="!formLogin.$valid"
+                                    ng-click="login()">
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
     </div>
 </div>

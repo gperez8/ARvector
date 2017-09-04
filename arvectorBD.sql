@@ -19,8 +19,14 @@ CREATE DOMAIN BD.type_ci varchar(20);
 CREATE DOMAIN BD.type_semester integer CHECK (VALUE >= 1 AND VALUE <= 10);
 CREATE DOMAIN BD.type_email text CHECK (VALUE ~ '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$');
 CREATE DOMAIN BD.type_school varchar(11) check (VALUE in ('computacion','fisica','quimica','matematica','biologia','X','Y'));
-CREATE DOMAIN BD.type_rol varchar(7) check (VALUE in ('admin','student','teacher'));
+CREATE DOMAIN BD.type_Rol int check (VALUE in (1,2,3));
+CREATE DOMAIN BD.type_nameRol varchar(7) check (VALUE in ('admin','student','teacher'));
 -- FIN Create Domain BD
+
+create table BD.roles(
+	rol BD.type_Rol primary key,
+	name_rol BD.type_nameRol
+);
 
 create table BD.career(
 	code_career text primary key,
@@ -162,7 +168,17 @@ create table BD.users(
 	email BD.type_email,
 	password text,
 	rol BD.type_rol
+
+	foreign key (rol) references BD.roles(rol)
+	on delete cascade
+	on update cascade,
+
+	primary key(email,password ,rol)
 );
+
+INSERT INTO BD.roles (rol, name_rol) VALUES (1, 'admin');
+INSERT INTO BD.roles (rol, name_rol) VALUES (2, 'student');
+INSERT INTO BD.roles (rol, name_rol) VALUES (3, 'teacher');
 
 -- Teacher
 INSERT INTO BD.teacher (name,last_name,ci,email,phone) VALUES ('Jasper','Collins','149534539','ante.Vivamus@Sed.com','58-945-124-0952'),('Clark','Sawyer','245224597','velit.in@felisadipiscing.ca','58-301-825-5110'),('Christian','Gordon','855230850','gravida.Praesent.eu@Integersemelit.ca','58-701-423-3485'),('Baxter','Wynn','007539372','nec@AeneanmassaInteger.net','58-158-876-6595'),('Nell','Roy','051826808','sit.amet@fringilla.net','58-465-659-4032'),('Clio','Wolf','210224671','odio.tristique@volutpatornarefacilisis.org','58-289-376-3839'),('Hu','Mccarthy','227974060','urna.convallis.erat@estmollisnon.edu','58-223-225-0876'),('Robert','Adkins','159968247','Integer.urna@sem.org','58-609-455-5111'),('Leroy','Figueroa','243311784','habitant@acmattisvelit.net','58-779-923-4282'),('Seth','Bryant','613434794','ipsum.dolor@vel.org','58-340-693-8958');
