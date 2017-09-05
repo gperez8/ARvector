@@ -26,13 +26,12 @@ body {
   color: #b94a48;
 }
 
-.error > input#email{
+.error > input{
   border-color: #b94a48 !important;
   color: #b94a48;
 }
 
-.error > input#password {
-  border-color: #b94a48 !important;
+.error > span {
   color: #b94a48;
 }
 
@@ -41,15 +40,16 @@ body {
  color: #b94a48;
 }
 
-.success > input#email{
+.success > input{
   border-color: #9AC361 !important;
   color: #9AC361;
 }
 
-.success > input#password{
-  border-color: #9AC361 !important;
+.success > span{
   color: #9AC361;
 }
+
+
 
 .image-background{
   background-image: url("../images/fondo.jpg");

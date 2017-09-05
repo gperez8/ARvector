@@ -8,9 +8,14 @@
                         <hr class="colorgraph">
                         <div 
                             class="form-group" 
-                            ng-class="{ 'error' :  !formLogin.email.$pristine && (
+                            ng-class="{ 
+                            'error' :  
+                            !formLogin.email.$pristine && (
                             !formLogin.email.$error.required || 
-                            formLogin.email.$invalid), 'success': !formLogin.email.$invalid &&
+                            formLogin.email.$invalid), 
+                            
+                            'success':
+                            !formLogin.email.$invalid &&
                             !formLogin.email.$error.required }">
                             <input 
                                 type="email" 
