@@ -141,7 +141,7 @@ ng-model="form.phone">
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="semester" id="semester" class="form-control input-md" placeholder="Semestre" tabindex="1" ng-model="form.semester">
+                            <input type="text" name="semester" id="semester" class="form-control input-md" placeholder="Semestre" tabindex="1" maxlength="1" ng-model="form.semester" ng-keypress="filterNumberOnly($event)">
                         </div>
                     </div>
                 </div>
