@@ -83,19 +83,28 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div class="form-group">
-                        <select 
-                            name="role"
-                            id="input"
-                            class="form-control input-md"
-                            required="required"
-                            ng-model="form.rol">
-                                <option value="">Usted es</option>
-                                <option 
-                                    class="text-capitalize"
-                                    ng-repeat="option in view.rol | orderBy: '+name_rol'"
-                                    value="{{option.rol}}">{{ option.name_rol | capitalize }}
-                                </option>
+                        <div 
+                            class="form-group"
+                            ng-class="{ 
+                                'error' : 
+                                !formRegister.role.$pristine &&
+                                formRegister.role.$error.required, 
+                                
+                                'success': 
+                                !formRegister.role.$pristine && !formRegister.role.$error.required
+                            }">
+                            <select 
+                                name="role"
+                                id="role"
+                                class="form-control input-md"
+                                required="required"
+                                ng-model="form.rol">
+                                    <option value="">Usted es</option>
+                                    <option 
+                                        class="text-capitalize"
+                                        ng-repeat="option in view.rol | orderBy: '+name_rol'"
+                                        value="{{option.rol}}">{{ option.name_rol | capitalize }}
+                                    </option>
                             </select>
                         </div>
                     </div>
@@ -191,12 +200,7 @@
 
                                     'success': !formRegister.password1.$error.required && !formRegister.password2.$error.required && form.password1 === form.password2
                                 }">
-
-                                {{ !formRegister.password1.$pristine }}
-                                {{ formRegister.password1.$error.required }}
-
-                                {{ !formRegister.password2.$pristine }}
-                                {{ formRegister.password2.$error.required }}
+                                
                             <input 
                                 type="password"
                                 name="password1"

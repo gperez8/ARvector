@@ -31,6 +31,11 @@ body {
   color: #b94a48;
 }
 
+.error > select{
+  border-color: #b94a48 !important;
+  color: #b94a48;
+}
+
 .error > span {
   color: #b94a48;
 }
@@ -45,11 +50,10 @@ body {
   color: #9AC361;
 }
 
-.success > span{
+.success > select{
+  border-color: #9AC361 !important;
   color: #9AC361;
 }
-
-
 
 .image-background{
   background-image: url("../images/fondo.jpg");
