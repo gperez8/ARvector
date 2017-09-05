@@ -104,12 +104,12 @@ ng-model="form.phone">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="first_name" id="first_name" class="form-control input-md" placeholder="Nombre" tabindex="1" ng-model="form.name">
+                            <input type="text" name="first_name" id="first_name" class="form-control input-md" placeholder="Nombre" tabindex="1" ng-model="form.name" ng-keydown="filterLettersOnly($event)">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="last_name" id="last_name" class="form-control input-md" placeholder="Apellido" tabindex="2" ng-model="form.lastName">
+                            <input type="text" name="last_name" id="last_name" class="form-control input-md" placeholder="Apellido" tabindex="2" ng-model="form.lastName" ng-keydown="filterLettersOnly($event)">
                         </div>
                     </div>
                 </div>
@@ -117,25 +117,25 @@ ng-model="form.phone">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                            <input type="text" name="ci" id="ci" class="form-control input-md" placeholder="Cedula" tabindex="1" ng-model="form.ci">
+                            <input type="text" name="ci" id="ci" class="form-control input-md" placeholder="Cedula" tabindex="1" ng-model="form.ci" ng-keypress="filterNumberOnly($event)">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                        <select name="role" id="input" class="form-control input-md" required="required" >
+                        <select name="role" id="input" class="form-control input-md" required="required" ng-model="form.rol">
                                 <option value="">Usted es</option>
-                                <option class="text-capitalize"value="{{option.code_career}}" ng-repeat="option in view.rol | orderBy: '+name_rol'">{{ option.name_rol }}</option>
+                                <option class="text-capitalize" ng-repeat="option in view.rol | orderBy: '+name_rol'" value="{{option.rol}}">{{ option.name_rol | capitalize }}</option>
                             </select>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row" ng-if="form.rol && form.rol === '2'">
                     <div class="col-xs-12 col-sm-6 col-md-6">
                         <div class="form-group">
-                        <select name="" id="input" class="form-control input-md" required="required" >
+                        <select name="school" id="input" class="form-control input-md" required="required" ng-model="form.school">
                                 <option value="">Seleccione carrera</option>
-                                <option class="text-capitalize"value="{{option.code_career}}" ng-repeat="option in view.career | orderBy: '+school'">{{ option.school }}</option>
+                                <option class="text-capitalize" ng-repeat="option in view.career | orderBy: '+school'" value="{{option.code_career}}">{{ option.school | capitalize }}</option>
                             </select>
                         </div>
                     </div>

@@ -26,5 +26,29 @@ angular.module('app')
 
 		$scope.login = () => {
 			$location.path('/');
+		};
+
+		$scope.filterNumberOnly = ($event) => {
+			if (isNaN(String.fromCharCode($event.keyCode))) {
+				$event.preventDefault();
+			}
+		};
+
+		$scope.filterLettersOnly = ($event) => {
+			if (!($event.which >= 65 && $event.which <= 90) &&
+				$event.which !== 8 &&
+				$event.which !== 37 &&
+				$event.which !== 39 &&
+				$event.which !== 46 &&
+				$event.which !== 9) {
+				$event.preventDefault();
+			}
+		};
+	});
+
+angular.module('app')
+	.filter('capitalize', function() {
+		return function(input) {
+			return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
 		}
 	});
