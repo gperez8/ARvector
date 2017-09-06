@@ -694,7 +694,7 @@ httpRequestHandling.route('/logout')
 	.post((req, resp) => {
 		if (!req.headers.authorization) return;
 
-		return resp.status(200).json({ status: 200, token: ''});
+		return resp.status(200).json({ status: 200, token: '' });
 	});
 
 /* ENDPOINT LOGOUT */
@@ -702,15 +702,6 @@ httpRequestHandling.route('/logout')
 /* ENDPOINT REGISTER */
 httpRequestHandling.route('/register')
 	.get((req, resp) => {
-		/*const text = 'select * from bd.career';
-			client.connect();
-			client.query(text, (err, res) => {
-				if (err) {
-					console.log('sdfsd', err.stack);
-					return resp.status(500).json({ success: false, res: err });
-				} 
-				return resp.json({ success: true, career: res.rows });
-			});*/
 		(async () => {
 
 			let text = 'select * from bd.career';
@@ -727,15 +718,12 @@ httpRequestHandling.route('/register')
 			if (roles.rows.length === 0) {
 				return resp.status(500).json({ success: false, res: 'no existen roles' });
 			}
-
 			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows });
 		})();
 	});
 
 httpRequestHandling.route('/register/:id')
 	.post((req, resp) => {
-
-
 		let text = 'select student.ci, teacher.ci from bd.student as student, bd.teacher as teacher where student.email=($1) or student.ci=($2) or teacher.email=($1) or teacher.ci=($2)';
 		let values = [];
 		values.push(req.body.email);
@@ -753,7 +741,6 @@ httpRequestHandling.route('/register/:id')
 			const table = req.params.id === ':2' ? 'bd.student(name,last_name,ci,semester,email) ' : 'bd.teacher(name,last_name,ci,email) ';
 			const introValues = req.params.id === ':2' ? 'values ($1,$2,$3,$4,$5)' : 'values ($1,$2,$3,$4)';
 			text = insert + table + introValues;
-			
 
 			values = new Array();
 			values.push(req.body.name);
