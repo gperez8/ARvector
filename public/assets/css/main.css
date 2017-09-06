@@ -55,6 +55,24 @@ body {
   color: #9AC361;
 }
 
+.btn-sidebar{
+    position: absolute !important;
+    top: 0vh !important;
+    left: 3vw !important;
+}
+
+div[class="container-fluid"] {
+  padding-left: 0px !important;
+}
+
+div[id="page-content-wrapper"] {
+  padding: 0px !important;
+
+  @media(min-width:768px) {
+    padding: 0px !important;
+  }
+}
+
 .image-background{
   background-image: url("../images/fondo.jpg");
   background-position: center center;

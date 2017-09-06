@@ -1,28 +1,21 @@
- /* global $, angular, document */
+ /* global $, angular, document, localStorage */
 
 angular.module('app')
 	.controller('homeCtrl', ($scope, $http, $auth, $location) => {
-
 		$scope.form;
-
 		$http.get('/register')
-			.then((data) =>  {
+			.then((data) => {
 				console.log(data);
 				$scope.view = data.data;
 			});
-		
-		$scope.login = () => {
-			
-			console.log('form', $scope.form);
 
+		$scope.login = () => {
 			$http.post('/login', $scope.form, 'json')
 				.then((data) => {
-					console.log('data', data);
 					localStorage.setItem('token', data.data.token);
 					$location.path('/createMarker');
-				})
-				.catch((response) => {
-					console.log('log incorrecto');
+				}, (error) => {
+					console.log('error', error);
 				});
 		};
 
