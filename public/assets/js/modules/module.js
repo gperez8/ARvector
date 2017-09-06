@@ -1,4 +1,4 @@
 angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
-	.run(($rootScope)=>{
+	.run(($rootScope) => {
 		$rootScope.login = localStorage.getItem('token');
 	});

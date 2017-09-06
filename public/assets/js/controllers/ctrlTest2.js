@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('appCtrl', ($scope, $location,$rootScope) => {
+	.controller('appCtrl', ($scope, $location, $rootScope) => {
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -17,6 +17,6 @@ angular.module('app')
 		};
 
 		$scope.isLogin = () => {
-			return $rootScope.login;
+			return $rootScope.login !== '' && $rootScope.login !== null;
 		};
 	});

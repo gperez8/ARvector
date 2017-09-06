@@ -1,7 +1,7 @@
  /* global $, angular, document, localStorage */
 
 angular.module('app')
-	.controller('homeCtrl', ($scope, $http, $auth, $location) => {
+	.controller('homeCtrl', ($scope, $http, $auth, $location, $rootScope) => {
 		$scope.form;
 		$http.get('/register')
 			.then((data) => {
@@ -13,7 +13,8 @@ angular.module('app')
 			$http.post('/login', $scope.form, 'json')
 				.then((data) => {
 					localStorage.setItem('token', data.data.token);
-					$location.path('/createMarker');
+					$rootScope.login = localStorage.getItem('token');
+					$location.path('/testMarker');
 				}, (error) => {
 					console.log('error', error);
 				});
