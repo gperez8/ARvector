@@ -697,10 +697,95 @@ httpRequestHandling.route('/logout')
 
 /* ENDPOINT REGISTER */
 httpRequestHandling.route('/register')
+	.get((req, resp) => {
+		/*const text = 'select * from bd.career';
+			client.connect();
+			client.query(text, (err, res) => {
+				if (err) {
+					console.log('sdfsd', err.stack);
+					return resp.status(500).json({ success: false, res: err });
+				} 
+				return resp.json({ success: true, career: res.rows });
+			});*/
+		(async () => {
+
+			let text = 'select * from bd.career';
+			client.connect();
+			let career = await client.query(text);
+
+			if (career.rows.length === 0) {
+				return resp.status(500).json({ success: false, res: 'no existen carreras' });
+			}
+
+			text = 'select * from bd.roles where not rol = 1';
+			let roles = await client.query(text);
+
+			if (roles.rows.length === 0) {
+				return resp.status(500).json({ success: false, res: 'no existen roles' });
+			}
+
+			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows });
+		})();
+	});
+
+httpRequestHandling.route('/register/:id')
 	.post((req, resp) => {
+
+
+		let text = 'select student.ci, teacher.ci from bd.student as student, bd.teacher as teacher where student.email=($1) or student.ci=($2) or teacher.email=($1) or teacher.ci=($2)';
+		let values = [];
+		values.push(req.body.email);
+		values.push(req.body.ci);
+
+		(async () => {
+			client.connect();
+			const result = await client.query(text, values);
+
+			if (result.rows.length > 0) {
+				return resp.status(500).json({ success: false, msj: 'usuario registrado' });
+			}
+
+			const insert = 'INSERT INTO ';
+			const table = req.params.id === ':2' ? 'bd.student(name,last_name,ci,semester,email) ' : 'bd.teacher(name,last_name,ci,email) ';
+			const introValues = req.params.id === ':2' ? 'values ($1,$2,$3,$4,$5)' : 'values ($1,$2,$3,$4)';
+			text = insert + table + introValues;
+			
+
+			values = new Array();
+			values.push(req.body.name);
+			values.push(req.body.lastName);
+			values.push(req.body.ci);
+			values.push(req.body.email);
+
+			if (req.params.id === ':2') values.push(req.body.semester);
+
+			await client.query(text, values, (err) => {
+				console.log('err', err);
+				if (err) resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
+			});
+
+			text = 'INSERT INTO bd.users(email,password,rol) VALUES ($1,$2,$3)';
+			values = new Array();
+			values.push(req.body.email);
+			values.push(req.body.password1);
+			values.push(req.body.rol);
+
+			client.query(text, values, (err) => {
+				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
+			
+				return resp.status(200).json({ status: 200 });
+			});
+
+		})();
+	});
+
+/*	.post((req, resp) => {
 		let text = 'select * from bd.student where email=($1) or ci=($2)';
 		let values = [];
 		values.push(req.body.email);
+		values.push(req.body.ci);
+		values.push(req.body.ci);
+		values.push(req.body.ci);
 		values.push(req.body.ci);
 
 		(async () => {
@@ -733,39 +818,5 @@ httpRequestHandling.route('/register')
 			});
 		})();
 		
-	})
-	.get((req, resp) => {
-
-		/*const text = 'select * from bd.career';
-			client.connect();
-			client.query(text, (err, res) => {
-				if (err) {
-					console.log('sdfsd', err.stack);
-					return resp.status(500).json({ success: false, res: err });
-				} 
-				return resp.json({ success: true, career: res.rows });
-			});*/
-
-		(async () => {
-
-			let text = 'select * from bd.career';
-			client.connect();
-			const career = await client.query(text);
-
-			if (career.rows.length === 0) {
-				return resp.status(500).json({ success: false, res: 'no existen carreras' });
-			}
-
-			text = 'select * from bd.roles where not rol = 1';
-			const roles = await client.query(text);
-
-			if (roles.rows.length === 0) {
-				return resp.status(500).json({ success: false, res: 'no existen roles' });
-			}
-
-			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows });
-		})();
-	});
-
-
+	})*/
 module.exports = httpRequestHandling;

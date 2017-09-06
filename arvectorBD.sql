@@ -16,9 +16,9 @@ CREATE DOMAIN BD.type_name varchar(50);
 CREATE DOMAIN BD.type_last_name varchar(50);
 CREATE DOMAIN BD.type_phone varchar(20);
 CREATE DOMAIN BD.type_ci varchar(20);
-CREATE DOMAIN BD.type_semester integer CHECK (VALUE >= 1 AND VALUE <= 10);
+CREATE DOMAIN BD.type_semester int CHECK (VALUE >= 1 AND VALUE <= 9);
 CREATE DOMAIN BD.type_email text CHECK (VALUE ~ '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$');
-CREATE DOMAIN BD.type_school varchar(11) check (VALUE in ('computacion','fisica','quimica','matematica','biologia','X','Y'));
+CREATE DOMAIN BD.type_school varchar(11) check (VALUE in ('computacion','fisica','quimica','matematica','biologia'));
 CREATE DOMAIN BD.type_Rol int check (VALUE in (1,2,3));
 CREATE DOMAIN BD.type_nameRol varchar(7) check (VALUE in ('admin','student','teacher'));
 -- FIN Create Domain BD
@@ -38,7 +38,6 @@ create table BD.teacher(
 	last_name BD.type_last_name not null,
 	ci BD.type_ci primary key,
 	email text not null,
-	phone BD.type_phone
 );
 
 create table BD.student(
@@ -167,7 +166,7 @@ create table BD.resourceMarker(
 create table BD.users(
 	email BD.type_email,
 	password text,
-	rol BD.type_rol
+	rol BD.type_rol,
 
 	foreign key (rol) references BD.roles(rol)
 	on delete cascade
