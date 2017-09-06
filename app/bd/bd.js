@@ -661,7 +661,7 @@ httpRequestHandling.route('/resourceMarker')
 /* FIN CRUD TABLA ResourceMarker */
 
 /* ENDPOINT LOGIN */
-httpRequestHandling.route('/users')
+httpRequestHandling.route('/login')
 	.post((req, resp) => {
 		const text = 'select * from bd.users where email=($1) and password=($2)';
 		const values = [];
@@ -670,7 +670,11 @@ httpRequestHandling.route('/users')
 
 		client.connect();
 		client.query(text, values, (err, data) => {
-			if (err) return err.stack;
+			if (err) {
+				return resp
+					.status(500)
+					.send({ status:500, err: err.stack });
+			}
 
 			if (data.rows.length > 0) {
 				return resp
