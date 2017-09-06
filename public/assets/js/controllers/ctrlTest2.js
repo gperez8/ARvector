@@ -1,5 +1,5 @@
 angular.module('app')
-	.controller('test3', ($scope, $location) => {
+	.controller('appCtrl', ($scope, $location,$rootScope) => {
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -14,5 +14,9 @@ angular.module('app')
 
 		$scope.createModel = () => {
 			$location.path('/createModel');
+		};
+
+		$scope.isLogin = () => {
+			return $rootScope.login;
 		};
 	});
