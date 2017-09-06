@@ -77,7 +77,7 @@ angular.module('app')
 		};
 
 		$scope.logout = () => {
-			localStorage.setItem('token', '');
+			localStorage.clear();
 			$location.path('/home');
 		}
 	});

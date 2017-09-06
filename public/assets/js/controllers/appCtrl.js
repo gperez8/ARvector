@@ -13,7 +13,7 @@ angular.module('app')
 		};
 
 		$scope.createModel = () => {
-			$location.path('/createModel');
+			$location.path('/createModel2');
 		};
 
 		$scope.isLogin = () => {
