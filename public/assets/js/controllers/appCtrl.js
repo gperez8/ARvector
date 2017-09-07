@@ -1,5 +1,7 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
+
+		$scope.zFuncText = '';
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -19,4 +21,8 @@ angular.module('app')
 		$scope.isLogin = () => {
 			return $rootScope.login !== '' && $rootScope.login !== null;
 		};
+
+		$scope.$watch($scope.zFuncTex, () =>{
+			$rootScope.zFuncTexR = $scope.zFuncTex;
+		});
 	});
