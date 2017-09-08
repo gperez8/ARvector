@@ -1,7 +1,7 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
 
-		$scope.zFuncText = '';
+		$scope.graphFunction;
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -22,7 +22,10 @@ angular.module('app')
 			return $rootScope.login !== '' && $rootScope.login !== null;
 		};
 
-		$scope.$watch($scope.zFuncTex, () =>{
-			$rootScope.zFuncTexR = $scope.zFuncTex;
-		});
+		$scope.updateGraph = () => {
+			const newFunction = document.querySelector('#zFunctionText').value;
+			const scene = document.querySelector('#scene');
+			scene.removeChild(scene.childNodes[3]);
+			$rootScope.graph(newFunction);
+		};
 	});

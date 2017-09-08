@@ -1,10 +1,12 @@
 angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
-	.run(($rootScope) => {
+	.run(($http,$rootScope) => {
+
+		// $http.defaults.headers.common.Authorization = '';
+
 		$rootScope.login = localStorage.getItem('token');
 
-		$rootScope.zFuncTextR = 'x^2 - y^2';
 
-		$rootScope.graph = () => {
+		$rootScope.graph = (zFuncTextR) => {
 			let graphMesh;
 			const segments = 80;
 			const xMin = -3;
@@ -17,7 +19,9 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 			let zMax = 3;
 			let zRange = zMax - zMin;
 
-			const zFuncText = $rootScope.zFuncTextR;
+
+			const zFuncText = zFuncTextR || 'x^2 - y^2';
+			console.log('zFuncText', zFuncText);
 			let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 			const scene = new THREE.Scene();

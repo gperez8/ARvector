@@ -44,8 +44,9 @@ angular.module('app')
 		$httpProvider.interceptors.push(($q, $location, $localStorage) => {
             return {
                 'request': function (config) {
-                	console.log('entro por aca request');
                     config.headers = config.headers || {};
+
+                    console.log('header',config);
 
                     if (localStorage.getItem("token")) {
                         config.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
