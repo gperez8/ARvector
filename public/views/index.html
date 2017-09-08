@@ -7,7 +7,6 @@
 	</head>
 
 	<body ng-controller="appCtrl" >
-
 		<div id="wrapper" ng-if="isLogin()">
 			<!-- Sidebar -->
 			<div id="sidebar-wrapper">
@@ -38,9 +37,11 @@
 		            <li>
 		                <a href="#">Contact</a>
 		            </li>
-		            <input id = "zFunctionText" type="text" name="">
+		            <input id="zFunctionText" type="text" name="">
 
 		            <button ng-click="updateGraph()">render</button>
+		            <button ng-click="graphGenerate()">exportar</button>
+		        	
 		        </ul>
 		    </div>
 		    <!-- /#sidebar-wrapper -->

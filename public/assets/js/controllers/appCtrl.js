@@ -1,7 +1,5 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
-
-		$scope.graphFunction;
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -27,5 +25,9 @@ angular.module('app')
 			const scene = document.querySelector('#scene');
 			scene.removeChild(scene.childNodes[3]);
 			$rootScope.graph(newFunction);
+		};
+
+		$scope.graphGenerate = () => {
+			$rootScope.exporter();
 		};
 	});

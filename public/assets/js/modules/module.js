@@ -2,7 +2,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 	.run(($http,$rootScope) => {
 
 		// $http.defaults.headers.common.Authorization = '';
-
+		let scene;
 		$rootScope.login = localStorage.getItem('token');
 
 
@@ -24,7 +24,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 			console.log('zFuncText', zFuncText);
 			let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
-			const scene = new THREE.Scene();
+			scene = new THREE.Scene();
 			scene.background = new THREE.Color(0xf0f0f0);
 
 
@@ -69,7 +69,6 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 
 			const renderer = new THREE.WebGLRenderer();
 			renderer.setSize(window.innerWidth, window.innerHeight);
-			
 
 			const container = document.getElementById('scene');
 			container.appendChild(renderer.domElement);
@@ -177,7 +176,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 		$rootScope.exporter = () => {
 			console.time('file');
 			const exporter = new THREE.OBJExporter();
-			let model = LZMA.compress(exporter.parse(scene.children[3]), 3);
+			const model = LZMA.compress(exporter.parse(scene.children[3]), 3);
 			const data = {};
 
 			data.model = model;
