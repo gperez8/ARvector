@@ -46,7 +46,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 			/* FIN de la Configuracion de la camara */
 
 			/* control sobre la scena */
-			const controls = new THREE.OrbitControls(camera);
+			const controls = new THREE.OrbitControls(camera, document.getElementById('scene'));
 			controls.addEventListener('change', render);
 			/* FIn control sobre la scena */
 
