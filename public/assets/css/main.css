@@ -89,3 +89,16 @@ div[id="page-content-wrapper"] {
   overflow-y: hidden;
   overflow-x: hidden;
 }
+
+.select-functionality{
+    font-size: 23px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.select-functionality > a{
+  margin-right: 24px;
+  color: #FFFFFF;
+  text-decoration: none;  
+}
+
