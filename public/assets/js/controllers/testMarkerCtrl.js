@@ -2,7 +2,11 @@
 
 angular.module('app')
 	.controller('testMarkerCtrl', ($scope) => {
-		$scope.hola = 'hola';
+
+		$("#menu-toggle").click(function(e) {
+			e.preventDefault();
+			$("#wrapper").toggleClass("toggled");
+		});
 
 		function handleSceneLoaded() {
 			document.querySelector('#camera').setAttribute('orbit-controls', 'enabled', false);
@@ -17,11 +21,5 @@ angular.module('app')
 			const scene = document.querySelector('a-scene');
 			if (scene.hasLoaded) addEventListeners();
 			else scene.addEventListener('loaded', handleSceneLoaded);
-		});
-
-
-		$("#menu-toggle").click(function(e) {
-			e.preventDefault();
-			$("#wrapper").toggleClass("toggled");
 		});
 	});
