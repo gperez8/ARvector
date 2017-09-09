@@ -1,7 +1,8 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
-		
+		$scope.arrow = false;
 		$scope.path = $location.path();
+
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -33,5 +34,11 @@ angular.module('app')
 
 		$scope.graphGenerate = () => {
 			$rootScope.exporter();
+		};
+
+		$scope.logout = () => {
+			$rootScope.logout();
+			$rootScope.login = localStorage.getItem('token');
+			$scope.home();
 		};
 	});

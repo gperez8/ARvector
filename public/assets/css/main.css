@@ -91,7 +91,7 @@ div[id="page-content-wrapper"] {
 }
 
 .select-functionality{
-    font-size: 23px;
+    font-size: 33px !important;
     color: #FFFFFF;
     text-align: center;
 }
@@ -100,5 +100,19 @@ div[id="page-content-wrapper"] {
   margin-right: 24px;
   color: #FFFFFF;
   text-decoration: none;  
+}
+
+.sidebar-brand > p {
+    position: absolute;
+    top: 2%;
+    left: 25%;
+    color: white;
+}
+
+.sidebar-brand > span {
+    color: white;
+    position: absolute;
+    top: 3.5%;
+    left: 84%;
 }
 

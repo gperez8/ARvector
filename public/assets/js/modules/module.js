@@ -190,4 +190,8 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 					console.log('error', error);
 				});
 		};
+
+		$rootScope.logout = () => {
+			localStorage.clear();
+		};
 	});

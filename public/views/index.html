@@ -10,12 +10,27 @@
 		<div id="wrapper" ng-if="isLogin()">
 			<!-- Sidebar -->
 			<div id="sidebar-wrapper">
-		        <ul class="sidebar-nav">
-		            <li class="sidebar-brand">
-		                <img src="http://elrincondelsano.com/wp-content/uploads/2017/04/pollo.jpg" class="img-circle img-responsive" alt="Cinque Terre" width="40" height="40"> 
-		            </li>
+		        <div class="sidebar-nav">
+		            <div class="sidebar-brand">
+		                <img src="src/images/carmen.jpg" class="img-responsive img-circle" alt="Cinque Terre" width="40" height="40"> 
+
+		                <p>Carmen Araque</p>
+
+		                <span ng-click="arrow=!arrow">
+		                	<i ng-class="{
+			                		'glyphicon glyphicon-chevron-left': !arrow,
+			                		'glyphicon glyphicon-chevron-down': arrow
+			                	}"> 	
+			                </i>
+		                </span>
+
+		                <div ng-if="arrow" class="dropdown-content">
+						    <a href="">Perfil</a>
+						    <a href="" ng-click="logout()">Logout</a>
+					  	</div>
+		            </div>
 		            
-	            	<div class="select-functionality">
+	            	<div class="sidebar-brand select-functionality">
 		            	<a href="" ng-click="createModel()">
 		                	<span 
                         		class="glyphicon glyphicon-blackboard"
@@ -30,10 +45,6 @@
                     		</span>
                     	</a>
 	            	</div>
-		            
-		             <div ng-if="path === '/testMarker'">
-		             	<h1>hola mundo</h1>
-		             </div>
 
 		            <div ng-if="path === '/createModel2'">
 		            	<input id="zFunctionText" type="text" name="">
@@ -41,7 +52,7 @@
 		            	<button ng-click="updateGraph()">render</button>
 		            	<button ng-click="graphGenerate()">exportar</button>	
 		            </div>
-		        </ul>
+		        </div>
 		    </div>
 		    <!-- /#sidebar-wrapper -->
 		    <div ng-view="">
