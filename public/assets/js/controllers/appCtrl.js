@@ -1,5 +1,7 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
+		
+		$scope.path = $location.path();
 		$scope.home = () => {
 			$location.path('/home');
 		};
@@ -9,10 +11,12 @@ angular.module('app')
 		};
 
 		$scope.testMarker = () => {
+			$scope.path = '/testMarker';
 			$location.path('/testMarker');
 		};
 
 		$scope.createModel = () => {
+			$scope.path = '/createModel2';
 			$location.path('/createModel2');
 		};
 

@@ -12,49 +12,35 @@
 			<div id="sidebar-wrapper">
 		        <ul class="sidebar-nav">
 		            <li class="sidebar-brand">
-		                <a href="#">
-		                    Start Bootstrap
-		                </a>
+		                <img src="http://elrincondelsano.com/wp-content/uploads/2017/04/pollo.jpg" class="img-circle img-responsive" alt="Cinque Terre" width="40" height="40"> 
 		            </li>
 		            
-		            	<div class="row select-functionality">
-			            	<a href="" ng-click="createModel()">
-			                	<span 
-	                        		class="glyphicon glyphicon-blackboard"
-	                        		aria-hidden="true">    
-	                    		</span>
-	                    	</a>
+	            	<div class="select-functionality">
+		            	<a href="" ng-click="createModel()">
+		                	<span 
+                        		class="glyphicon glyphicon-blackboard"
+                        		aria-hidden="true">    
+                    		</span>
+                    	</a>
 
-	                    	<a href="" ng-click="testMarker()">
-	                    		<span 
-	                        		class="glyphicon glyphicon-camera"
-	                        		aria-hidden="true">    
-	                    		</span>
-	                    	</a>
-		            	</div>
-		                
+                    	<a href="" ng-click="testMarker()">
+                    		<span 
+                        		class="glyphicon glyphicon-camera"
+                        		aria-hidden="true">    
+                    		</span>
+                    	</a>
+	            	</div>
 		            
+		             <div ng-if="path === '/testMarker'">
+		             	<h1>hola mundo</h1>
+		             </div>
 
-		            <li>
-		                <a href="#">Overview</a>
-		            </li>
-		            <li>
-		                <a href="#">Events</a>
-		            </li>
-		            <li>
-		                <a href="#">About</a>
-		            </li>
-		            <li>
-		                <a href="#">Services</a>
-		            </li>
-		            <li>
-		                <a href="#">Contact</a>
-		            </li>
-		            <input id="zFunctionText" type="text" name="">
+		            <div ng-if="path === '/createModel2'">
+		            	<input id="zFunctionText" type="text" name="">
 
-		            <button ng-click="updateGraph()">render</button>
-		            <button ng-click="graphGenerate()">exportar</button>
-		        	
+		            	<button ng-click="updateGraph()">render</button>
+		            	<button ng-click="graphGenerate()">exportar</button>	
+		            </div>
 		        </ul>
 		    </div>
 		    <!-- /#sidebar-wrapper -->
