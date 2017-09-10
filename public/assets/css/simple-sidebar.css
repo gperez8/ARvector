@@ -108,8 +108,8 @@
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
-    left: 8.2vw;
-    top: 11vh;
+    left: calc(100% - 184px);
+    top: 10vh;
 }
 
 .sidebar-nav > .sidebar-brand > .dropdown-content a {

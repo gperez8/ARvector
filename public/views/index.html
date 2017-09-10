@@ -47,10 +47,38 @@
 	            	</div>
 
 		            <div ng-if="path === '/createModel2'">
-		            	<input id="zFunctionText" type="text" name="">
+		            	
+			            <form>
+		            		<div class="form-group">
+		            			<input 
+		            			id="zFunctionText"
+		            			type="text"
+		            			name="" 
+		            			class="form-control input-md" 
+		            			required="required"
+		            			pattern="" 
+		            			title="">
+		            		</div>
 
-		            	<button ng-click="updateGraph()">render</button>
-		            	<button ng-click="graphGenerate()">exportar</button>	
+			            	<div class="col-xs-12">
+			            		<div class="col-sm-6 col-xs-6">
+					            	<a 	
+					            		href="" 
+					            		class="btn btn-mds btn-primary btn-block"
+					            		ng-click="updateGraph()">Render
+					            	</a>
+				            	</div>
+
+				            	<div class="col-sm-6 col-xs-6">
+					            	<a 
+						            	href="" 
+						            	class="btn btn-mds btn-primary btn-block"
+						            	ng-click="graphGenerate()">Exportar
+					            	</a>
+				            	</div>				            		
+			            	</div>
+				        
+				        </form>	
 		            </div>
 		        </div>
 		    </div>

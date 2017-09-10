@@ -58,7 +58,7 @@ body {
 .btn-sidebar{
     position: absolute !important;
     top: 0vh !important;
-    left: 3vw !important;
+    left: 3.5vw !important;
 }
 
 div[class="container-fluid"] {
