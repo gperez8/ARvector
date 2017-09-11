@@ -1,10 +1,11 @@
 angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
-	.run(($http,$rootScope) => {
+	.run(($http, $rootScope, $location) => {
 
 		// $http.defaults.headers.common.Authorization = '';
 		let scene;
 		$rootScope.login = localStorage.getItem('token');
 
+		$rootScope.path = $location.path();
 		$rootScope.zFuncTextR = 'x^2 - y^2';
 		$rootScope.customOption = {};
 		$rootScope.customOption.x = {};

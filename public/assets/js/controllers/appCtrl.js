@@ -5,7 +5,7 @@ angular.module('app')
 		$scope.arrow.advOptions = false;
 		$scope.customOption = $rootScope.customOption;
 
-		$scope.path = $location.path();
+		$scope.path = $rootScope.path;
 
 		$scope.home = () => {
 			$location.path('/home');

@@ -14,6 +14,7 @@ angular.module('app')
 				.then((data) => {
 					localStorage.setItem('token', data.data.token);
 					$rootScope.login = localStorage.getItem('token');
+					$rootScope.path = '/testMarker';
 					$location.path('/testMarker');
 				}, (error) => {
 					console.log('error', error);
