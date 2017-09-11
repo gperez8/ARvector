@@ -7,5 +7,5 @@ angular.module('app')
 			$("#wrapper").toggleClass("toggled");
 		});
 
-		$rootScope.graph();
+		$rootScope.graph($rootScope.zFuncTextR, $rootScope.customOption);
 	});

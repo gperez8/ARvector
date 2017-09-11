@@ -5,22 +5,36 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 		let scene;
 		$rootScope.login = localStorage.getItem('token');
 
-		$rootScope.graph = (zFuncTextR) => {
+		$rootScope.zFuncTextR = 'x^2 - y^2';
+		$rootScope.customOption = {};
+		$rootScope.customOption.x = {};
+		$rootScope.customOption.y = {};
+		$rootScope.customOption.z = {};
+		$rootScope.customOption.x.min = -3;
+		$rootScope.customOption.x.max = 3;
+		$rootScope.customOption.y.min = -3;
+		$rootScope.customOption.y.max = 3;
+		$rootScope.customOption.z.min = -3;
+		$rootScope.customOption.z.max = 3;
+		$rootScope.customOption.planeSize = 6;
+		$rootScope.customOption.planeSubdivition = 10;
+		$rootScope.customOption.axisSize = 10;
+
+		$rootScope.graph = (zFuncTextR, customOption) => {
 			let graphMesh;
 			const segments = 80;
-			const xMin = -3;
-			const xMax = 3;
+			const xMin = customOption.x.min || -3;
+			const xMax = customOption.x.max || 3;
 			let xRange = xMax - xMin;
-			const yMin = -3;
-			const yMax = 3;
+			const yMin = customOption.y.min || -3;
+			const yMax = customOption.y.max || 3;
 			let yRange = yMax - yMin;
-			let zMin = -3;
-			let zMax = 3;
+			let zMin = customOption.z.min || -3;
+			let zMax = customOption.z.min || 3;
 			let zRange = zMax - zMin;
 
 
 			const zFuncText = zFuncTextR || 'x^2 - y^2';
-			console.log('zFuncText', zFuncText);
 			let zFunc = Parser.parse(zFuncText).toJSFunction(['x', 'y']);
 
 			scene = new THREE.Scene();
@@ -54,7 +68,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 			/* FIn control sobre la scena */
 
 			/* Plano r3 */
-			const helper = new THREE.GridHelper(6, 10);
+			const helper = new THREE.GridHelper(customOption.planeSize, customOption.planeSubdivition);
 			helper.rotateX(Math.PI / 2);
 			helper.material.opacity = 0.25;
 			helper.material.transparent = true;
@@ -62,7 +76,7 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 			/* FIN de Plano r3 */
 
 			/* Ejes XYZ */
-			const axis = new THREE.AxisHelper(10);
+			const axis = new THREE.AxisHelper(customOption.axisSize);
 			scene.add(axis);
 			/* FIN de Ejes XYZ */
 

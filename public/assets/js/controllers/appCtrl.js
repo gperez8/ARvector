@@ -3,6 +3,8 @@ angular.module('app')
 		$scope.arrow = {};
 		$scope.arrow.profile = false;
 		$scope.arrow.advOptions = false;
+		$scope.customOption = $rootScope.customOption;
+
 		$scope.path = $location.path();
 
 		$scope.home = () => {
@@ -31,7 +33,7 @@ angular.module('app')
 			const newFunction = document.querySelector('#zFunctionText').value;
 			const scene = document.querySelector('#scene');
 			scene.removeChild(scene.childNodes[3]);
-			$rootScope.graph(newFunction);
+			$rootScope.graph(newFunction, $scope.customOption);
 		};
 
 		$scope.graphGenerate = () => {
@@ -42,5 +44,10 @@ angular.module('app')
 			$rootScope.logout();
 			$rootScope.login = localStorage.getItem('token');
 			$scope.home();
+		};
+
+		$scope.eventArrowOption = () => {
+			$scope.arrow.advOptions = !$scope.arrow.advOptions;
+			$scope.arrow.typeOption = 'graph';
 		};
 	});

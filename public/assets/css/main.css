@@ -126,6 +126,10 @@ div[id="page-content-wrapper"] {
   left: calc(100% - 90px);
 }
 
+.options {
+  margin-left: 12%;
+}
+
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }

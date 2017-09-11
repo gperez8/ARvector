@@ -49,37 +49,39 @@
 
 		            <div ng-if="path === '/createModel2'">
 			            <form>
-		            		<div class="form-group">
-		            			<input 
-		            			id="zFunctionText"
-		            			type="text"
-		            			name="" 
-		            			class="form-control input-md" 
-		            			required="required"
-		            			pattern="" 
-		            			title="">
-		            		</div>
+			            	<div >
+			            		<div class="form-group">
+			            			<input 
+			            			id="zFunctionText"
+			            			type="text"
+			            			name="" 
+			            			class="form-control input-md" 
+			            			required="required"
+			            			pattern="" 
+			            			title="">
+			            		</div>
 
-			            	<div class="col-xs-12">
-			            		<div class="col-sm-6 col-xs-6">
-					            	<a 
-						            	href="" 
-						            	class="btn btn-mds btn-primary btn-block"
-						            	ng-click="graphGenerate()">Exportar
-					            	</a>
+				            	<div class="col-xs-12">
+				            		<div class="col-sm-6 col-xs-6">
+						            	<a 
+							            	href="" 
+							            	class="btn btn-mds btn-primary btn-block"
+							            	ng-click="graphGenerate()">Exportar
+						            	</a>
+					            	</div>
+
+					            	<div class="col-sm-6 col-xs-6">
+						            	<a 	
+						            		href="" 
+						            		class="btn btn-mds btn-primary btn-block"
+						            		ng-click="updateGraph()">Render
+						            	</a>
+					            	</div>				        	
 				            	</div>
-
-				            	<div class="col-sm-6 col-xs-6">
-					            	<a 	
-					            		href="" 
-					            		class="btn btn-mds btn-primary btn-block"
-					            		ng-click="updateGraph()">Render
-					            	</a>
-				            	</div>				        	
 			            	</div>
-
+		            		
 			            	<div class="col-xs-12 col-sm-12 advanced-options">		
-			            		<p ng-click="arrow.advOptions=!arrow.advOptions">Opciones avanzadas
+			            		<p ng-click="eventArrowOption()">Opciones avanzadas
 			            			<span>
 			            				<i ng-class="{
 						                		'glyphicon glyphicon-chevron-left': !arrow.advOptions,
@@ -90,69 +92,146 @@
 					                </span>
 			            		</p>
 
-				                <div ng-if="arrow.advOptions">
-				                	<!-- Min,Max X -->
-					            	<div class="col-sm-6 col-xs-6">
-					            		<label>Alt Min X </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-						            	
-					            	</div>
-					            	<div class="col-sm-6 col-xs-6">
-					            		<label>Alt Max X </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-					            	</div>
-					            	<!-- Min,Max Y -->
-					            	<div class="col-sm-6 col-xs-6">
-					            		
-					            		<label>Alt Min Y </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-						            	
-					            	</div>
-					            	<div class="col-sm-6 col-xs-6">
-					            		<label>Alt Max Y </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-					            	</div>
-					            	<!-- Min,Max Z -->
-					            	<div class="col-sm-6 col-xs-6">
-					            		<label>Alt Min Z </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-						            	
-					            	</div>
-					            	<div class="col-sm-6 col-xs-6">
-					            		<label>Alt Max Z </label>
-					            		<input 
-					            			type="text" 
-					            			name="" 
-					            			id="input" 
-					            			class="form-control input-sm" value="" 
-					            			required="required" pattern="" title="">
-					            	</div>
-				                </div>			            		
+			            		<!-- opcion avanzadas Grafica -->
+			            		<div ng-if="arrow.advOptions">
+			            			<div class="options">
+					                	<div 
+					                		class="btn-group" 
+					                		role="group" 
+					                		aria-label="...">
+										  	
+										  	<button 
+										  		type="button" 
+										  		class="btn btn-default btn-sm"
+										  		ng-click="arrow.typeOption = 'graph'">Gráfica
+										  	</button>
+										  
+										  	<button 
+										  		type="button" 
+										  		class="btn btn-default btn-sm"
+										  		ng-click="arrow.typeOption = 'plane'">Plano
+										  	</button>
+										  
+										  	<button 
+										  		type="button" 
+										  		class="btn btn-default btn-sm"
+										  		ng-click="arrow.typeOption = 'axis'">Ejes
+										  	</button>
+										</div>
+				                	</div>
+
+			            			<div ng-if="arrow.typeOption==='graph'">
+					                	<!-- Min,Max X -->
+					                	<div class="advanced-options"> 
+						                	<div class="col-sm-6 col-xs-6">
+							            		<label>Alt Min X </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.x.min">
+							            	</div>
+							            	<div class="col-sm-6 col-xs-6">
+							            		<label>Alt Max X </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.x.max">
+							            	</div>
+							            	<!-- Min,Max Y -->
+							            	<div class="col-sm-6 col-xs-6">
+							            		
+							            		<label>Alt Min Y </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.y.min">
+								            	
+							            	</div>
+							            	<div class="col-sm-6 col-xs-6">
+							            		<label>Alt Max Y </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.y.max">
+							            	</div>
+							            	<!-- Min,Max Z -->
+							            	<div class="col-sm-6 col-xs-6">
+							            		<label>Alt Min Z </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.z.min">
+								            	
+							            	</div>
+							            	<div class="col-sm-6 col-xs-6">
+							            		<label>Alt Max Z </label>
+							            		<input 
+							            			type="number" 
+							            			name="" 
+							            			id="input" 
+							            			class="form-control input-sm"
+							            			ng-model="customOption.z.max">
+							            	</div>
+					                	</div>
+					                </div>
+					                <!-- FIN opcion avanzadas Grafica -->
+
+					                <!-- Opciones avanzadas del Plano-->
+					                <div ng-if="arrow.typeOption==='plane'">
+					                	<div class="advanced-options">
+					                		<div 
+					                			class="col-sm-11 col-xs-11">
+						                		<label>Tamaño del Plano</label>
+								            		<input 
+								            			type="number" 
+								            			name="" 
+								            			id="input" 
+								            			class="form-control input-sm"
+								            			ng-model="customOption.planeSize">
+								            </div>
+
+								            <div 
+								            	class="col-sm-11 col-xs-11">
+								            	<label>Subdivisiones del Plano
+								            	</label>
+								            		<input 
+								            			type="number" 
+								            			name="" 
+								            			id="input" 
+								            			class="form-control input-sm"
+								            			ng-model="customOption.planeSubdivition">
+								            </div>
+					                	</div>
+					                </div>
+					                <!-- FIN Opciones avanzadas del Plano--> 			            
+					                	
+					                <!-- Opciones avanzadas del ejes-->
+					                <div ng-if="arrow.typeOption==='axis'">
+					                	<div class="advanced-options">
+						                	<div class="col-sm-11 col-xs-11">
+									            	<label>Tamaño de los Ejes
+									            	</label>
+									            		<input 
+									            			type="number" 
+									            			name="" 
+									            			id="input" 
+									            			class="form-control input-sm"
+									            			ng-model="customOption.axisSize">
+					                		</div>
+					                	</div>
+					                </div>
+					                <!-- FIN Opciones avanzadas del ejes-->		
+			            		</div>				                
 			            	</div>				        
 				        </form>	
 		            </div>
