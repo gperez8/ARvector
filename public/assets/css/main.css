@@ -109,14 +109,25 @@ div[id="page-content-wrapper"] {
     color: white;
 }
 
-.sidebar-brand > span {
-    color: white;
-    position: absolute;
-    top: 3.5%;
-    left: 84%;
+.sidebar-brand > p > span {
+  position: absolute;
+  top: 0.5vh;
+  left: calc(100% + 17px);
+}
+
+.advanced-options {
+  margin-top: 5%;
+  color: #FFFFFF;
+}
+
+.advanced-options > p > span{
+  position: absolute;
+  top: 0.5vh;
+  left: calc(100% - 90px);
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
   display: none !important;
 }
+
 

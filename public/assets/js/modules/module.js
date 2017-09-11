@@ -5,7 +5,6 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 		let scene;
 		$rootScope.login = localStorage.getItem('token');
 
-
 		$rootScope.graph = (zFuncTextR) => {
 			let graphMesh;
 			const segments = 80;

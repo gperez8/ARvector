@@ -14,17 +14,18 @@
 		            <div class="sidebar-brand">
 		                <img src="src/images/carmen.jpg" class="img-responsive img-circle" alt="Cinque Terre" width="40" height="40"> 
 
-		                <p>Carmen Araque</p>
+		                <p>Carmen Araque  
+		                	<span ng-click="arrow.profile=!arrow.profile">
+			                	<i ng-class="{
+				                		'glyphicon glyphicon-chevron-left': !arrow.profile,
 
-		                <span ng-click="arrow=!arrow">
-		                	<i ng-class="{
-			                		'glyphicon glyphicon-chevron-left': !arrow,
-			                		'glyphicon glyphicon-chevron-down': arrow
-			                	}"> 	
-			                </i>
-		                </span>
+				                		'glyphicon glyphicon-chevron-down': arrow.profile
+				                	}"> 	
+				                </i>
+		                	</span>
+		                </p>
 
-		                <div ng-if="arrow" class="dropdown-content">
+		                <div ng-if="arrow.profile" class="dropdown-content">
 						    <a href="">Perfil</a>
 						    <a href="" ng-click="logout()">Logout</a>
 					  	</div>
@@ -47,7 +48,6 @@
 	            	</div>
 
 		            <div ng-if="path === '/createModel2'">
-		            	
 			            <form>
 		            		<div class="form-group">
 		            			<input 
@@ -75,9 +75,85 @@
 					            		class="btn btn-mds btn-primary btn-block"
 					            		ng-click="updateGraph()">Render
 					            	</a>
-				            	</div>				            		
+				            	</div>				        	
 			            	</div>
-				        
+
+			            	<div class="col-xs-12 col-sm-12 advanced-options">		
+			            		<p ng-click="arrow.advOptions=!arrow.advOptions">Opciones avanzadas
+			            			<span>
+			            				<i ng-class="{
+						                		'glyphicon glyphicon-chevron-left': !arrow.advOptions,
+
+						                		'glyphicon glyphicon-chevron-down': arrow.advOptions
+						                	}"> 
+						                </i>
+					                </span>
+			            		</p>
+
+				                <div ng-if="arrow.advOptions">
+				                	<!-- Min,Max X -->
+					            	<div class="col-sm-6 col-xs-6">
+					            		<label>Alt Min X </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+						            	
+					            	</div>
+					            	<div class="col-sm-6 col-xs-6">
+					            		<label>Alt Max X </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+					            	</div>
+					            	<!-- Min,Max Y -->
+					            	<div class="col-sm-6 col-xs-6">
+					            		
+					            		<label>Alt Min Y </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+						            	
+					            	</div>
+					            	<div class="col-sm-6 col-xs-6">
+					            		<label>Alt Max Y </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+					            	</div>
+					            	<!-- Min,Max Z -->
+					            	<div class="col-sm-6 col-xs-6">
+					            		<label>Alt Min Z </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+						            	
+					            	</div>
+					            	<div class="col-sm-6 col-xs-6">
+					            		<label>Alt Max Z </label>
+					            		<input 
+					            			type="text" 
+					            			name="" 
+					            			id="input" 
+					            			class="form-control input-sm" value="" 
+					            			required="required" pattern="" title="">
+					            	</div>
+				                </div>			            		
+			            	</div>				        
 				        </form>	
 		            </div>
 		        </div>
@@ -88,9 +164,7 @@
 		</div>
 
 		<div ng-if="!isLogin()" ng-view="">
-		</div>	
-		
-
+		</div>
 
 		<!-- Dependencias -->
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>

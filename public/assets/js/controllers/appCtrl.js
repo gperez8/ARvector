@@ -1,6 +1,8 @@
 angular.module('app')
 	.controller('appCtrl', ($scope, $location, $rootScope) => {
-		$scope.arrow = false;
+		$scope.arrow = {};
+		$scope.arrow.profile = false;
+		$scope.arrow.advOptions = false;
 		$scope.path = $location.path();
 
 		$scope.home = () => {
