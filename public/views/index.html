@@ -11,6 +11,7 @@
 			<!-- Sidebar -->
 			<div id="sidebar-wrapper">
 		        <div class="sidebar-nav">
+		        	<!-- informacion del Usuario -->
 		            <div class="sidebar-brand">
 		                <img src="src/images/carmen.jpg" class="img-responsive img-circle" alt="Cinque Terre" width="40" height="40"> 
 
@@ -30,7 +31,9 @@
 						    <a href="" ng-click="logout()">Logout</a>
 					  	</div>
 		            </div>
+		            <!-- FIn de informacion del Usuario -->
 		            
+		            <!--Sección de seleccion de funcionalidad-->
 	            	<div class="sidebar-brand select-functionality">
 		            	<a href="" ng-click="createModel()">
 		                	<span 
@@ -46,10 +49,12 @@
                     		</span>
                     	</a>
 	            	</div>
+	            	<!--FIN Sección de selección de funcionalidad-->
 
+	            	<!-- Funcionalidad Crear Modelo -->
 		            <div ng-if="path === '/createModel2'">
 			            <form>
-			            	<div >
+			            	<div>
 			            		<div class="form-group">
 			            			<input 
 			            			id="zFunctionText"
@@ -61,7 +66,7 @@
 			            			title="">
 			            		</div>
 
-				            	<div class="col-xs-12">
+				            	<div class="col-sm-12 col-xs-12">
 				            		<div class="col-sm-6 col-xs-6">
 						            	<a 
 							            	href="" 
@@ -235,8 +240,78 @@
 			            	</div>				        
 				        </form>	
 		            </div>
+		            <!-- Funcionalidad Crear Modelo -->
 
 		            <div ng-if="path === '/testMarker'">
+
+			            <div class="box-content">
+			            	<div class="zone">
+			            		<div class="col-sm-5 col-xs-5">
+				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
+				            	</div>
+
+				            	<div class="col-sm-1 col-xs-1">
+									<input type="checkbox" name="">
+				            	</div>	
+				            	<div class="col-sm-5 col-xs-5">
+				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
+				            	</div>
+			            	</div>
+
+			            	<div class="zone">
+			            		<div class="col-sm-5 col-xs-5">
+				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
+				            	</div>
+
+				            	<div class="col-sm-1 col-xs-1">
+									<input type="checkbox" name="">
+				            	</div>	
+				            	<div class="col-sm-5 col-xs-5">
+				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
+				            	</div>
+			            	</div>
+			            	
+			            </div>
+
+		            	<div class="col-sm-12 col-xs-12">
+		            		<div class="col-sm-6 col-xs-6">
+				            	<a 
+					            	href="" 
+					            	class="btn btn-mds btn-primary btn-block"
+					            	ng-click="">Eliminar
+				            	</a>
+			            	</div>
+
+			            	<div class="col-sm-6 col-xs-6">
+				            	<a 	
+				            		href="" 
+				            		class="btn btn-mds btn-primary btn-block"
+				            		ng-click="">Generar
+				            	</a>
+			            	</div>				        	
+		            	</div>
+
+		            	<div class="box-content">
+		            		
+		            	</div>
+		            	<div class="col-sm-12 col-xs-12">
+		            		<div class="col-sm-6 col-xs-6">
+				            	<a 
+					            	href="" 
+					            	class="btn btn-mds btn-primary btn-block"
+					            	ng-click="">Importar
+				            	</a>
+			            	</div>
+
+			            	<div class="col-sm-6 col-xs-6">
+				            	<a 	
+				            		href="" 
+				            		class="btn btn-mds btn-primary btn-block"
+				            		ng-click="">Eliminar
+				            	</a>
+			            	</div>				        	
+		            	</div>
+
 		            </div>
 		        </div>
 		    </div>
