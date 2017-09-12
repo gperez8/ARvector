@@ -141,13 +141,25 @@ div[id="page-content-wrapper"] {
 
 .box-content > .zone{
     display: inline-block;
-    height: 14vh;
 }
 
 .zone >  div[class="col-sm-1 col-xs-1"] {
   margin-top: 11%;
   margin-left: -4%;
 }
+
+.zone > div[class="col-sm-5 col-xs-5"] > #resource {
+  border: 7px solid white;
+  width: 100%;
+  left: -12vw;
+  height: 11.9vh;
+}
+
+ @media(min-width:320px) and (max-width:768px){
+    #resource {
+       height: 12.9vh !important;
+    }
+  }
 
 .makers{
   border: 2px solid white;
