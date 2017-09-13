@@ -48,9 +48,10 @@ httpRequestHandling.route('/createMarker')
 
 		res.send('200');
 	})
-	.get((req, res) => {
-		middleware.ensureAuthenticated(req, res);
-	});
+	/*.get((req, res) => {
+           middleware.ensureAuthenticated(req, res);
+      });*/
+
 
 httpRequestHandling.route('/createModel2')
 	.post((req, res) => {

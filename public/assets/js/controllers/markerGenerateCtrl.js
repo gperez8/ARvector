@@ -7,6 +7,11 @@ angular.module('app')
 		$scope.markerGenerated = '';
 
 		$scope.buildMarker = (imageQr) => {
+
+			/*
+				THREEx.ArPatternFile.buildFullMarker convierte el codigo Qr en un 
+				marker con un QR en el centro y retorna esa imagen pasandosela a onComplete
+			*/
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
 				const markerImage = document.createElement('img');
 				markerImage.src = markerUrl;
@@ -15,7 +20,7 @@ angular.module('app')
 				while (container.firstChild) container.removeChild(container.firstChild);
 				container.appendChild(markerImage);
 				$scope.markerGenerated = markerImage;
-				// $scope.pattFileGenerate(imageQr, markerImage);
+				//$scope.pattFileGenerate(imageQr, markerImage);
 			});
 		};
 
@@ -56,7 +61,9 @@ angular.module('app')
 				colorLight: '#ffffff',
 			});
 
-			/* Se dibuja el codigo QR sobre la imagen base */
+			console.log('container', container);
+
+			/* çSe dibuja el codigo QR sobre la imagen base */
 			const canvasImg = container.querySelector('canvas');
 			const image = canvasImg.toDataURL('image/png');
 			$scope.imageQr = image;

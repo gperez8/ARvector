@@ -46,8 +46,6 @@ angular.module('app')
                 'request': function (config) {
                     config.headers = config.headers || {};
 
-                    console.log('header',config);
-
                     if (localStorage.getItem("token")) {
                         config.headers.Authorization = 'Bearer ' + localStorage.getItem('token');
                     }

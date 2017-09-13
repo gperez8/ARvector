@@ -243,31 +243,14 @@
 		            <!-- Funcionalidad Crear Modelo -->
 
 		            <div ng-if="path === '/testMarker'">
-
-			            <div class="box-content">
-			            	<div class="zone">
+			            <div id="markers" class="box-content">
+			            	<div class="zone" ng-repeat="marker in markers">
 			            		<div class="col-sm-5 col-xs-5">
-				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
+				            		<img class="img-responsive" src="{{marker.imageSrc}}" alt="">
 				            	</div>
 
 				            	<div class="col-sm-1 col-xs-1">
-									<input type="checkbox" name="">
-				            	</div>	
-				            	
-				            	<div class="col-sm-5 col-xs-5">
-				            		<div id="resource">
-				            			
-				            		</div>
-				            	</div>
-			            	</div>
-
-			            	<div class="zone">
-			            		<div class="col-sm-5 col-xs-5">
-				            		<img class="img-responsive" src="src/vectorial/pattern-images/gregory.png" alt="">
-				            	</div>
-
-				            	<div class="col-sm-1 col-xs-1">
-									<input type="checkbox" name="">
+									<input type="checkbox" name="" ng-model="markers[$index].check">
 				            	</div>	
 				            	
 				            	<div class="col-sm-5 col-xs-5">
@@ -291,12 +274,12 @@
 				            	<a 	
 				            		href="" 
 				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="">Generar
+				            		ng-click="markerGenerate()">Generar
 				            	</a>
 			            	</div>				        	
 		            	</div>
 
-		            	<div class="box-content">
+		            	<div id="files" class="box-content">
 		            		
 		            	</div>
 		            	<div class="col-sm-12 col-xs-12">

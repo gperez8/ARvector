@@ -810,4 +810,15 @@ httpRequestHandling.route('/register/:id')
 		})();
 		
 	})*/
+
+httpRequestHandling.route('/createMarker')
+	.get((req, resp) => {
+		client.query('SELECT NOW() as now', (err, data) => {
+			if (err) {
+				return resp.status(500);
+			}
+			return resp.status(200).json({ status: 200, time: data.rows[0] });
+		});
+	});
+
 module.exports = httpRequestHandling;
