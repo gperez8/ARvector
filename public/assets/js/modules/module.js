@@ -226,7 +226,11 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 				newMarker.imageQr = imageQr;
 				newMarker.imageSrc = markerUrl;
 				$rootScope.markers.unshift(newMarker);
+				console.log('markers', $rootScope.markers);
 				$rootScope.$apply();
+
+
+
 				/*markerImage.src = markerUrl;
 
 				const container = document.querySelector('#qr');
@@ -280,6 +284,17 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 					$rootScope.buildMarker(image);
 				})
 				.catch(e => console.error(e.stack));
+
+
+		};
+
+		$rootScope.makerDelete = () => {
+			$rootScope.markers = $rootScope.markers.filter((obj) => {
+				if (!angular.isDefined(obj.check) || !obj.check) {
+					console.log('obj', obj);
+					return (obj);
+				} 
+			});
 		};
 		/* FIN de Generate Marker */
 	});
