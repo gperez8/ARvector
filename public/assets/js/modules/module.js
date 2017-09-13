@@ -220,23 +220,12 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 
 		$rootScope.buildMarker = (imageQr) => {
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
-				//const markerImage = document.createElement('img');
-				
 				const newMarker = {};
 				newMarker.imageQr = imageQr;
 				newMarker.imageSrc = markerUrl;
 				$rootScope.markers.unshift(newMarker);
-				console.log('markers', $rootScope.markers);
 				$rootScope.$apply();
-
-
-
-				/*markerImage.src = markerUrl;
-
-				const container = document.querySelector('#qr');
-				while (container.firstChild) container.removeChild(container.firstChild);
-				container.appendChild(markerImage);
-				$scope.markerGenerated = markerImage;*/
+				
 				// $scope.pattFileGenerate(imageQr, markerImage);
 			});
 		};
@@ -291,9 +280,8 @@ angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
 		$rootScope.makerDelete = () => {
 			$rootScope.markers = $rootScope.markers.filter((obj) => {
 				if (!angular.isDefined(obj.check) || !obj.check) {
-					console.log('obj', obj);
 					return (obj);
-				} 
+				}
 			});
 		};
 		/* FIN de Generate Marker */
