@@ -1,4 +1,11 @@
-angular.module('app', ['ngRoute', 'ngStorage', 'satellizer', 'ui.bootstrap'])
+angular.module('app',
+	[
+		'ngRoute',
+		'ngStorage',
+		'satellizer',
+		'ui.bootstrap',
+		'ui.sortable',
+	])
 	.run(($http, $rootScope, $location) => {
 
 		// $http.defaults.headers.common.Authorization = '';
