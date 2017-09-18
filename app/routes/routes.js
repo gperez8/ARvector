@@ -142,7 +142,17 @@ httpRequestHandling.route('/createModel2')
 //router.post('/importModel', multipartyMiddleware, FileUploadController.uploadFile);
 
 httpRequestHandling.route('/importModel')
-	.post(multipartyMiddleware, FileUploadController.uploadFile);
+	.post(multipartyMiddleware, FileUploadController.uploadFile)
+	.get((req, res) => {
+		console.log('req', req);
+	});
+
+httpRequestHandling.route('/model')
+	.post((req, res) => {
+		fs.readdir('./public/assets/model/', (err, files) => {
+            return res.json({ status: 200, pathFilesName: files, path: '/public/assets/model/' });
+        });
+	});
 
 httpRequestHandling.route('/signup')
 	.post((req, res) => {
