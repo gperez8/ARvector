@@ -295,32 +295,33 @@
 
 
 		            	<div class="col-xs-12 col-sm-12">
-		            		<div class="col-xs-6 col-sm-6">
-				            	<div id="files" class="box-content apps-container screen floatleft" ui-sortable="sortableOptions" ng-model="list2" style="
-								    color: white;
-								">
-				            		<div ng-repeat="item in list2"> {{ item.title }} </div>
-				            	</div>
-		            		</div>
-
-		            		<div class="col-xs-6 col-sm-6">
-				            	<div id="files" class="box-content apps-container screen floatleft" ui-sortable="sortableOptions" ng-model="list3" style="
-								    color: white;
-								" >
-				            		<div ng-repeat="item in list3"> {{ item.title }} </div>
-				            	</div>
-		            		</div>
-
+		            		
+			            	<div id="files" class="box-content apps-container screen floatleft" ui-sortable="sortableOptions" ng-model="list2" style="
+							    color: white;
+							">
+			            		<div ng-repeat="item in list2"> {{ item.title }} </div>
+			            	</div>
+		            		
 		            		<div style="clear: both;"></div>
 		            	</div>
 
 		            	<div class="col-sm-12 col-xs-12">
 		            		<div class="col-sm-6 col-xs-6">
-				            	<a 
-					            	href="" 
-					            	class="btn btn-mds btn-primary btn-block"
-					            	ng-click="">Importar
-				            	</a>
+				            	<span 
+				            		class="btn  btn-mds btn-primary 
+				            		btn-block btn-file">
+				            		<span >
+				            			importar
+				            		</span>
+				            		<input 
+				            			ngf-select
+				            			ngf-max-size="12MB"
+				            			ngf-accept="'.obj,.mtl'" 
+				            			ng-model="file"
+				            			ng-change="importFileObj(file)"
+				            			type="file"
+				            			/>
+				            	</span>
 			            	</div>
 
 			            	<div class="col-sm-6 col-xs-6">
@@ -350,6 +351,8 @@
 		</script>
 
 		<script src="node_modules/angular-ui-sortable/dist/sortable.min.js"></script>
+
+		<script src="node_modules/ng-file-upload/dist/ng-file-upload.min.js"></script>
 
 		<script src="node_modules/angular-route/angular-route.min.js"></script>
 		<script src="node_modules/ngstorage/ngStorage.min.js"></script>

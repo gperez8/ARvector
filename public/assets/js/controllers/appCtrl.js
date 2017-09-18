@@ -1,10 +1,11 @@
 angular.module('app')
-	.controller('appCtrl', ($scope, $location, $rootScope) => {
+	.controller('appCtrl', ($scope, $location, $rootScope, Upload, $timeout, $http) => {
 		var tmpList = [];
 		$scope.arrow = {};
 		$scope.arrow.profile = false;
 		$scope.arrow.advOptions = false;
 		$scope.customOption = $rootScope.customOption;
+		$scope.file = '';
 
 		$scope.path = $rootScope.path;
 
@@ -94,13 +95,21 @@ angular.module('app')
 			console.log('marker', $rootScope.markers);
 		};
 
-
-		$scope.hola = () => {
-			alert('hola');
+		$scope.importFileObj = (file) => {
+			Upload.upload({
+				url: '/importModel',
+				method: 'POST',
+				data: {name: 'pruebaImport'},
+				file: file,
+			}).then((response) => {
+				console.log('response', response);
+			}).catch((err) => {
+				console.log('err', err);
+			});
 		};
-	
+
 		$scope.sortableOptions = {
-		    placeholder: "app",
-		    connectWith: ".apps-container",
+			placeholder: 'app',
+			connectWith: '.apps-container',
 		};
 	});

@@ -4,8 +4,12 @@ const obj2gltf = require('../../lib/obj2gltf/');
 const lzma = require('lzma');
 const auth = require('./auth');
 const middleware = require('./middleware');
+const multiparty = require('connect-multiparty');
+const FileUploadController = require('./FileUploadController');
 
+const multipartyMiddleware = multiparty();
 const httpRequestHandling = express();
+
 
 httpRequestHandling.route('/createMarker')
 	.post((req, res) => {
@@ -52,11 +56,9 @@ httpRequestHandling.route('/createMarker')
            middleware.ensureAuthenticated(req, res);
       });*/
 
-
 httpRequestHandling.route('/createModel2')
 	.post((req, res) => {
 		const model = lzma.decompress(req.body.model);
-
 		// carpetas para archivos .patt y png
 		const modelFileDir = './public/assets/model';
 
@@ -71,7 +73,7 @@ httpRequestHandling.route('/createModel2')
 		`${req.body.name}` +
 		'.gltf';
 
-		fs.writeFile(modelFilePath, model, 'ascii', (err) => {
+		fs.writeFile(modelFilePath, model, 'ascii', (err,data) => {
 			if (err) {
 				res.status(500);
 				res.send({
@@ -116,6 +118,12 @@ httpRequestHandling.route('/createModel2')
 						const result2 = lzma.decompress(result1);
 						console.log('result2', result2);
 					});*/
+					fs.unlink(modelFilePath, function(error) {
+                        if (error) {
+                            throw error;
+                        }
+                        console.log('Deleted file .obj');
+                    });
 					res.send('200'); // Mover la respuesta dentro del `then`, porque las promesas son asíncronas.
 				})
 				.catch(function(err) {
@@ -130,6 +138,11 @@ httpRequestHandling.route('/createModel2')
 				});
 		});
 	});
+
+//router.post('/importModel', multipartyMiddleware, FileUploadController.uploadFile);
+
+httpRequestHandling.route('/importModel')
+	.post(multipartyMiddleware, FileUploadController.uploadFile);
 
 httpRequestHandling.route('/signup')
 	.post((req, res) => {

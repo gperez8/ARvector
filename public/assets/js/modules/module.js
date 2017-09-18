@@ -5,6 +5,7 @@ angular.module('app',
 		'satellizer',
 		'ui.bootstrap',
 		'ui.sortable',
+		'ngFileUpload',
 	])
 	.run(($http, $rootScope, $location) => {
 
