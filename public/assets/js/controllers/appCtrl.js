@@ -131,6 +131,26 @@ angular.module('app')
 			});
 		};
 
+		$scope.deleteFile = () => {
+			const selectModel = $scope.list2.filter((obj) => {
+				if (obj.check) return obj;
+			});
+
+			$http({
+				method: 'DELETE',
+				url: '/model/:3',
+				data: { path: selectModel },
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+			}).then((response) => {
+
+				$scope.list2 = $scope.list2.filter((obj) => {
+					if (!obj.check) return obj;
+				});
+			}).catch((err) => {
+				console.log('err', err);
+			});		
+		};
+
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',

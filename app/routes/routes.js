@@ -73,7 +73,7 @@ httpRequestHandling.route('/createModel2')
 		`${req.body.name}` +
 		'.gltf';
 
-		fs.writeFile(modelFilePath, model, 'ascii', (err,data) => {
+		fs.writeFile(modelFilePath, model, 'ascii', (err, data) => {
 			if (err) {
 				res.status(500);
 				res.send({
@@ -144,14 +144,35 @@ httpRequestHandling.route('/createModel2')
 httpRequestHandling.route('/importModel')
 	.post(multipartyMiddleware, FileUploadController.uploadFile)
 	.get((req, res) => {
-		console.log('req', req);
+		console.log('req', req.paramets);
 	});
 
 httpRequestHandling.route('/model')
 	.post((req, res) => {
 		fs.readdir('./public/assets/model/', (err, files) => {
-            return res.json({ status: 200, pathFilesName: files, path: '/public/assets/model/' });
-        });
+			return res.json({	
+				status: 200,
+				pathFilesName: files,
+				path: '/public/assets/model/',
+			});
+		});
+	});
+
+httpRequestHandling.route('/model/:id')
+	.delete((req, res) => {
+
+		console.log('req', req.body.path);
+
+		const deleteToModel = req.body.path;
+
+		deleteToModel.map((obj) => {
+			fs.unlink('.' + obj.src, (error) => {
+				if (error) {
+					return res.status(500).json({ success: false, error: error });
+				}
+			});
+		});
+		res.status(200).json({success: true, status:200});
 	});
 
 httpRequestHandling.route('/signup')
