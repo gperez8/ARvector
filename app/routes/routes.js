@@ -141,16 +141,17 @@ httpRequestHandling.route('/createModel2')
 
 //router.post('/importModel', multipartyMiddleware, FileUploadController.uploadFile);
 
-httpRequestHandling.route('/importModel')
-	.post(multipartyMiddleware, FileUploadController.uploadFile)
-	.get((req, res) => {
-		console.log('req', req.paramets);
-	});
 
 httpRequestHandling.route('/model')
-	.post((req, res) => {
+	.post(multipartyMiddleware, FileUploadController.uploadFile)
+
+httpRequestHandling.route('/model/:id')
+	.get((req, res) => {
+
+		console.log('req', req.body, req.paramts);
+
 		fs.readdir('./public/assets/model/', (err, files) => {
-			return res.json({	
+			res.status(200).json({
 				status: 200,
 				pathFilesName: files,
 				path: '/public/assets/model/',
@@ -161,10 +162,7 @@ httpRequestHandling.route('/model')
 httpRequestHandling.route('/model/:id')
 	.delete((req, res) => {
 
-		console.log('req', req.body.path);
-
 		const deleteToModel = req.body.path;
-
 		deleteToModel.map((obj) => {
 			fs.unlink('.' + obj.src, (error) => {
 				if (error) {
@@ -172,7 +170,7 @@ httpRequestHandling.route('/model/:id')
 				}
 			});
 		});
-		res.status(200).json({success: true, status:200});
+		res.status(200).json({ success: true, status:200 });
 	});
 
 httpRequestHandling.route('/signup')

@@ -88,27 +88,24 @@ angular.module('app')
 				[],
 			];
 
-		$scope.load = () => {
-			const data = {};
-			data.hola = "hola";
-			$http.post('/model', data, 'json')
-				.then((data) => {
-
-					console.log('data', data);
-					const path = data.data.path;
-					const models = data.data.pathFilesName;
-
-					$scope.list2 =  models.map((obj) => {
-						return {
-							name: obj,
-							src: path + obj,						
-						};
-					});
-
-					console.log('$scope.list2', $scope.list2);
-
+		$scope.fileLoad = () => {
+			$http({
+				method: 'GET',
+				url: '/model/:3',
+				data: {}, 
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+			
+			}).then((data) => {
+				const path = data.data.path;
+				const models = data.data.pathFilesName;
+				$scope.list2 =  models.map((obj) => {
+					return {
+						name: obj,
+						src: path + obj,				
+					};
 				});
-			};
+			});
+		};
 
 		$scope.list1 = [];
 		
@@ -120,14 +117,17 @@ angular.module('app')
 
 		$scope.importFileObj = (file) => {
 			Upload.upload({
-				url: '/importModel',
+				url: '/model',
 				method: 'POST',
-				data: {name: 'pruebaImport'},
+				data: { name: 'pruebaImport' },
 				file: file,
 			}).then((response) => {
-				console.log('response', response);
+				$scope.list2.push({
+					name: response.data.pathFilesName,
+					src: response.data.path + response.data.pathFilesName,
+				})
 			}).catch((err) => {
-				console.log('err', err);
+				console.log('err', err.data.error);
 			});
 		};
 
