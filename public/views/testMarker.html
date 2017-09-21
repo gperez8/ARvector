@@ -11,7 +11,8 @@
                     aria-hidden="true">    
                 </span>
             </a>
-            <a-scene embedded>
+
+            <a-scene>
                 <a-entity
                     id="camera"
                     camera="fov: 80; zoom: 1;"
@@ -36,58 +37,13 @@
                     </a-entity>
                 </a-entity> 
 
-                <a-assets>
-                    <a-asset-item 
-                        id="crate-obj" 
-                        src="src/model/violin_case.obj">    
-                    </a-asset-item>
-                    <a-asset-item 
-                        id="crate-mtl" 
-                        src="src/model/vp.mtl">
-                    </a-asset-item> 
-                    <a-asset-item 
-                        id="silla" 
-                        src="src/model/testEditor.gltf">    
-                    </a-asset-item>
-                    <a-asset-item 
-                        id="model" 
-                        src="src/model/model.gltf">
-                    </a-asset-item>
+
+                <a-assets id="a-assets">
+
                 </a-assets>
 
                 <a-entity id="target"> 
-                    <!--<a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
-                        <a-obj-model 
-                            src="#crate-obj" 
-                            mtl="#crate-mtl"
-                            position="1 0.5 0"
-                            scale="0.5 0.5 0.5">        
-                        </a-obj-model>
-                    </a-marker> --> 
 
-                    <!-- <a-marker type='pattern' url='src/vectorial/pattern-file/gregory.patt'> 
-                        <a-obj-model 
-                            src="#silla">        
-                        </a-obj-model>
-                    </a-marker> -->
-
-                   <!-- <a-marker type='pattern' url='src/vectorial/pattern-files/gregory.patt'>
-                        <a-gltf-model 
-                            src="#model" 
-                           >        
-                        </a-gltf-model>
-                    </a-marker> -->
-
-                    <a-marker 
-                        type='pattern' 
-                        url='src/vectorial/pattern-files/gregory.patt'>
-                         <a-gltf-model 
-                            src="#model"
-                            position="0 0.5 0"
-                            scale="0.5 0.5 0.5" 
-                           >        
-                        </a-gltf-model>
-                    </a-marker> 
                 </a-entity>
             </a-scene>
         </div>

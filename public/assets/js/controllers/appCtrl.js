@@ -6,6 +6,7 @@ angular.module('app')
 		$scope.arrow.advOptions = false;
 		$scope.customOption = $rootScope.customOption;
 		$scope.file = '';
+		$scope.auxUI = '';
 
 		$scope.list2 = [];
 
@@ -92,16 +93,16 @@ angular.module('app')
 			$http({
 				method: 'GET',
 				url: '/model/:3',
-				data: {}, 
+				data: {},
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			
+
 			}).then((data) => {
 				const path = data.data.path;
 				const models = data.data.pathFilesName;
 				$scope.list2 =  models.map((obj) => {
 					return {
 						name: obj,
-						src: path + obj,				
+						src: path + obj,			
 					};
 				});
 			});
@@ -151,8 +152,53 @@ angular.module('app')
 			});		
 		};
 
+		$scope.updateScene = (index) => {
+
+			$rootScope.markers[index].src.push({
+				name: $scope.auxUI.name, 
+				src: $scope.auxUI.src,
+			});
+
+			console.log('marker',$rootScope.markers[index]);
+			const scene = document.querySelector('a-scene');
+			const assets = scene.querySelector('#a-assets');
+			const target = scene.querySelector('#target');
+
+			/* se crea un nuevo a-asset-item */
+			const newAssetItem = document.createElement('a-asset-item');
+			newAssetItem.setAttribute('id', $rootScope.markers[index].src[0].name);
+			newAssetItem.setAttribute('src', $rootScope.markers[index].src[0].src);
+
+			/* se inserta a-asset-item como hijo de a-assets */
+			assets.appendChild(newAssetItem);
+
+			console.log('assets', assets);
+
+			/* se crea un nuevo a-marker */
+			const newAMarker = document.createElement('a-marker');
+			newAMarker.setAttribute('type', 'pattern');
+			newAMarker.setAttribute('url', $rootScope.markers[index].patternFilePath);
+
+			/* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
+			const newGltfModel = document.createElement('a-gltf-model');
+			newGltfModel.setAttribute('src', `#${$rootScope.markers[index].src[0].name}`);
+			newGltfModel.setAttribute('position', '0 0.5 0');
+			newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
+
+			newAMarker.appendChild(newGltfModel);
+			target.appendChild(newAMarker);
+
+			console.log('target', target);
+		};
+
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',
+			 'update': function(e, ui) {
+
+			 	console.log('e-->', e);
+			 	console.log('ui-->', ui);
+			 	$scope.auxUI = ui.item.sortable.model;
+			}
 		};
 	});

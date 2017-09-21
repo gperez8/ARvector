@@ -257,10 +257,10 @@
 				            		<div 
 				            			id="resource"
 				            			class="apps-container screen floatleft" 
+				            			ng-init="markers[$index].src = []"
 				            			ui-sortable="sortableOptions"
-				            			ng-init="markers[$index].src = []" 
+				            			ui-sortable-receive="updateScene($index)"
 				            			ng-model="markers[$index].src"
-
 				            			>
 
 				            			<div  ng-repeat="item in markers[$index].src" >{{ item.name }}</div>
@@ -288,7 +288,7 @@
 				            	<a 	
 				            		href="" 
 				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="markerGenerate()">Generar
+				            		ng-click="markerGenerate($index)">Generar
 				            	</a>
 			            	</div>				        	
 		            	</div>

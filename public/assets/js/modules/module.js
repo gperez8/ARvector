@@ -226,19 +226,20 @@ angular.module('app',
 
 		/* Generate Marker */
 
-		$rootScope.buildMarker = (imageQr) => {
+		$rootScope.buildMarker = (imageQr, fileName, index) => {
+			console.log('buildMarker');
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
 				const newMarker = {};
 				newMarker.imageQr = imageQr;
 				newMarker.imageSrc = markerUrl;
 				$rootScope.markers.unshift(newMarker);
+				$rootScope.pattFileGenerate(imageQr, markerUrl, fileName, index);
 				$rootScope.$apply();
-				
-				// $scope.pattFileGenerate(imageQr, markerImage);
 			});
 		};
 
-		$rootScope.pattFileGenerate = (imageQr, markerGenerated) => {
+		$rootScope.pattFileGenerate = (imageQr, markerGenerated, fileName, index) => {
+			console.log('pattFileGenerate');
 			if (imageQr !== null &&
 				imageQr !== undefined &&
 				markerGenerated !== null &&
@@ -250,13 +251,13 @@ angular.module('app',
 						const data = {};
 						// Se quita esto del archivo a enviar data:text/plain;base64,
 						data.pattFile = file.result.substr(23);
-						data.pattFileImage = markerGenerated.src.substr(21);
-						data.name = 'gregory';
+						data.pattFileImage = markerGenerated.substr(22);
+						data.name = fileName;
 						data.asignature = 'vectorial';
 						$http.post('/createMarker', data, 'json')
 							.then((response) => {
-								console.log('response', response);
-							}, (error) => {
+								$rootScope.markers[0].patternFilePath = response.data.pattFilePath;					
+							}, (error) => {								
 								console.log('error', error);
 							});
 					};
@@ -264,13 +265,15 @@ angular.module('app',
 			}
 		};
 
-		$rootScope.markerGenerate = () => {
+		$rootScope.markerGenerate = (index) => {
 			/* se genera el codigo QR */
-			$http.get('createMarker')
+			console.log('markerGenerate');
+			$http.get('/createMarker')
 				.then((data) => {
 					const container = document.createElement('div');
+					const name = data.data.time.now;
 					const qrcode = new QRCode(container, {
-						text: data.data.time.now,
+						text: name,
 						width: 256,
 						height: 256,
 						colorDark: '#000000',
@@ -278,11 +281,9 @@ angular.module('app',
 					});
 					const canvasImg = container.querySelector('canvas');
 					const image = canvasImg.toDataURL('image/png');
-					$rootScope.buildMarker(image);
+					$rootScope.buildMarker(image, name, index);
 				})
 				.catch(e => console.error(e.stack));
-
-
 		};
 
 		$rootScope.makerDelete = () => {
@@ -292,5 +293,6 @@ angular.module('app',
 				}
 			});
 		};
+
 		/* FIN de Generate Marker */
 	});

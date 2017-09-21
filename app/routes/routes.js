@@ -14,6 +14,8 @@ const httpRequestHandling = express();
 httpRequestHandling.route('/createMarker')
 	.post((req, res) => {
 
+		console.log('name', req.body.name);
+
 		const file = req.body.pattFile;
 		const img = req.body.pattFileImage;
 
@@ -50,8 +52,10 @@ httpRequestHandling.route('/createMarker')
 			console.log('The file IMG was succesfully saved!');
 		});
 
-		res.send('200');
+		res.status('200').json({ status: 200, pattFilePath: pattFilePath.replace('./public/assets/', 'src/')  });
 	})
+
+	
 	/*.get((req, res) => {
            middleware.ensureAuthenticated(req, res);
       });*/
@@ -154,7 +158,7 @@ httpRequestHandling.route('/model/:id')
 			res.status(200).json({
 				status: 200,
 				pathFilesName: files,
-				path: '/public/assets/model/',
+				path: 'src/model/',
 			});
 		});
 	});
