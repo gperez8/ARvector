@@ -188,11 +188,9 @@ div[id="page-content-wrapper"] {
 }
 
 .apps-container {
-  border: 2px dashed blue;
-  
   padding: 5px;
-  
   min-height:50px;
+  margin-top: -4vh;
 }
 
 .app {

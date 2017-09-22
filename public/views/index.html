@@ -296,16 +296,29 @@
 		            	</div>
 
 
-		            	<div class="col-xs-12 col-sm-12">
-		            		
-			            	<div id="files" class="box-content apps-container screen floatleft" ui-sortable="sortableOptions" ng-model="list2" ng-init="fileLoad()" style="
-							    color: white;
-							">
+		            	<div class="col-xs-12 col-sm-12 box-content">
+		            	
+	            			<p 
+	            				class="text-right" 
+	            				ng-click="fileCheckShow = !fileCheckShow">
+	            				Seleccionar
+	            			</p>
+
+			            	<div 
+			            		id="files" 
+			            		class="apps-container screen floatleft" 
+			            		ui-sortable="sortableOptions" 
+			            		ng-model="list2" 
+			            		ng-init="fileLoad()" 
+			            		style="color: white;">
 			            		<div ng-repeat="item in list2"> 
-			            			<input type="checkbox" name="" ng-model="list2[$index].check"> {{ item.name }} 
+			            			<p >
+			            				<input ng-if="fileCheckShow" type="checkbox" name="" ng-model="list2[$index].check"> {{ item.name }}
+			            			</p>  
 			            		</div>
 			            	</div>
 		            		
+
 		            		<div style="clear: both;"></div>
 		            	</div>
 
@@ -321,7 +334,7 @@
 				            			ngf-select
 				            			ngf-max-size="12MB"
 				            			ngf-accept="'.obj,.mtl'"
-				            			 ngf-pattern="'.obj,.mtl/'"
+				            			ngf-pattern="'.obj,.mtl/'"
 				            			ngf-model-invalid="errorFile" 
 				            			ng-model="file"
 				            			ng-change="importFileObj(file)"
