@@ -229,10 +229,6 @@ angular.module('app',
 		$rootScope.buildMarker = (imageQr, fileName, index) => {
 			console.log('buildMarker');
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
-				const newMarker = {};
-				newMarker.imageQr = imageQr;
-				newMarker.imageSrc = markerUrl;
-				$rootScope.markers.unshift(newMarker);
 				$rootScope.pattFileGenerate(imageQr, markerUrl, fileName, index);
 				$rootScope.$apply();
 			});
@@ -256,7 +252,7 @@ angular.module('app',
 						data.asignature = 'vectorial';
 						$http.post('/createMarker', data, 'json')
 							.then((response) => {
-								$rootScope.markers[0].patternFilePath = response.data.pattFilePath;					
+								$rootScope.markers.unshift(response.data.newMarker);
 							}, (error) => {								
 								console.log('error', error);
 							});
@@ -286,11 +282,24 @@ angular.module('app',
 				.catch(e => console.error(e.stack));
 		};
 
-		$rootScope.makerDelete = () => {
-			$rootScope.markers = $rootScope.markers.filter((obj) => {
-				if (!angular.isDefined(obj.check) || !obj.check) {
-					return (obj);
-				}
+		$rootScope.markerDelete = () => {
+			const selectModel = $rootScope.markers.filter((obj) => {
+				if (obj.check) return obj;
+			});
+
+			$http({
+				method: 'DELETE',
+				url: '/createMarker/:3',
+				data: { path: selectModel },
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+			}).then((response) => {
+				$rootScope.markers = $rootScope.markers.filter((obj) => {
+					if (!angular.isDefined(obj.check) || !obj.check) {
+						return (obj);
+					}
+				});
+			}).catch((err) => {
+				console.log('err', err);
 			});
 		};
 

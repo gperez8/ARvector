@@ -136,7 +136,7 @@ angular.module('app')
 			});
 		};
 
-		$scope.deleteFile = () => {
+		$scope.modelFileDelete = () => {
 			const selectModel = $scope.list2.filter((obj) => {
 				if (obj.check) return obj;
 			});
@@ -155,6 +155,7 @@ angular.module('app')
 				console.log('err', err);
 			});	
 		};
+
 
 		$scope.updateScene = (index) => {
 			$rootScope.markers[index].src.push({
@@ -180,7 +181,7 @@ angular.module('app')
 			/* se crea un nuevo a-marker */
 			const newAMarker = document.createElement('a-marker');
 			newAMarker.setAttribute('type', 'pattern');
-			newAMarker.setAttribute('url', $rootScope.markers[index].patternFilePath);
+			newAMarker.setAttribute('url', $rootScope.markers[index].pattFilePath);
 
 			/* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
 			const newGltfModel = document.createElement('a-gltf-model');
@@ -198,6 +199,10 @@ angular.module('app')
 			});
 			$rootScope.$apply();
 
+		};
+
+		$scope.deleteOfScene = (index) => {
+			/* eliminar item de scene */
 		};
 
 		$scope.sortableOptions = {

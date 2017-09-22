@@ -246,7 +246,7 @@
 			            <div id="markers" class="box-content">
 			            	<div class="zone" ng-repeat="marker in markers">
 			            		<div class="col-sm-5 col-xs-5">
-				            		<img class="img-responsive" src="{{marker.imageSrc}}" alt="">
+				            		<img class="img-responsive" src="{{marker.imgFilePath}}" alt="">
 				            	</div>
 
 				            	<div class="col-sm-1 col-xs-1">
@@ -263,7 +263,8 @@
 				            				'first-marker' : markers.length === 1 
 				            			}"
 				            			ui-sortable="sortableOptions"
-				            			ui-sortable-receive="updateScene($index)">
+				            			ui-sortable-receive="updateScene($index)"
+				            			ui-sortable-remove="deleteOfScene($index)">
 
 				            			<div markers[$index].src ng-repeat="item in markers[$index].src" >{{ item.name }}</div>
 				            		</div>
@@ -276,7 +277,7 @@
 				            	<a 
 					            	href="" 
 					            	class="btn btn-mds btn-primary btn-block"
-					            	ng-click="makerDelete()">Eliminar
+					            	ng-click="markerDelete()">Eliminar
 				            	</a>
 
 				            	<a 
@@ -347,8 +348,7 @@
 				            	<a 	
 				            		href="" 
 				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="deleteFile()">Eliminar
-
+				            		ng-click="modelFileDelete()">Eliminar
 				            	</a>
 			            	</div>				        	
 		            	</div>

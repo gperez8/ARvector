@@ -52,10 +52,41 @@ httpRequestHandling.route('/createMarker')
 			console.log('The file IMG was succesfully saved!');
 		});
 
-		res.status('200').json({ status: 200, pattFilePath: pattFilePath.replace('./public/assets/', 'src/')  });
-	})
+		console.log('pattFilePath',pattFilePath);
 
+		res.status('200').json({ 
+			status: 200, 
+			newMarker : {
+				imgFilePath: imgFilePath.replace('./public/assets/', 'src/'),
+				pattFilePath: pattFilePath.replace('./public/assets/', 'src/'),
+				pattFileDir: pattFilePath,
+				imgFileDir: imgFilePath,
+			},		
+		});
+	});
+
+httpRequestHandling.route('/createMarker/:id')
+	.get((req, res) => {
+
+	})
+	.delete((req, res) => {
+		const deleteToModel = req.body.path;
+		deleteToModel.map((obj) => {
+			fs.unlink(obj.pattFileDir, (error) => {
+				if (error) {
+					return res.status(500).json({ success: false, error: error });
+				}
+			});
 	
+			fs.unlink(obj.imgFileDir, (error) => {
+				if (error) {
+					return res.status(500).json({ success: false, error: error });
+				}
+			});
+		});
+		res.status(200).json({ success: true, status:200 });
+	});
+
 	/*.get((req, res) => {
            middleware.ensureAuthenticated(req, res);
       });*/
