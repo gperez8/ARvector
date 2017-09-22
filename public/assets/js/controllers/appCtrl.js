@@ -154,12 +154,8 @@ angular.module('app')
 
 		$scope.updateScene = (index) => {
 
-			$rootScope.markers[index].src.push({
-				name: $scope.auxUI.name, 
-				src: $scope.auxUI.src,
-			});
-
-			console.log('marker',$rootScope.markers[index]);
+			$rootScope.markers[index].src.push({});
+			
 			const scene = document.querySelector('a-scene');
 			const assets = scene.querySelector('#a-assets');
 			const target = scene.querySelector('#target');
@@ -189,16 +185,22 @@ angular.module('app')
 			target.appendChild(newAMarker);
 
 			console.log('target', target);
+		
+			$rootScope.markers[index].src = $rootScope.markers[index].src.filter((obj) => {
+				return(obj.name && obj.src);
+			});
+			$rootScope.$apply();
+
 		};
 
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',
-			 'update': function(e, ui) {
+			'update': function(e, ui) {
 
-			 	console.log('e-->', e);
-			 	console.log('ui-->', ui);
-			 	$scope.auxUI = ui.item.sortable.model;
+				console.log('e-->', e);
+				console.log('ui-->', ui);
+				$scope.auxUI = ui.item.sortable.model;
 			}
 		};
 	});
