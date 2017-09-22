@@ -102,15 +102,15 @@ angular.module('app')
 				$scope.list2 =  models.map((obj) => {
 					return {
 						name: obj,
-						src: path + obj,			
+						src: path + obj,	
 					};
 				});
 			});
 		};
 
 		$scope.list1 = [];
-		
- 		$scope.list3 = $scope.rawScreens[1];
+
+		$scope.list3 = $scope.rawScreens[1];
 
 		$scope.print = () => {
 			console.log('marker', $rootScope.markers);
@@ -149,12 +149,15 @@ angular.module('app')
 				});
 			}).catch((err) => {
 				console.log('err', err);
-			});		
+			});	
 		};
 
 		$scope.updateScene = (index) => {
-
-			$rootScope.markers[index].src.push({});
+			$rootScope.markers[index].src.push({
+				name: $scope.auxUI.name,
+				src: $scope.auxUI.src,
+				copy: true,
+			});
 			
 			const scene = document.querySelector('a-scene');
 			const assets = scene.querySelector('#a-assets');
@@ -187,7 +190,7 @@ angular.module('app')
 			console.log('target', target);
 		
 			$rootScope.markers[index].src = $rootScope.markers[index].src.filter((obj) => {
-				return(obj.name && obj.src);
+				return(!angular.isDefined(obj.copy));
 			});
 			$rootScope.$apply();
 
@@ -197,10 +200,7 @@ angular.module('app')
 			placeholder: 'app',
 			connectWith: '.apps-container',
 			'update': function(e, ui) {
-
-				console.log('e-->', e);
-				console.log('ui-->', ui);
 				$scope.auxUI = ui.item.sortable.model;
-			}
+			},
 		};
 	});
