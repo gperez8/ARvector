@@ -190,7 +190,22 @@ div[id="page-content-wrapper"] {
 .apps-container {
   padding: 5px;
   min-height:50px;
-  margin-top: -4vh;
+}
+
+.box-content > .apps-container {
+  margin-top: -4vh !important; 
+}
+
+.box-content > p[class="text-right"] {
+  color: white;
+}
+
+.box-content > p[class="text-right"]:hover {
+  cursor: pointer;
+}
+
+.box-content > .apps-container:hover {
+  cursor: move;
 }
 
 .app {
