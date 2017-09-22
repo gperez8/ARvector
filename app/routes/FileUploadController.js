@@ -41,7 +41,8 @@ FileUploadController.prototype.uploadFile = function(req, res) {
 
                             return res.status(200).json({
                                 pathFilesName: req.files.file.originalFilename.replace('.obj', '.gltf'),
-                                path: '/public/assets/model/',
+                                pathClient: 'src/model/',
+                                pathServer: './public/assets/model/',
                             });
                         })
                         .catch((err) => {

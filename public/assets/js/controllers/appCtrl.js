@@ -128,7 +128,8 @@ angular.module('app')
 			}).then((response) => {
 				$scope.list2.push({
 					name: response.data.pathFilesName,
-					src: response.data.path + response.data.pathFilesName,
+					src: response.data.pathClient + response.data.pathFilesName,
+					deleteSrc: response.data.pathServer + response.data.pathFilesName,
 				})
 			}).catch((err) => {
 				console.log('err', err.data.error);
