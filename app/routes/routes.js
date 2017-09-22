@@ -158,7 +158,8 @@ httpRequestHandling.route('/model/:id')
 			res.status(200).json({
 				status: 200,
 				pathFilesName: files,
-				path: 'src/model/',
+				pathClient: 'src/model/',
+				pathServer: './public/assets/model/',
 			});
 		});
 	});
@@ -168,7 +169,7 @@ httpRequestHandling.route('/model/:id')
 
 		const deleteToModel = req.body.path;
 		deleteToModel.map((obj) => {
-			fs.unlink('.' + obj.src, (error) => {
+			fs.unlink(obj.deleteSrc, (error) => {
 				if (error) {
 					return res.status(500).json({ success: false, error: error });
 				}

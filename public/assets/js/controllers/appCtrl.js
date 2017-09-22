@@ -98,12 +98,14 @@ angular.module('app')
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 
 			}).then((data) => {
-				const path = data.data.path;
+				const pathClient = data.data.pathClient;
+				const pathServer = data.data.pathServer;
 				const models = data.data.pathFilesName;
-				$scope.list2 =  models.map((obj) => {
+				$scope.list2 = models.map((obj) => {
 					return {
 						name: obj,
-						src: path + obj,	
+						src: pathClient + obj,
+						deleteSrc: pathServer + obj,
 					};
 				});
 			});
