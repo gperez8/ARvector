@@ -261,7 +261,9 @@
 				            			ui-sortable="sortableOptions"
 				            			ui-sortable-receive="updateScene($index)"
 				            			ng-model="markers[$index].src"
-				            			>
+				            			ng-class="{ 
+				            				'first-marker' : markers.length === 1 
+				            			}">
 
 				            			<div  ng-repeat="item in markers[$index].src" >{{ item.name }}</div>
 				            		</div>
@@ -337,7 +339,6 @@
 				            	</a>
 			            	</div>				        	
 		            	</div>
-
 		            </div>
 		        </div>
 		    </div>

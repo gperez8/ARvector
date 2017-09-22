@@ -148,11 +148,15 @@ div[id="page-content-wrapper"] {
   margin-left: -4%;
 }
 
-.zone > div[class="col-sm-5 col-xs-5"] > #resource {
+.box-content > .zone > div[class="col-sm-5 col-xs-5"] > #resource {
   border: 7px solid white;
   width: 100%;
   left: -12vw;
-  height: 11.9vh;
+  height: 12.2vh;
+}
+
+.first-marker {
+  height: 13.2vh !important;
 }
 
  @media(min-width:320px) and (max-width:768px){
@@ -185,9 +189,9 @@ div[id="page-content-wrapper"] {
 
 .apps-container {
   border: 2px dashed blue;
-  margin: 10px 10px 0 0;
+  
   padding: 5px;
-  min-width:200px;
+  
   min-height:50px;
 }
 
