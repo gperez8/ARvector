@@ -260,13 +260,21 @@
 				            			ng-init="markers[$index].src = []"
 				            			ng-model="markers[$index].src"
 				            			ng-class="{ 
-				            				'first-marker' : markers.length === 1 
+				            				'first-marker' : markers.length === 1, 
+				            				'marker-selected' :  markers[$index].src.length >= 1
 				            			}"
 				            			ui-sortable="sortableOptions"
 				            			ui-sortable-receive="updateScene($index)"
 				            			ui-sortable-remove="deleteOfScene($index)">
 
-				            			<div markers[$index].src ng-repeat="item in markers[$index].src" >{{ item.name }}</div>
+					            		<div ng-repeat="item in markers[$index].src"> 
+					            			<span> GLTF 
+					            				<i class="glyphicon glyphicon-ok">
+					            				</i>
+					            			</span>
+					            			<div style="clear: both;"></div>
+				            			</div>
+
 				            		</div>
 				            	</div>
 			            	</div>
@@ -309,12 +317,12 @@
 			            		id="files" 
 			            		class="apps-container screen floatleft" 
 			            		ui-sortable="sortableOptions" 
-			            		ng-model="list2" 
+			            		ng-model="models" 
 			            		ng-init="fileLoad()" 
 			            		style="color: white;">
-			            		<div ng-repeat="item in list2"> 
+			            		<div ng-repeat="item in models"> 
 			            			<p >
-			            				<input ng-if="fileCheckShow" type="checkbox" name="" ng-model="list2[$index].check"> {{ item.name }}
+			            				<input ng-if="fileCheckShow" type="checkbox" name="" ng-model="models[$index].check"> {{ item.name }}
 			            			</p>  
 			            		</div>
 			            	</div>

@@ -9,7 +9,7 @@ angular.module('app')
 		$scope.file = '';
 		$scope.auxUI = '';
 
-		$scope.list2 = [];
+		$scope.models = [];
 
 		$scope.path = $rootScope.path;
 
@@ -57,39 +57,6 @@ angular.module('app')
 			$scope.arrow.typeOption = 'graph';
 		};
 
-			$scope.rawScreens = [
-				[{
-					icon: './img/icons/facebook.jpg',
-					title: 'Facebook (a)',
-					link: 'https://www.facebook.com',
-				}, {
-					icon: './img/icons/youtube.jpg',
-					title: 'Youtube (a)',
-					link: 'https://www.youtube.com',
-				}, {
-					icon: './img/icons/gmail.jpg',
-					title: 'Gmail (a)',
-					link: 'http://www.gmail.com',
-				}, {
-					icon: './img/icons/google+.jpg',
-					title: 'Google+ (a)',
-					link: 'https://plus.google.com',
-				}, {
-					icon: './img/icons/twitter.jpg',
-					title: 'Twitter (a)',
-					link: 'https://www.twitter.com',
-				}, {
-					icon: './img/icons/yahoomail.jpg',
-					title: 'Yahoo Mail (a)',
-					link: 'http://mail.yahoo.com',
-				}, {
-					icon: './img/icons/pinterest.jpg',
-					title: 'Pinterest (a)',
-					link: 'https://www.pinterest.com',
-				}],
-				[],
-			];
-
 		$scope.fileLoad = () => {
 			$http({
 				method: 'GET',
@@ -101,7 +68,7 @@ angular.module('app')
 				const pathClient = data.data.pathClient;
 				const pathServer = data.data.pathServer;
 				const models = data.data.pathFilesName;
-				$scope.list2 = models.map((obj) => {
+				$scope.models = models.map((obj) => {
 					return {
 						name: obj,
 						src: pathClient + obj,
@@ -110,10 +77,6 @@ angular.module('app')
 				});
 			});
 		};
-
-		$scope.list1 = [];
-
-		$scope.list3 = $scope.rawScreens[1];
 
 		$scope.print = () => {
 			console.log('marker', $rootScope.markers);
@@ -126,7 +89,7 @@ angular.module('app')
 				data: { name: 'pruebaImport' },
 				file: file,
 			}).then((response) => {
-				$scope.list2.push({
+				$scope.models.push({
 					name: response.data.pathFilesName,
 					src: response.data.pathClient + response.data.pathFilesName,
 					deleteSrc: response.data.pathServer + response.data.pathFilesName,
@@ -137,7 +100,7 @@ angular.module('app')
 		};
 
 		$scope.modelFileDelete = () => {
-			const selectModel = $scope.list2.filter((obj) => {
+			const selectModel = $scope.models.filter((obj) => {
 				if (obj.check) return obj;
 			});
 
@@ -148,7 +111,7 @@ angular.module('app')
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			}).then((response) => {
 
-				$scope.list2 = $scope.list2.filter((obj) => {
+				$scope.models = $scope.models.filter((obj) => {
 					if (!obj.check) return obj;
 				});
 			}).catch((err) => {
@@ -158,47 +121,40 @@ angular.module('app')
 
 
 		$scope.updateScene = (index) => {
-			$rootScope.markers[index].src.push({
-				name: $scope.auxUI.name,
-				src: $scope.auxUI.src,
-				copy: true,
-			});
-			
-			const scene = document.querySelector('a-scene');
-			const assets = scene.querySelector('#a-assets');
-			const target = scene.querySelector('#target');
+			$timeout(() => {
+	        		const scene = document.querySelector('a-scene');
+					const assets = scene.querySelector('#a-assets');
+					const target = scene.querySelector('#target');
 
-			/* se crea un nuevo a-asset-item */
-			const newAssetItem = document.createElement('a-asset-item');
-			newAssetItem.setAttribute('id', $rootScope.markers[index].src[0].name);
-			newAssetItem.setAttribute('src', $rootScope.markers[index].src[0].src);
+					/* se crea un nuevo a-asset-item */
+					const newAssetItem = document.createElement('a-asset-item');
+					newAssetItem.setAttribute('id', $rootScope.markers[index].src[0].name);
+					newAssetItem.setAttribute('src', $rootScope.markers[index].src[0].src);
 
-			/* se inserta a-asset-item como hijo de a-assets */
-			assets.appendChild(newAssetItem);
+					/* se inserta a-asset-item como hijo de a-assets */
+					assets.appendChild(newAssetItem);
 
-			console.log('assets', assets);
+					/* se crea un nuevo a-marker */
+					const newAMarker = document.createElement('a-marker');
+					newAMarker.setAttribute('type', 'pattern');
+					newAMarker.setAttribute('url', $rootScope.markers[index].pattFilePath);
 
-			/* se crea un nuevo a-marker */
-			const newAMarker = document.createElement('a-marker');
-			newAMarker.setAttribute('type', 'pattern');
-			newAMarker.setAttribute('url', $rootScope.markers[index].pattFilePath);
+					/* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
+					const newGltfModel = document.createElement('a-gltf-model');
+					newGltfModel.setAttribute('src', `#${$rootScope.markers[index].src[0].name}`);
+					newGltfModel.setAttribute('position', '0 0.5 0');
+					newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
 
-			/* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
-			const newGltfModel = document.createElement('a-gltf-model');
-			newGltfModel.setAttribute('src', `#${$rootScope.markers[index].src[0].name}`);
-			newGltfModel.setAttribute('position', '0 0.5 0');
-			newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
+					newAMarker.appendChild(newGltfModel);
+					target.appendChild(newAMarker);
 
-			newAMarker.appendChild(newGltfModel);
-			target.appendChild(newAMarker);
+					console.log('target', target);
 
-			console.log('target', target);
-		
-			$rootScope.markers[index].src = $rootScope.markers[index].src.filter((obj) => {
-				return(!angular.isDefined(obj.copy));
-			});
-			$rootScope.$apply();
+					if ($rootScope.markers[index].src.length > 1) {
+						$scope.models.unshift($rootScope.markers[index].src.pop());				
+					}
 
+	       	}, 0);
 		};
 
 		$scope.deleteOfScene = (index) => {
@@ -209,6 +165,7 @@ angular.module('app')
 			placeholder: 'app',
 			connectWith: '.apps-container',
 			'update': function(e, ui) {
+				console.log('ui->', ui);
 				$scope.auxUI = ui.item.sortable.model;
 			},
 		};

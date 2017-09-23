@@ -59,6 +59,7 @@ body {
     position: absolute !important;
     top: 0vh !important;
     left: 3.5vw !important;
+    z-index: 1000;
 }
 
 div[class="container-fluid"] {
@@ -189,7 +190,8 @@ div[id="page-content-wrapper"] {
 
 .apps-container {
   padding: 5px;
-  min-height:50px;
+  width: 25vw;
+  height: 18vh;
 }
 
 .box-content > .apps-container {
@@ -208,8 +210,13 @@ div[id="page-content-wrapper"] {
   cursor: move;
 }
 
+.marker-selected {
+  background-color: #DDEEAA;
+  text-align: center; 
+}
+
 .app {
-  width: 170px;
+  width: 100%;
   padding: 5px 10px;
   margin: 5px 0;
   border: 2px solid #444;
