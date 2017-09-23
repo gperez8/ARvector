@@ -57,7 +57,7 @@ angular.module('app')
 			$scope.arrow.typeOption = 'graph';
 		};
 
-		$scope.fileLoad = () => {
+		$scope.modelFileLoad = () => {
 			$http({
 				method: 'GET',
 				url: '/model/:3',
@@ -75,6 +75,30 @@ angular.module('app')
 						deleteSrc: pathServer + obj,
 					};
 				});
+			});
+		};
+
+		$scope.imgFileLoad = () => {
+			$http({
+				method: 'GET',
+				url: '/createMarker/:3',
+				data: {},
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+
+			}).then((data) => {
+				
+				console.log('data',data);
+
+				/*const pathClient = data.data.pathClient;
+				const pathServer = data.data.pathServer;
+				const models = data.data.pathFilesName;
+				$scope.models = models.map((obj) => {
+					return {
+						name: obj,
+						src: pathClient + obj,
+						deleteSrc: pathServer + obj,
+					};
+				});*/
 			});
 		};
 

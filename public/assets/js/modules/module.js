@@ -14,8 +14,21 @@ angular.module('app',
 		$rootScope.login = localStorage.getItem('token');
 
 		/* Generate Marker */
+		const markerCreated = JSON.parse(localStorage.getItem('markers'));
+
 		$rootScope.markers = [];
-		$rootScope.entrada = '';
+		
+		if (markerCreated) {
+			$rootScope.markers = markerCreated.map((obj) => {
+				return ({
+					imgFileDir: obj.imgFileDir,
+					imgFilePath: obj.imgFilePath,
+					pattFileDir: obj.pattFileDir,
+					pattFilePath: obj.pattFilePath,
+
+				});
+			});
+		} 
 		/* Fin Generate Marker */
 
 		/* Generar Grafica */
@@ -253,6 +266,10 @@ angular.module('app',
 						$http.post('/createMarker', data, 'json')
 							.then((response) => {
 								$rootScope.markers.unshift(response.data.newMarker);
+								localStorage.setItem('markers', JSON.stringify($rootScope.markers));
+								
+								console.log('localStorage', localStorage.getItem('markers'));
+
 							}, (error) => {								
 								console.log('error', error);
 							});
@@ -298,6 +315,9 @@ angular.module('app',
 						return (obj);
 					}
 				});
+
+				localStorage.removeItem('markers');
+				localStorage.setItem('markers', JSON.stringify($rootScope.markers));
 			}).catch((err) => {
 				console.log('err', err);
 			});

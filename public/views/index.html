@@ -318,11 +318,15 @@
 			            		class="apps-container screen floatleft" 
 			            		ui-sortable="sortableOptions" 
 			            		ng-model="models" 
-			            		ng-init="fileLoad()" 
+			            		ng-init="modelFileLoad()" 
 			            		style="color: white;">
 			            		<div ng-repeat="item in models"> 
 			            			<p >
-			            				<input ng-if="fileCheckShow" type="checkbox" name="" ng-model="models[$index].check"> {{ item.name }}
+			            				<input 
+			            					ng-if="fileCheckShow" 
+			            					type="checkbox" 
+			            					name="" 
+			            					ng-model="models[$index].check"> {{ item.name }}
 			            			</p>  
 			            		</div>
 			            	</div>

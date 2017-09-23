@@ -61,13 +61,38 @@ httpRequestHandling.route('/createMarker')
 				pattFilePath: pattFilePath.replace('./public/assets/', 'src/'),
 				pattFileDir: pattFilePath,
 				imgFileDir: imgFilePath,
-			},		
+			},	
 		});
 	});
 
 httpRequestHandling.route('/createMarker/:id')
 	.get((req, res) => {
 
+		const pattFileDir = './public/assets/vectorial/pattern-files/';
+		const imgFileDir = './public/assets/vectorial/pattern-images/';
+		const response = [];
+
+		fs.readdir('pattFileDir', (err, files) => {
+			response.push({
+				pattFile: {
+					pathClient: 'src/vectorial/pattern-files/',
+					pathServer: './public/assets/vectorial/pattern-files/',
+					pattFiles: files,
+				},
+			});
+		});
+
+		fs.readdir('imgFileDir', (err, files) => {
+			response.push({
+				imgFile: {
+					pathClient: 'src/vectorial/pattern-images/',
+					pathServer: './public/assets/vectorial/pattern-images/',
+					pattFiles: files,
+				},
+			});
+		});
+
+		res.status(200).json(response);
 	})
 	.delete((req, res) => {
 		const deleteToModel = req.body.path;
@@ -77,7 +102,7 @@ httpRequestHandling.route('/createMarker/:id')
 					return res.status(500).json({ success: false, error: error });
 				}
 			});
-	
+
 			fs.unlink(obj.imgFileDir, (error) => {
 				if (error) {
 					return res.status(500).json({ success: false, error: error });
