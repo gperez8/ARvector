@@ -7,10 +7,7 @@ angular.module('app')
 		$scope.fileCheckShow = false;
 		$scope.customOption = $rootScope.customOption;
 		$scope.file = '';
-		$scope.auxUI = '';
-
 		$scope.models = [];
-
 		$scope.path = $rootScope.path;
 
 		$scope.home = () => {
@@ -144,22 +141,29 @@ angular.module('app')
 		};
 
 		$scope.markerDelete = () => {
-			const selectModel = $rootScope.markers.filter((obj) => {
+			const selectMarker = $rootScope.markers.filter((obj) => {
 				if (obj.check) return obj;
 			});
 
-			selectModel.map((obj) => {
+			selectMarker.map((obj) => {
 				if (obj.src.length >= 1) {
-					$scope.models.unshift(obj.src.pop());
+					$scope.models.unshift(obj.src[0]);
 				}
 			});
 
 			$http({
 				method: 'DELETE',
 				url: '/createMarker/:3',
-				data: { path: selectModel },
+				data: { path: selectMarker },
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 			}).then((response) => {
+				
+				selectMarker.map((obj) => {
+					if (obj.src.length >= 1) {
+						$scope.deleteOfScene(obj.src[0].name);
+					}
+				});
+
 				$rootScope.markers = $rootScope.markers.filter((obj) => {
 					if (!angular.isDefined(obj.check) || !obj.check) {
 						return (obj);
@@ -176,6 +180,9 @@ angular.module('app')
 
 		$scope.updateScene = (index) => {
 			$timeout(() => {
+
+					$rootScope.markers[index].name = $rootScope.markers[index].src[0].name;
+
 	        		const scene = document.querySelector('a-scene');
 					const assets = scene.querySelector('#a-assets');
 					const target = scene.querySelector('#target');
@@ -190,6 +197,7 @@ angular.module('app')
 
 					/* se crea un nuevo a-marker */
 					const newAMarker = document.createElement('a-marker');
+					newAMarker.setAttribute('id', $rootScope.markers[index].src[0].name);
 					newAMarker.setAttribute('type', 'pattern');
 					newAMarker.setAttribute('url', $rootScope.markers[index].pattFilePath);
 
@@ -205,22 +213,34 @@ angular.module('app')
 					console.log('target', target);
 
 					if ($rootScope.markers[index].src.length > 1) {
-						$scope.models.unshift($rootScope.markers[index].src.pop());				
+						$scope.deleteOfScene($rootScope.markers[index].src[1].name);
+						$scope.models.unshift($rootScope.markers[index].src.pop());	
 					}
-
-	       	}, 0);
+	      	}, 0);
 		};
 
-		$scope.deleteOfScene = (index) => {
-			/* eliminar item de scene */
+		$scope.deleteOfScene = (nameModel) => {
+
+			console.log('nameModel', nameModel);
+
+			const scene = document.querySelector('a-scene');
+			const assetItemParent = scene.querySelector('#a-assets');
+			const markersParent = scene.querySelector('#target');
+			let position;
+
+			const assetItemParentNodes = assetItemParent.childNodes;
+
+			assetItemParentNodes.forEach((element, index) => {
+				if (typeof element.id === 'string' && element.id === nameModel) {
+					assetItemParent.removeChild(assetItemParent.childNodes[index]);
+					markersParent.removeChild(markersParent.childNodes[index]);
+					return;
+				}
+			});
 		};
 
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',
-			'update': function(e, ui) {
-				console.log('ui->', ui);
-				$scope.auxUI = ui.item.sortable.model;
-			},
 		};
 	});

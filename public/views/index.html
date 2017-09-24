@@ -265,7 +265,7 @@
 				            			}"
 				            			ui-sortable="sortableOptions"
 				            			ui-sortable-receive="updateScene($index)"
-				            			ui-sortable-remove="deleteOfScene($index)">
+				            			ui-sortable-remove="deleteOfScene(markers[$index].name)">
 
 					            		<div ng-repeat="item in markers[$index].src"> 
 					            			<span> GLTF 
