@@ -134,10 +134,15 @@ div[id="page-content-wrapper"] {
 .box-content {
   border: 2px solid white;
   width: 100%;
-  height: 26vh;
+  height: 23vh;
   padding-top: 5%;
   padding-bottom: 0%;
   overflow: auto;
+  margin-bottom: 4%;
+}
+
+.margin-botton {
+  margin-bottom: 4%;
 }
 
 .box-content > .zone{

@@ -267,10 +267,7 @@ angular.module('app',
 							.then((response) => {
 								$rootScope.markers.unshift(response.data.newMarker);
 								localStorage.setItem('markers', JSON.stringify($rootScope.markers));
-								
-								console.log('localStorage', localStorage.getItem('markers'));
-
-							}, (error) => {								
+							}, (error) => {
 								console.log('error', error);
 							});
 					};

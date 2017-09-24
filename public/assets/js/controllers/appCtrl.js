@@ -83,9 +83,6 @@ angular.module('app')
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 
 			}).then((data) => {
-				
-				console.log('data',data);
-
 				/*const pathClient = data.data.pathClient;
 				const pathServer = data.data.pathServer;
 				const models = data.data.pathFilesName;
@@ -210,19 +207,14 @@ angular.module('app')
 					newAMarker.appendChild(newGltfModel);
 					target.appendChild(newAMarker);
 
-					console.log('target', target);
-
 					if ($rootScope.markers[index].src.length > 1) {
 						$scope.deleteOfScene($rootScope.markers[index].src[1].name);
 						$scope.models.unshift($rootScope.markers[index].src.pop());	
 					}
-	      	}, 0);
+			}, 0);
 		};
 
 		$scope.deleteOfScene = (nameModel) => {
-
-			console.log('nameModel', nameModel);
-
 			const scene = document.querySelector('a-scene');
 			const assetItemParent = scene.querySelector('#a-assets');
 			const markersParent = scene.querySelector('#target');
