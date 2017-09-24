@@ -143,6 +143,36 @@ angular.module('app')
 			});	
 		};
 
+		$scope.markerDelete = () => {
+			const selectModel = $rootScope.markers.filter((obj) => {
+				if (obj.check) return obj;
+			});
+
+			selectModel.map((obj) => {
+				if (obj.src.length >= 1) {
+					$scope.models.unshift(obj.src.pop());
+				}
+			});
+
+			$http({
+				method: 'DELETE',
+				url: '/createMarker/:3',
+				data: { path: selectModel },
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+			}).then((response) => {
+				$rootScope.markers = $rootScope.markers.filter((obj) => {
+					if (!angular.isDefined(obj.check) || !obj.check) {
+						return (obj);
+					}
+				});
+
+				localStorage.removeItem('markers');
+				localStorage.setItem('markers', JSON.stringify($rootScope.markers));
+			}).catch((err) => {
+				console.log('err', err);
+			});
+		};
+
 
 		$scope.updateScene = (index) => {
 			$timeout(() => {

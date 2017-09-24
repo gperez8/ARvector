@@ -298,30 +298,5 @@ angular.module('app',
 				})
 				.catch(e => console.error(e.stack));
 		};
-
-		$rootScope.markerDelete = () => {
-			const selectModel = $rootScope.markers.filter((obj) => {
-				if (obj.check) return obj;
-			});
-
-			$http({
-				method: 'DELETE',
-				url: '/createMarker/:3',
-				data: { path: selectModel },
-				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-			}).then((response) => {
-				$rootScope.markers = $rootScope.markers.filter((obj) => {
-					if (!angular.isDefined(obj.check) || !obj.check) {
-						return (obj);
-					}
-				});
-
-				localStorage.removeItem('markers');
-				localStorage.setItem('markers', JSON.stringify($rootScope.markers));
-			}).catch((err) => {
-				console.log('err', err);
-			});
-		};
-
 		/* FIN de Generate Marker */
 	});
