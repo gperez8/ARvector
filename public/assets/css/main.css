@@ -305,3 +305,24 @@ h2 {
   opacity: 0;
   direction: ltr;
 }
+
+.margin-not {
+  padding-left: 0px;
+  padding-right: 0px;  
+}
+
+.margin-not > a#bottomLeft {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.margin-not > a#bottomRight {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+
+
+
+
+
