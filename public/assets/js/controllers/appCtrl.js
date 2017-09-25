@@ -248,9 +248,10 @@ angular.module('app')
 				columnInfo.image = obj.markerImage;
 				columnInfo.width = 250;
 				row.columns.push(columnInfo);
+				row.columns.push({ text: obj.name, width: 100,  });
 
-				if (row.columns.length === 2) {
-					Object.assign(content[i], ...row.columns[1]);
+				if (row.columns.length === 4) {
+					Object.assign(content[i], ...row.columns);
 					row = {};
 					row.columns = [];
 					i = i+1;
