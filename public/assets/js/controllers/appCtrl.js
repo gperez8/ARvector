@@ -232,7 +232,7 @@ angular.module('app')
 		};
 
 		$scope.generatePdf = () => {
-			const markersWithResources = $rootScope.markers.filter((obj) => {
+			/*const markersWithResources = $rootScope.markers.filter((obj) => {
 				if (obj.src.length >= 1) {
 					return obj;
 				}
@@ -248,7 +248,7 @@ angular.module('app')
 				columnInfo.image = obj.markerImage;
 				columnInfo.width = 250;
 				row.columns.push(columnInfo);
-				row.columns.push({ text: obj.name, width: 100,  });
+				row.columns.push({ text: obj.name, width: 100 });
 
 				if (row.columns.length === 4) {
 					Object.assign(content[i], ...row.columns);
@@ -261,7 +261,115 @@ angular.module('app')
 			});
 
 			const docDefinition = { content };
-			pdfMake.createPdf(docDefinition).open();
+			pdfMake.createPdf(docDefinition).open();*/
+
+			const json = JSON.parse(localStorage.getItem('markers'));
+
+			 var docDefinition = {
+
+			 	pageMargins: [ 50, 10, 50, 10 ],
+				content: [
+					{
+						columns: [
+					        
+					        {
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					        
+					        {
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					    ],
+					},
+					{
+						columns: [
+					    {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					        {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					    ]
+					},
+					{
+						columns: [
+					        
+					        {
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					        
+					        {
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					    ],
+					},
+					{
+						columns: [
+					    {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					        {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					    ]
+					},
+					{
+						columns: [
+					        
+					        {
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					        
+					        {
+
+					        	alignment: 'center',
+					          image: json[0].markerImage,
+					          width: 250,
+					          margin: [0, 0, 0, 0],
+					        },
+					    ],
+					},
+					{
+						columns: [
+					    {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					        {
+					          alignment: 'center',
+					          text: 'sillaDeMontar.gltf',
+					          margin: [0,0],
+					        },
+					    ]
+					}
+
+				]
+	        }
+	        pdfMake.createPdf(docDefinition).open();
 		};
 
 		$scope.sortableOptions = {
