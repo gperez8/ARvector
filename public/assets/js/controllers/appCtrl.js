@@ -232,7 +232,7 @@ angular.module('app')
 		};
 
 		$scope.generatePdf = () => {
-			/*const markersWithResources = $rootScope.markers.filter((obj) => {
+			const markersWithResources = $rootScope.markers.filter((obj) => {
 				if (obj.src.length >= 1) {
 					return obj;
 				}
@@ -240,30 +240,50 @@ angular.module('app')
 
 			let i = 0;
 			const content = [];
-			let row = {};
-			row.columns = [];
+			let rowImg = {};
+			rowImg.columns = [];
+			let rowText = {};
+			rowText.columns = [];
 
 			markersWithResources.map((obj) => {
-				const columnInfo = {};
-				columnInfo.image = obj.markerImage;
-				columnInfo.width = 250;
-				row.columns.push(columnInfo);
-				row.columns.push({ text: obj.name, width: 100 });
+				const columnInfoImg = {};
+				const columnInfoText = {};
 
-				if (row.columns.length === 4) {
-					Object.assign(content[i], ...row.columns);
-					row = {};
-					row.columns = [];
-					i = i+1;
+				columnInfoImg.alignment = 'center';
+				columnInfoImg.image = obj.markerImage;
+				columnInfoImg.width = 250;
+				columnInfoImg.margin = [0, 0, 0, 0];
+
+				columnInfoText.alignment = 'center';
+				columnInfoText.text = obj.name;
+				columnInfoText.margin = [0,0];
+
+				rowImg.columns.push(columnInfoImg);
+				rowText.columns.push(columnInfoText);
+
+				if (rowImg.columns.length === 2) {
+					Object.assign(content[i], ...rowImg.columns);
+					Object.assign(content[i + 1], ...rowText.columns);
+					rowImg = {};
+					rowImg.columns = [];
+					rowText = {};
+					rowText.columns = [];
+					i = i+2;
 				} else {
-					content[i] = row;
+					content[i] = rowImg;
+					content[i + 1] = rowText;
 				}
 			});
 
-			const docDefinition = { content };
-			pdfMake.createPdf(docDefinition).open();*/
+			const docDefinition = {
+				pageMargins: [ 50, 10, 50, 10 ],
+				content,
+			};
 
-			const json = JSON.parse(localStorage.getItem('markers'));
+			console.log('docDefinition', docDefinition);
+			pdfMake.createPdf(docDefinition).open();
+
+			/*const json = JSON.parse(localStorage.getItem('markers'));
 
 			 var docDefinition = {
 
@@ -289,7 +309,7 @@ angular.module('app')
 					},
 					{
 						columns: [
-					    {
+					    	{
 					          alignment: 'center',
 					          text: 'sillaDeMontar.gltf',
 					          margin: [0,0],
@@ -299,6 +319,7 @@ angular.module('app')
 					          text: 'sillaDeMontar.gltf',
 					          margin: [0,0],
 					        },
+
 					    ]
 					},
 					{
@@ -369,7 +390,7 @@ angular.module('app')
 
 				]
 	        }
-	        pdfMake.createPdf(docDefinition).open();
+	        pdfMake.createPdf(docDefinition).open();*/
 		};
 
 		$scope.sortableOptions = {
