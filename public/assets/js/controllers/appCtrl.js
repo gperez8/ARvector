@@ -231,6 +231,38 @@ angular.module('app')
 			});
 		};
 
+		$scope.generatePdf = () => {
+			const markersWithResources = $rootScope.markers.filter((obj) => {
+				if (obj.src.length >= 1) {
+					return obj;
+				}
+			});
+
+			let i = 0;
+			const content = [];
+			let row = {};
+			row.columns = [];
+
+			markersWithResources.map((obj) => {
+				const columnInfo = {};
+				columnInfo.image = obj.markerImage;
+				columnInfo.width = 250;
+				row.columns.push(columnInfo);
+
+				if (row.columns.length === 2) {
+					Object.assign(content[i], ...row.columns[1]);
+					row = {};
+					row.columns = [];
+					i = i+1;
+				} else {
+					content[i] = row;
+				}
+			});
+
+			const docDefinition = { content };
+			pdfMake.createPdf(docDefinition).open();
+		};
+
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',

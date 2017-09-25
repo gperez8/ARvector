@@ -25,7 +25,7 @@ angular.module('app',
 					imgFilePath: obj.imgFilePath,
 					pattFileDir: obj.pattFileDir,
 					pattFilePath: obj.pattFilePath,
-
+					markerImage: obj.markerImage,
 				});
 			});
 		} 
@@ -239,15 +239,15 @@ angular.module('app',
 
 		/* Generate Marker */
 
-		$rootScope.buildMarker = (imageQr, fileName, index) => {
-			console.log('buildMarker');
+		$rootScope.buildMarker = (imageQr, fileName) => {
 			THREEx.ArPatternFile.buildFullMarker(imageQr, function onComplete(markerUrl) {
-				$rootScope.pattFileGenerate(imageQr, markerUrl, fileName, index);
+				$rootScope.markerImage = markerUrl;
+				$rootScope.pattFileGenerate(imageQr, markerUrl, fileName);
 				$rootScope.$apply();
 			});
 		};
 
-		$rootScope.pattFileGenerate = (imageQr, markerGenerated, fileName, index) => {
+		$rootScope.pattFileGenerate = (imageQr, markerGenerated, fileName) => {
 			console.log('pattFileGenerate');
 			if (imageQr !== null &&
 				imageQr !== undefined &&
@@ -259,12 +259,14 @@ angular.module('app',
 					file.onload = () => {
 						const data = {};
 						// Se quita esto del archivo a enviar data:text/plain;base64,
+						data.markerImage = $rootScope.markerImage;
 						data.pattFile = file.result.substr(23);
 						data.pattFileImage = markerGenerated.substr(22);
 						data.name = fileName;
 						data.asignature = 'vectorial';
 						$http.post('/createMarker', data, 'json')
 							.then((response) => {
+								response.data.newMarker.markerImage = $rootScope.markerImage;
 								$rootScope.markers.unshift(response.data.newMarker);
 								localStorage.setItem('markers', JSON.stringify($rootScope.markers));
 							}, (error) => {
@@ -275,9 +277,8 @@ angular.module('app',
 			}
 		};
 
-		$rootScope.markerGenerate = (index) => {
+		$rootScope.markerGenerate = () => {
 			/* se genera el codigo QR */
-			console.log('markerGenerate');
 			$http.get('/createMarker')
 				.then((data) => {
 					const container = document.createElement('div');
@@ -291,7 +292,7 @@ angular.module('app',
 					});
 					const canvasImg = container.querySelector('canvas');
 					const image = canvasImg.toDataURL('image/png');
-					$rootScope.buildMarker(image, name, index);
+					$rootScope.buildMarker(image, name);
 				})
 				.catch(e => console.error(e.stack));
 		};
