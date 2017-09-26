@@ -28,6 +28,11 @@ angular.module('app')
 			$location.path('/createModel2');
 		};
 
+		$scope.mathEditor = () => {
+			$scope.path = '/mathEditor';
+			$location.path('/mathEditor');
+		};
+
 		$scope.isLogin = () => {
 			return $rootScope.login !== '' && $rootScope.login !== null;
 		};
