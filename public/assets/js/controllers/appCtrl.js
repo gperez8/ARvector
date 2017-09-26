@@ -271,7 +271,19 @@ angular.module('app')
 					i = i+2;
 				} else {
 					content[i] = rowImg;
-					content[i + 1] = rowText;
+					if (i+1 === markersWithResources.length) {
+						content[i] = {
+							alignment: 'center',
+					        image: rowImg.columns[0].image,
+					        width: 250,
+					    };
+					    content[i + 1] = { 
+					    	text: rowText.columns[0].text, 
+					    	alignment: 'center' 
+					   	};
+					} else {
+						content[i + 1] = rowText;
+					}
 				}
 			});
 
