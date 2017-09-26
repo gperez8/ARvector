@@ -249,6 +249,7 @@
 		            </div>
 		            <!-- Funcionalidad Crear Modelo -->
 
+		            <!-- Funcionalidad TestMarker -->
 		            <div ng-if="path === '/testMarker'">
 			            <div id="markers" class="box-content">
 			            	<div class="zone" ng-repeat="marker in markers">
@@ -281,7 +282,6 @@
 					            			</span>
 					            			<div style="clear: both;"></div>
 				            			</div>
-
 				            		</div>
 				            	</div>
 			            	</div>
@@ -392,6 +392,91 @@
 			            	</div>
 		            	</div>
 		            </div>
+		            <!-- FIN Funcionalidad TestMarker -->
+
+		            <!-- Funcionalidad MathEditor -->
+		            <div ng-if="path === '/mathEditor'">
+	            		<div class="col-xs-12 col-sm-12">
+	            			<p 
+	            				class="text-right" 
+	            				ng-click="">
+	            				Seleccionar
+	            			</p>
+				            <p class="guide">
+				            	<span 
+				            		id="folder"
+				            		class="folder" 
+				            		ng-click="arrow.folder = !arrow.folder">
+				            		<i ng-class="{
+					                		'glyphicon glyphicon-folder-close': !arrow.folder,
+
+					                		'glyphicon glyphicon-folder-open': arrow.folder,
+					                	}">	
+					                </i>
+					            </span> 
+					            <span id="guideName">Guia #1</span>
+			            		<span 
+			            			id="arrow"
+			            			ng-click="arrow.folder=!arrow.folder">
+				                	<i ng-class="{
+					                		'glyphicon glyphicon-chevron-left': !arrow.folder,
+
+					                		'glyphicon glyphicon-chevron-down': arrow.folder
+					                	}"> 	
+					                </i>
+			                	</span>
+				            </p>
+				            <p class="guide">
+				            	<span 
+				            		id="folder"
+				            		class="folder" 
+				            		ng-click="arrow.folder = !arrow.folder">
+				            		<i ng-class="{
+					                		'glyphicon glyphicon-folder-close': !arrow.folder,
+
+					                		'glyphicon glyphicon-folder-open': arrow.folder,
+					                	}">	
+					                </i>
+					            </span> 
+					            <span id="guideName">Guia #2</span>
+			            		<span 
+			            			id="arrow"
+			            			ng-click="arrow.folder=!arrow.folder">
+				                	<i ng-class="{
+					                		'glyphicon glyphicon-chevron-left': !arrow.folder,
+
+					                		'glyphicon glyphicon-chevron-down': arrow.folder
+					                	}"> 	
+					                </i>
+			                	</span>
+				            </p>
+				            <p class="guide">
+				            	<span 
+				            		id="folder"
+				            		class="folder" 
+				            		ng-click="arrow.folder = !arrow.folder">
+				            		<i ng-class="{
+					                		'glyphicon glyphicon-folder-close': !arrow.folder,
+
+					                		'glyphicon glyphicon-folder-open': arrow.folder,
+					                	}">	
+					                </i>
+					            </span> 
+					            <span id="guideName">Guia #3</span>
+			            		<span 
+			            			id="arrow"
+			            			ng-click="arrow.folder=!arrow.folder">
+				                	<i ng-class="{
+					                		'glyphicon glyphicon-chevron-left': !arrow.folder,
+
+					                		'glyphicon glyphicon-chevron-down': arrow.folder
+					                	}"> 	
+					                </i>
+			                	</span>
+				            </p>
+		            	</div>
+	            	</div>
+		            <!-- FIN Funcionalidad MathEditor -->
 		        </div>
 		    </div>
 		    <!-- /#sidebar-wrapper -->

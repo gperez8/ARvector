@@ -19,6 +19,7 @@ body {
 	height: 100vh !important; 
 	margin-left: 0px !important;
 	margin-top: 0px !important;
+  color: white;
 }
 	
 .error {
@@ -195,7 +196,7 @@ div[id="page-content-wrapper"] {
 
 .apps-container {
   padding: 5px;
-  width: 25vw;
+  width: 23vw;
   height: 18vh;
 }
 
@@ -283,9 +284,6 @@ h2 {
   clear: both;
 }
 
-
-/*prueba*/
-
 .btn-file {
   position: relative;
   overflow: hidden;
@@ -321,6 +319,28 @@ h2 {
   border-bottom-left-radius: 0px;
 }
 
+
+.guide {
+  color: white
+}
+
+.guide > span#folder {
+  margin-right: 2vw;
+  font-size: 23px;
+}
+
+.guide > span#guideName {
+  position: absolute;
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+.guide > span#arrow {
+  position: absolute;
+  margin-top: 1vh;
+  font-size: 18px;
+  margin-left: 8vw;
+}
 
 
 

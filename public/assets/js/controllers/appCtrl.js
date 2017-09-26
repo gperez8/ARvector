@@ -4,6 +4,7 @@ angular.module('app')
 		$scope.arrow = {};
 		$scope.arrow.profile = false;
 		$scope.arrow.advOptions = false;
+		$scope.arrow.folder = false;
 		$scope.fileCheckShow = false;
 		$scope.customOption = $rootScope.customOption;
 		$scope.file = '';
