@@ -4,7 +4,8 @@ angular.module('app')
 		$scope.arrow = {};
 		$scope.arrow.profile = false;
 		$scope.arrow.advOptions = false;
-		$scope.arrow.folder = false;
+		$scope.arrow.folderResource = false;
+		$scope.arrow.folderGuide = false;
 		$scope.fileCheckShow = false;
 		$scope.customOption = $rootScope.customOption;
 		$scope.file = '';
@@ -173,7 +174,7 @@ angular.module('app')
 					}
 				});
 
-				localStorage.removeItem('markers');
+				//localStorage.removeItem('markers');
 				localStorage.setItem('markers', JSON.stringify($rootScope.markers));
 			}).catch((err) => {
 				console.log('err', err);
@@ -185,6 +186,8 @@ angular.module('app')
 			$timeout(() => {
 
 					$rootScope.markers[index].name = $rootScope.markers[index].src[0].name;
+
+					localStorage.setItem('markers', JSON.stringify($rootScope.markers));
 
 	        		const scene = document.querySelector('a-scene');
 					const assets = scene.querySelector('#a-assets');
@@ -298,129 +301,23 @@ angular.module('app')
 				content,
 			};
 
-			console.log('docDefinition', docDefinition);
 			pdfMake.createPdf(docDefinition).open();
-
-			/*const json = JSON.parse(localStorage.getItem('markers'));
-
-			 var docDefinition = {
-
-			 	pageMargins: [ 50, 10, 50, 10 ],
-				content: [
-					{
-						columns: [
-					        
-					        {
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					        
-					        {
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					    ],
-					},
-					{
-						columns: [
-					    	{
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-					        {
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-
-					    ]
-					},
-					{
-						columns: [
-					        
-					        {
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					        
-					        {
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					    ],
-					},
-					{
-						columns: [
-					    {
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-					        {
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-					    ]
-					},
-					{
-						columns: [
-					        
-					        {
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					        
-					        {
-
-					        	alignment: 'center',
-					          image: json[0].markerImage,
-					          width: 250,
-					          margin: [0, 0, 0, 0],
-					        },
-					    ],
-					},
-					{
-						columns: [
-					    {
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-					        {
-					          alignment: 'center',
-					          text: 'sillaDeMontar.gltf',
-					          margin: [0,0],
-					        },
-					    ]
-					}
-
-				]
-	        }
-	        pdfMake.createPdf(docDefinition).open();*/
 		};
 
-		$scope.insertImage = () => {
+		$scope.insertImage = (index) => {
 			const doc = document.querySelector('.ql-editor');
 			const image = document.createElement('img');
-			image.setAttribute('src', $rootScope.markers[0].markerImage);
+			image.setAttribute('src', $rootScope.markers[index].markerImage);
 
 			const p = document.createElement('p');
 			p.appendChild(image);
 			doc.appendChild(p);
+		};
 
-			console.log('DOC', doc);
+		$scope.pdfGenerate = () => {
+			const mathEditor = document.querySelector('.ql-editor');
+			mathEditor.setAttribute('id', 'mathEditor');
+			xepOnline.Formatter.Format('mathEditor', { render: 'download' });
 		};
 
 		$scope.sortableOptions = {
