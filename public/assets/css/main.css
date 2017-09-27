@@ -341,6 +341,17 @@ h2 {
   margin-left: 8vw;
 }
 
+.guide > ul > li > span#markerName:hover {
+  cursor:pointer;
+}
+
+.guide > ul#markerNameList{
+  height: calc(100vh - 48vh);
+  overflow: auto;
+}
+
+
+
 
 
 

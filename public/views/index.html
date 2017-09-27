@@ -427,13 +427,18 @@
 			                	</span>
 				            </p>
 
-				            <ul ng-if="arrow.folderResource">
-				            	<li style="color: white" ng-repeat="marker in markers" ng-if="marker.src.length > 0"> 
-				            		<span
-				            			ng-click="insertImage($index)">{{ marker.name }}
-				            		</span>
-				            	</li>				            	
-				            </ul>
+				            <div class="guide">
+					            <ul id="markerNameList" ng-if="arrow.folderResource">
+					            	<li 
+					            		ng-repeat="marker in markers" 
+					            		ng-if="marker.src.length > 0"> 
+					            		<span
+					            			id="markerName"
+					            			ng-click="insertImage($index)">{{ marker.name }}
+					            		</span>
+					            	</li>				            	
+					            </ul>
+					        </div>
 
 				            <p ng-if="!arrow.folderResource" class="guide">
 				            	<span 
@@ -462,7 +467,7 @@
 		            	</div>
 
 		            	<!-- Boton de Generar PDF y Guardar -->
-		            	<div class="col-sm-12 col-xs-12 margin-botton">
+		            	<div ng-if="arrow.folderResource" class="col-sm-12 col-xs-12 margin-botton">
 		            		<div class="col-sm-6 col-xs-6 margin-not">
 				            	<a 	
 				            		id="bottomLeft"
