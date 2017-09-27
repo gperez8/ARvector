@@ -426,6 +426,10 @@
 					                </i>
 			                	</span>
 				            </p>
+
+				            <ul ng-if="arrow.folder">
+				            	<li ng-click="insertImage()" style="color: white"> model 1 </li>
+				            </ul>
 				            <p class="guide">
 				            	<span 
 				            		id="folder"
@@ -535,6 +539,7 @@
 		<!-- Editor Text -->
 		<script src="node_modules/quill/dist/quill.min.js"></script>
 		<script src="lib/katex/katex.js"></script>
+		<script src="lib/css-pdf/css2pdf.js"></script>
 		<!-- Editor Text -->
 
 		<!--Manejo de Tokens -->

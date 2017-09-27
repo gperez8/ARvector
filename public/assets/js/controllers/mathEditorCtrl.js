@@ -54,4 +54,11 @@ angular.module('app')
 
 			parent.insertBefore(remove, editor);
 		};
+
+		$scope.pdfGenerate = () => {
+			const mathEditor = document.querySelector('.ql-editor');
+			mathEditor.setAttribute('id','mathEditor');
+
+			xepOnline.Formatter.Format('mathEditor', { render: 'download' });
+		};
 	});

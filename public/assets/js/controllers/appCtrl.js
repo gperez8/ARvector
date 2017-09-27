@@ -411,6 +411,18 @@ angular.module('app')
 	        pdfMake.createPdf(docDefinition).open();*/
 		};
 
+		$scope.insertImage = () => {
+			const doc = document.querySelector('.ql-editor');
+			const image = document.createElement('img');
+			image.setAttribute('src', $rootScope.markers[0].markerImage);
+
+			const p = document.createElement('p');
+			p.appendChild(image);
+			doc.appendChild(p);
+
+			console.log('DOC', doc);
+		};
+
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',
