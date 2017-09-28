@@ -13,7 +13,9 @@ angular.module('app')
 			$http.post('/login', $scope.form, 'json')
 				.then((data) => {
 					localStorage.setItem('token', data.data.token);
+					localStorage.setItem('rolUser', data.data.rol);
 					$rootScope.login = localStorage.getItem('token');
+					$rootScope.rolUser = localStorage.getItem('rolUser');
 					$rootScope.path = '/testMarker';
 					$location.path('/testMarker');
 				}, (error) => {

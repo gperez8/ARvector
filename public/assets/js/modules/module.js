@@ -233,10 +233,6 @@ angular.module('app',
 		};
 		/* FIN de Generar Grafica */
 
-		$rootScope.logout = () => {
-			localStorage.clear();
-		};
-
 		/* Generate Marker */
 
 		$rootScope.buildMarker = (imageQr, fileName) => {

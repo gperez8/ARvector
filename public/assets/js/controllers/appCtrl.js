@@ -10,7 +10,9 @@ angular.module('app')
 		$scope.customOption = $rootScope.customOption;
 		$scope.file = '';
 		$scope.models = [];
-		$scope.path = $rootScope.path;
+		$rootScope.login = localStorage.getItem('token');
+		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.path = '/testMarker';
 
 		$scope.home = () => {
 			$location.path('/home');
@@ -21,17 +23,17 @@ angular.module('app')
 		};
 
 		$scope.testMarker = () => {
-			$scope.path = '/testMarker';
+			$rootScope.path = '/testMarker';
 			$location.path('/testMarker');
 		};
 
 		$scope.createModel = () => {
-			$scope.path = '/createModel2';
+			$rootScope.path = '/createModel2';
 			$location.path('/createModel2');
 		};
 
 		$scope.mathEditor = () => {
-			$scope.path = '/mathEditor';
+			$rootScope.path = '/mathEditor';
 			$location.path('/mathEditor');
 		};
 
@@ -51,8 +53,26 @@ angular.module('app')
 		};
 
 		$scope.logout = () => {
-			$rootScope.logout();
-			$rootScope.login = localStorage.getItem('token');
+			$rootScope.login = '';
+			$rootScope.rolUser = '';
+			$rootScope.path = '';
+			$rootScope.markers = [];
+			tmpList = [];
+			$scope.arrow = {};
+			$scope.arrow.profile = false;
+			$scope.arrow.advOptions = false;
+			$scope.arrow.folderResource = false;
+			$scope.arrow.folderGuide = false;
+			$scope.fileCheckShow = false;
+			$scope.customOption = '';
+			$scope.file = '';
+			$scope.models = [];
+			$rootScope.login = '';
+			$rootScope.rolUser = '';
+			localStorage.removeItem('markers');
+			localStorage.removeItem('token');
+			localStorage.removeItem('rol');
+			localStorage.clear();
 			$scope.home();
 		};
 

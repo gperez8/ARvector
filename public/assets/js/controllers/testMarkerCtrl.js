@@ -1,12 +1,16 @@
  /* global $, angular, document */
 
 angular.module('app')
-	.controller('testMarkerCtrl', ($scope) => {
+	.controller('testMarkerCtrl', ($scope, $rootScope) => {
 
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
 		});
+
+		$rootScope.login = localStorage.getItem('token');
+		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.path = '/testMarker';
 
 		function handleSceneLoaded() {
 			document.querySelector('#camera').setAttribute('orbit-controls', 'enabled', false);

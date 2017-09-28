@@ -49,7 +49,10 @@
                     		</span>
                     	</a>
 
-                    	<a href="" ng-click="mathEditor()">
+                    	<a 
+                    		href="" 
+                    		ng-if="rolUser==='3'" 
+                    		ng-click="mathEditor()">
                     		<span 
                         		class="glyphicon glyphicon-cloud"
                         		aria-hidden="true">    
@@ -76,6 +79,7 @@
 				            	<div class="col-sm-12 col-xs-12">
 				            		<div class="col-sm-6 col-xs-6">
 						            	<a 
+						            		ng-if="rolUser==='3'"
 							            	href="" 
 							            	class="btn btn-mds btn-primary btn-block"
 							            	ng-click="graphGenerate()">Exportar
@@ -249,9 +253,9 @@
 		            </div>
 		            <!-- Funcionalidad Crear Modelo -->
 
-		            <!-- Funcionalidad TestMarker -->
-		            <div ng-if="path === '/testMarker'">
-			            <div id="markers" class="box-content">
+		             <!-- Funcionalidad TestMarker Profesor-->
+		            <div ng-if="path === '/testMarker' && rolUser==='3'">
+			            <div id="markers" class="box-content-teacher">
 			            	<div class="zone" ng-repeat="marker in markers">
 			            		<div class="col-sm-5 col-xs-5">
 				            		<img class="img-responsive" src="{{marker.imgFilePath}}" alt="">
@@ -294,12 +298,6 @@
 					            	class="btn btn-mds btn-primary btn-block"
 					            	ng-click="markerDelete()">Eliminar
 				            	</a>
-
-				            	<!-- <a 
-					            	href="" 
-					            	class="btn btn-mds btn-primary btn-block"
-					            	ng-click="print()">print
-				            	</a>-->
 			            	</div>
 
 			            	<div class="col-sm-6 col-xs-6">
@@ -312,7 +310,7 @@
 		            	</div>
 
 
-		            	<div class="col-xs-12 col-sm-12 box-content">
+		            	<div class="col-xs-12 col-sm-12 box-content-teacher">
 		            	
 	            			<p 
 	            				class="text-right" 
@@ -328,7 +326,7 @@
 			            		ng-init="modelFileLoad()" 
 			            		style="color: white;">
 			            		<div ng-repeat="item in models"> 
-			            			<p >
+			            			<p>
 			            				<input 
 			            					ng-if="fileCheckShow" 
 			            					type="checkbox" 
@@ -392,10 +390,83 @@
 			            	</div>
 		            	</div>
 		            </div>
-		            <!-- FIN Funcionalidad TestMarker -->
+		            <!-- FIN Funcionalidad TestMarker Profesor -->
+
+		            <!-- Funcionalidad TestMarker Estudiante-->
+		            <div ng-if="path === '/testMarker' && rolUser === '2'">
+			            <div id="markers" class="box-content-student">
+			            	<!-- carpetas de Materias -->
+			            	<div class="zone">
+			            		<p ng-if="!arrow.folderGuide" class="guide">
+					            	<span 
+					            		id="folder"
+					            		class="folder" 
+					            		ng-click="arrow.folderResource = !arrow.folderResource">
+					            		<i ng-class="{
+						                		'glyphicon glyphicon-folder-close': !arrow.folderResource,
+
+						                		'glyphicon glyphicon-folder-open': arrow.folderResource,
+						                	}">	
+						                </i>
+						            </span> 
+						            <span id="guideName">MAT 1</span>
+				            		<span 
+				            			id="arrow"
+				            			ng-click="arrow.folderResource=!arrow.folderResource">
+					                	<i ng-class="{
+						                		'glyphicon glyphicon-chevron-left': !arrow.folderResource,
+
+						                		'glyphicon glyphicon-chevron-down': arrow.folderResource
+						                	}"> 	
+						                </i>
+				                	</span>
+					            </p>
+
+					            <div class="guide">
+						            <ul 
+						            	id="markerNameList" 
+						            	ng-if="arrow.folderResource">
+						            	<li> 
+						            		Guía #1
+						            	</li>				            	
+						            </ul>
+					        	</div>
+					            <p ng-if="!arrow.folderGuide" class="guide">
+					            	<span 
+					            		id="folder"
+					            		class="folder" 
+					            		ng-click="arrow.folderResource = !arrow.folderResource">
+					            		<i ng-class="{
+						                		'glyphicon glyphicon-folder-close': !arrow.folderResource,
+
+						                		'glyphicon glyphicon-folder-open': arrow.folderResource,
+						                	}">	
+						                </i>
+						            </span> 
+						            <span id="guideName">MAT 2</span>
+				            		<span 
+				            			id="arrow"
+				            			ng-click="arrow.folderResource=!arrow.folderResource">
+					                	<i ng-class="{
+						                		'glyphicon glyphicon-chevron-left': !arrow.folderResource,
+
+						                		'glyphicon glyphicon-chevron-down': arrow.folderResource
+						                	}"> 	
+						                </i>
+				                	</span>
+					            </p>
+			            	</div>
+			            </div>
+
+			            <!-- Listado de recursos de guias -->
+		            	<div class="col-xs-12 col-sm-12 box-content-student">
+		            		<h1>HOLA<h1>
+		            	</div>
+		            </div>
+		            <!-- FIN Funcionalidad TestMarker Estudiante-->
 
 		            <!-- Funcionalidad MathEditor -->
-		            <div ng-if="path === '/mathEditor'">
+		            <div ng-if="path === '/mathEditor' && rolUser === '3'">
 	            		<div class="col-xs-12 col-sm-12">
 	            			<p 
 	            				class="text-right" 

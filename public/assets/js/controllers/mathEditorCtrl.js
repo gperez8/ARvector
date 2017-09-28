@@ -3,7 +3,12 @@ import { ImageImport } from '../../../../lib/quill/ImageImport';
 import { ImageResize } from '../../../../lib/quill/ImageResize';
 
 angular.module('app')
-	.controller('mathEditorCtrl', ($scope) => {
+	.controller('mathEditorCtrl', ($scope, $rootScope) => {
+		
+		$rootScope.login = localStorage.getItem('token');
+		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.path = '/mathEditor';
+
 		Quill.register('modules/imageImport', ImageImport);
 		Quill.register('modules/imageResize', ImageResize);
 		const toolbarOptions = [

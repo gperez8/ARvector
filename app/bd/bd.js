@@ -679,7 +679,7 @@ httpRequestHandling.route('/login')
 			if (data.rows.length > 0) {
 				return resp
 					.status(200)
-					.send({ status: 200, token: service.createToken(data.rows) });
+					.json({ status: 200, token: service.createToken(data.rows), rol: data.rows[0].rol });
 			}
 
 			return resp
