@@ -297,14 +297,17 @@ angular.module('app',
 		/* FIN de Generate Marker */
 
 		$rootScope.imgFileLoad = () => {
+			const pattFileDir = JSON.parse(localStorage.getItem('pathTmp')).pathPattTmp;
+			const imgFileDir  = JSON.parse(localStorage.getItem('pathTmp')).pathImageTmp;
+
 			$http({
 				method: 'POST',
 				url: '/createMarker/:3',
-				data: { pattFileDir: $rootScope.pathTmp.pathPattTmp, imgFileDir: $rootScope.pathTmp.pathImageTmp },
+				data: { pattFileDir: pattFileDir, imgFileDir: imgFileDir },
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 
 			}).then((data) => {
-				
+				console.log('recuperando hjkhkjhjk', data);
 				let pathServer = data.data[0].pathServer;
 				let pathClient = data.data[0].pathClient;
 				let files = data.data[0].pattFiles;
@@ -327,8 +330,10 @@ angular.module('app',
 					markers[index].imgFilePath = pathClient + obj;
 				});
 
-				localStorage.setItem('markers', JSON.parse(markers));
+				localStorage.setItem('markers', JSON.stringify(markers));
 				$rootScope.markers = markers;
+
+				
 			});
 		};
 	});

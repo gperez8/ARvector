@@ -16,6 +16,7 @@ angular.module('app')
 		$rootScope.rolUser = localStorage.getItem('rolUser');
 		$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
 		$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
+		$rootScope.markers = JSON.parse(localStorage.getItem('markers'));
 		$rootScope.path = '/testMarker';
 
 		$scope.home = () => {
@@ -123,6 +124,9 @@ angular.module('app')
 				data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
 				file: file,
 			}).then((response) => {
+
+				console.log('response.data.pathClient', response.data.pathClient);
+				console.log('response.data.pathFilesName', response.data.pathFilesName);
 				$scope.models.push({
 					name: response.data.pathFilesName,
 					src: response.data.pathClient + response.data.pathFilesName,
@@ -137,6 +141,8 @@ angular.module('app')
 			const selectModel = $scope.models.filter((obj) => {
 				if (obj.check) return obj;
 			});
+
+			console.log('selectModel',selectModel);
 
 			$http({
 				method: 'DELETE',
@@ -314,6 +320,10 @@ angular.module('app')
 		};
 
 		$scope.insertImage = (index) => {
+
+			const file = new FileReader();
+			
+
 			const doc = document.querySelector('.ql-editor');
 			const image = document.createElement('img');
 			image.setAttribute('src', $rootScope.markers[index].markerImage);

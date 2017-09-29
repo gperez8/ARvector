@@ -64,8 +64,8 @@ httpRequestHandling.route('/createMarker/:id')
 		const imgFileDir = req.body.imgFileDir;
 		let response = [];
 
-		pattFile.pathClient = imgFileDir.replace('./public/assets/', 'src/');
-		pattFile.pathServer = imgFileDir;
+		pattFile.pathClient = pattFileDir.replace('./public/assets/', 'src/');
+		pattFile.pathServer = pattFileDir;
 		pattFile.pattFiles = fs.readdirSync(pattFileDir);
 
 		imgFile.pathClient = imgFileDir.replace('./public/assets/', 'src/');
@@ -74,10 +74,16 @@ httpRequestHandling.route('/createMarker/:id')
 
 		response.push(pattFile);
 		response.push(imgFile);
+
+		console.log('response',response);
+
 		res.status(200).json(response);
 	})
 	.delete((req, res) => {
 		const deleteToModel = req.body.path;
+
+		console.log('deleteToModel',deleteToModel);
+
 		deleteToModel.map((obj) => {
 			fs.unlink(obj.pattFileDir, (error) => {
 				if (error) {
