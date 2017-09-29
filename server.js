@@ -37,6 +37,12 @@ app.engine('html', engine);
 app.set('views', path.join(__dirname, 'public/views'));
 app.set('view engine', 'html');
 
+// Se crean las carpetas para almacenar la informacion generada
+if (!fs.existsSync('./public/assets/vectorial/')) fs.mkdirSync('./public/assets/vectorial/');
+if (!fs.existsSync('./public/assets/vectorial/models')) fs.mkdirSync('./public/assets/vectorial/models');
+if (!fs.existsSync('./public/assets/vectorial/imgFiles')) fs.mkdirSync('./public/assets/vectorial/imgFiles');
+if (!fs.existsSync('./public/assets/vectorial/pattFiles')) fs.mkdirSync('./public/assets/vectorial/pattFiles');
+
 //	Certificado SSL
 const httpsOptions = {
 	cert: fs.readFileSync(path.join(__dirname, '/app/certificate_SSL', 'cert.pem'), 'utf8'),

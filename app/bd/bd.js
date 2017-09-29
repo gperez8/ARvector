@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { Pool, Client } = require('pg');
 const httpRequestHandling = require('../routes/routes');
 const service = require('../routes/service');
@@ -663,7 +664,7 @@ httpRequestHandling.route('/resourceMarker')
 /* ENDPOINT LOGIN */
 httpRequestHandling.route('/login')
 	.post((req, resp) => {
-		const text = 'select * from bd.users where email=($1) and password=($2)';
+		/*const text = 'select * from bd.users where email=($1) and password=($2)';
 		const values = [];
 		values.push(req.body.email);
 		values.push(req.body.password);
@@ -680,12 +681,96 @@ httpRequestHandling.route('/login')
 				return resp
 					.status(200)
 					.json({ status: 200, token: service.createToken(data.rows), rol: data.rows[0].rol });
-			}
+			} else {
+				return resp
+					.status(500)
+					.send({ status: 500, err: 'usuario no registrado' });
+			}*/
 
-			return resp
-				.status(500)
-				.send({ status: 500, err: 'usuario no registrado' });
-		});
+			(async () => {
+				let pathModel = './public/assets/vectorial/models/';
+				let pathImage = './public/assets/vectorial/imgFiles/';
+				let pathPatt = './public/assets/vectorial/pattFiles/';
+				let pathModelTmp = './public/assets/vectorial/models/';
+				let pathImageTmp = './public/assets/vectorial/imgFiles/';
+				let pathPattTmp = './public/assets/vectorial/pattFiles/';
+				let text = 'select * from bd.users where email=($1) and password=($2)';
+				let values = [];
+				values.push(req.body.email);
+				values.push(req.body.password);
+
+				client.connect();
+				const userData = await client.query(text, values);
+
+				console.log('userData', userData.rows.length);
+
+
+				if (userData.rows.length > 0) {
+
+					const select = 'select name, last_name, ci from';
+					const from = userData.rows[0].rol === 2 ? ' bd.student' : ' bd.teacher';
+					const where = ' where email=($1)';
+
+					text = select + from + where;
+					values = [];
+					values.push(req.body.email);
+
+					const user = await client.query(text, values);
+
+					if (user.rows.length > 0) {
+						if (userData.rows[0].rol === 3) {
+							const ci = user.rows[0].ci;
+							
+							pathModel = pathModel + ci;
+							pathImage = pathImage + ci;
+							pathPatt = pathPatt + ci;
+							pathModelTmp = pathModelTmp + ci + '/tmp';
+							pathImageTm = pathImageTmp + ci + '/tmp';
+							pathPattTmp = pathPattTmp + ci + '/tmp';
+							
+							if (!fs.existsSync(pathModel)) fs.mkdirSync(pathModel);
+							if (!fs.existsSync(pathImage)) fs.mkdirSync(pathImage);
+							if (!fs.existsSync(pathPatt)) fs.mkdirSync(pathPatt);
+
+							if (!fs.existsSync(pathModelTmp)) fs.mkdirSync(pathModelTmp);
+							if (!fs.existsSync(pathImageTmp)) fs.mkdirSync(pathImageTmp);
+							if (!fs.existsSync(pathPattTmp)) fs.mkdirSync(pathPattTmp);
+						}
+
+						return resp
+							.status(200)
+							.json({
+								status: 200,
+								token: service.createToken(userData.rows[0]),
+								rol: userData.rows[0].rol,
+								name: userData.rows[0].name,
+								lastName: userData.rows[0].last_name,
+								pathTeacher: {
+									pathModel: pathModel,
+									pathImage: pathImage,
+									pathPatt: pathPatt,
+								},
+								pathTmp: {
+									pathModelTmp: pathModelTmp,
+									pathImageTmp: pathImageTmp,
+									pathPattTmp: pathPattTmp,
+								},
+							});
+					} else {
+						return resp
+							.status(500)
+							.send({ status: 500, err: 'error no registrado en tabla teacher o student' });
+					}
+				} 
+
+				return resp
+					.status(500)
+					.send({ status: 500, err: 'usuario no registrado' });
+
+
+			})();
+
+		//});
 	});
 /* FIN ENDPOINT LOGIN */
 

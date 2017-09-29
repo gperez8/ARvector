@@ -340,6 +340,10 @@ angular.module('app')
 			xepOnline.Formatter.Format('mathEditor', { render: 'download' });
 		};
 
+		$scope.saveResource = () => {
+			console.log('markers', $rootScope.markers);	
+		};	
+
 		$scope.sortableOptions = {
 			placeholder: 'app',
 			connectWith: '.apps-container',
