@@ -207,9 +207,6 @@ httpRequestHandling.route('/model')
 
 httpRequestHandling.route('/model/:id')
 	.get((req, res) => {
-
-		console.log('req', req.body, req.paramts);
-
 		fs.readdir('./public/assets/model/', (err, files) => {
 			res.status(200).json({
 				status: 200,
@@ -222,7 +219,6 @@ httpRequestHandling.route('/model/:id')
 
 httpRequestHandling.route('/model/:id')
 	.delete((req, res) => {
-
 		const deleteToModel = req.body.path;
 		deleteToModel.map((obj) => {
 			fs.unlink(obj.deleteSrc, (error) => {

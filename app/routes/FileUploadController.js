@@ -5,11 +5,14 @@ FileUploadController = function() {};
 FileUploadController.prototype.uploadFile = function(req, res) {
     fs.readFile(req.files.file.path, function (err, data) {
         // set the correct path for the file not the temporary one from the API:
+    
+        console.log('req', req.body.dirToSave);
+
         const file = {};
-        file.path = './public/assets/model/' + req.files.file.originalFilename;
+        file.path = req.body.dirToSave + req.files.file.originalFilename;
 
         // copy the data from the req.files.file.path and paste it to file.path
-        const originalName = './public/assets/model/' + req.files.file.originalFilename.replace('.obj','.gltf')
+        const originalName = req.body.dirToSave + req.files.file.originalFilename.replace('.obj', '.gltf');
 
         fs.stat(originalName, (err, success) => {
             if (err === null) {
@@ -21,7 +24,7 @@ FileUploadController.prototype.uploadFile = function(req, res) {
                     }
                     console.log("The file: " + file.name + " was saved to " + file.path);
 
-                    const modelGltfFilePath = './public/assets/model/' + req.files.file.originalFilename.replace('.obj', '.gltf');
+                    const modelGltfFilePath = req.body.dirToSave + req.files.file.originalFilename.replace('.obj', '.gltf');
 
                     const options = {
                         separateTextures: true,
@@ -41,8 +44,8 @@ FileUploadController.prototype.uploadFile = function(req, res) {
 
                             return res.status(200).json({
                                 pathFilesName: req.files.file.originalFilename.replace('.obj', '.gltf'),
-                                pathClient: 'src/model/',
-                                pathServer: './public/assets/model/',
+                                pathClient: req.body.dirToSave.replace('./public/assets','src'),
+                                pathServer: req.body.dirToSave,
                             });
                         })
                         .catch((err) => {

@@ -69,9 +69,13 @@ angular.module('app')
 			$scope.models = [];
 			$rootScope.login = '';
 			$rootScope.rolUser = '';
+			$rootScope.pathTeacher = '';
+			$rootScope.pathTmp = '';
 			localStorage.removeItem('markers');
 			localStorage.removeItem('token');
 			localStorage.removeItem('rol');
+			localStorage.removeItem('pathTeacher');
+			localStorage.removeItem('pathTmp');
 			localStorage.clear();
 			$scope.home();
 		};
@@ -128,10 +132,13 @@ angular.module('app')
 		};
 
 		$scope.importFileObj = (file) => {
+
+			console.log('$rootScope.pathTmp.pathModelTmp', $rootScope.pathTmp.pathModelTmp );
+
 			Upload.upload({
 				url: '/model',
 				method: 'POST',
-				data: { name: 'pruebaImport' },
+				data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
 				file: file,
 			}).then((response) => {
 				$scope.models.push({

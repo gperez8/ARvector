@@ -720,17 +720,22 @@ httpRequestHandling.route('/login')
 					if (user.rows.length > 0) {
 						if (userData.rows[0].rol === 3) {
 							const ci = user.rows[0].ci;
-							
 							pathModel = pathModel + ci;
 							pathImage = pathImage + ci;
 							pathPatt = pathPatt + ci;
-							pathModelTmp = pathModelTmp + ci + '/tmp';
-							pathImageTm = pathImageTmp + ci + '/tmp';
-							pathPattTmp = pathPattTmp + ci + '/tmp';
-							
+
 							if (!fs.existsSync(pathModel)) fs.mkdirSync(pathModel);
 							if (!fs.existsSync(pathImage)) fs.mkdirSync(pathImage);
 							if (!fs.existsSync(pathPatt)) fs.mkdirSync(pathPatt);
+
+
+							pathModelTmp = pathModelTmp + ci + '/tmp/';
+							pathImageTmp = pathImageTmp + ci + '/tmp/';
+							pathPattTmp = pathPattTmp + ci + '/tmp/';
+
+							console.log('pathModelTmp', pathModelTmp);
+							console.log('pathImageTmp', pathImageTmp);
+							console.log('pathPattTmp', pathPattTmp);
 
 							if (!fs.existsSync(pathModelTmp)) fs.mkdirSync(pathModelTmp);
 							if (!fs.existsSync(pathImageTmp)) fs.mkdirSync(pathImageTmp);
@@ -837,7 +842,17 @@ httpRequestHandling.route('/register/:id')
 
 			await client.query(text, values, (err) => {
 				console.log('err', err);
-				if (err) resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
+				if (err) {
+					resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
+				} else if (req.params.id === ':3') {
+					const pathModel = './public/assets/vectorial/models/' + req.body.ci;
+					const pathImage = './public/assets/vectorial/imgFiles/' + req.body.ci;
+					const pathPatt = './public/assets/vectorial/pattFiles/' + req.body.ci;
+
+					if (!fs.existsSync(pathModel)) fs.mkdirSync(pathModel);
+					if (!fs.existsSync(pathImage)) fs.mkdirSync(pathImage);
+					if (!fs.existsSync(pathPatt)) fs.mkdirSync(pathPatt);
+				}
 			});
 
 			text = 'INSERT INTO bd.users(email,password,rol) VALUES ($1,$2,$3)';
@@ -848,7 +863,6 @@ httpRequestHandling.route('/register/:id')
 
 			client.query(text, values, (err) => {
 				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
-			
 				return resp.status(200).json({ status: 200 });
 			});
 
