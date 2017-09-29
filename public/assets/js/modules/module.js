@@ -259,6 +259,8 @@ angular.module('app',
 						data.pattFile = file.result.substr(23);
 						data.pattFileImage = markerGenerated.substr(22);
 						data.name = fileName;
+						data.pattFileDir = $rootScope.pathTmp.pathPattTmp;
+						data.imgFileDir = $rootScope.pathTmp.pathImageTmp;
 						data.asignature = 'vectorial';
 						$http.post('/createMarker', data, 'json')
 							.then((response) => {

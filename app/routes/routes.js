@@ -20,13 +20,8 @@ httpRequestHandling.route('/createMarker')
 		const img = req.body.pattFileImage;
 
 		// carpetas para archivos .patt y png
-		const pattFileDir = './public/assets/' +
-			`${req.body.asignature}` +
-			'/pattern-files';
-
-		const imgFileDir = './public/assets/' +
-			`${req.body.asignature}` +
-			'/pattern-images';
+		const pattFileDir = req.body.pattFileDir;
+		const imgFileDir = req.body.imgFileDir;
 
 		// ruta y nombres de archivos .patt y png
 		const pattFilePath = `${pattFileDir}` +
@@ -38,9 +33,6 @@ httpRequestHandling.route('/createMarker')
 			'/' +
 			`${req.body.name}` +
 			'.png';
-
-		if (!fs.existsSync(pattFileDir)) fs.mkdirSync(pattFileDir);
-		if (!fs.existsSync(imgFileDir)) fs.mkdirSync(imgFileDir);
 
 		fs.writeFile(pattFilePath, new Buffer(file, 'base64'), 'ascii', (err) => {
 			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
