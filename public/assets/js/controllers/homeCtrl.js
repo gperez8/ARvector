@@ -23,6 +23,7 @@ angular.module('app')
 					$rootScope.rolUser = localStorage.getItem('rolUser');
 					$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
 					$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
+					$rootScope.imgFileLoad();
 					$rootScope.path = '/testMarker';
 					$location.path('/testMarker');
 				}, (error) => {

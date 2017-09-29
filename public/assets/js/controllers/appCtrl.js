@@ -12,6 +12,10 @@ angular.module('app')
 		$scope.models = [];
 		$rootScope.login = localStorage.getItem('token');
 		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.login = localStorage.getItem('token');
+		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
+		$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
 		$rootScope.path = '/testMarker';
 
 		$scope.home = () => {
@@ -87,11 +91,10 @@ angular.module('app')
 
 		$scope.modelFileLoad = () => {
 			$http({
-				method: 'GET',
+				method: 'POST',
 				url: '/model/:3',
-				data: {},
+				data: { path: $rootScope.pathTmp.pathModelTmp },
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-
 			}).then((data) => {
 				const pathClient = data.data.pathClient;
 				const pathServer = data.data.pathServer;
@@ -103,27 +106,6 @@ angular.module('app')
 						deleteSrc: pathServer + obj,
 					};
 				});
-			});
-		};
-
-		$scope.imgFileLoad = () => {
-			$http({
-				method: 'GET',
-				url: '/createMarker/:3',
-				data: {},
-				headers: { 'Content-Type': 'application/json;charset=utf-8' },
-
-			}).then((data) => {
-				/*const pathClient = data.data.pathClient;
-				const pathServer = data.data.pathServer;
-				const models = data.data.pathFilesName;
-				$scope.models = models.map((obj) => {
-					return {
-						name: obj,
-						src: pathClient + obj,
-						deleteSrc: pathServer + obj,
-					};
-				});*/
 			});
 		};
 

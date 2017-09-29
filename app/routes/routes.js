@@ -25,12 +25,10 @@ httpRequestHandling.route('/createMarker')
 
 		// ruta y nombres de archivos .patt y png
 		const pattFilePath = `${pattFileDir}` +
-			'/' +
 			`${req.body.name}` +
 			'.patt';
 
 		const imgFilePath = `${imgFileDir}` +
-			'/' +
 			`${req.body.name}` +
 			'.png';
 
@@ -44,7 +42,7 @@ httpRequestHandling.route('/createMarker')
 			console.log('The file IMG was succesfully saved!');
 		});
 
-		console.log('pattFilePath',pattFilePath);
+		console.log('pattFilePath', pattFilePath);
 
 		res.status('200').json({ 
 			status: 200, 
@@ -53,37 +51,29 @@ httpRequestHandling.route('/createMarker')
 				pattFilePath: pattFilePath.replace('./public/assets/', 'src/'),
 				pattFileDir: pattFilePath,
 				imgFileDir: imgFilePath,
-			},	
+			},
 		});
 	});
 
 httpRequestHandling.route('/createMarker/:id')
-	.get((req, res) => {
+	.post((req, res) => {
+		const pattFile = {};
+		const imgFile = {};
 
-		const pattFileDir = './public/assets/vectorial/pattern-files/';
-		const imgFileDir = './public/assets/vectorial/pattern-images/';
-		const response = [];
+		const pattFileDir = req.body.pattFileDir;
+		const imgFileDir = req.body.imgFileDir;
+		let response = [];
 
-		fs.readdir('pattFileDir', (err, files) => {
-			response.push({
-				pattFile: {
-					pathClient: 'src/vectorial/pattern-files/',
-					pathServer: './public/assets/vectorial/pattern-files/',
-					pattFiles: files,
-				},
-			});
-		});
+		pattFile.pathClient = imgFileDir.replace('./public/assets/', 'src/');
+		pattFile.pathServer = imgFileDir;
+		pattFile.pattFiles = fs.readdirSync(pattFileDir);
 
-		fs.readdir('imgFileDir', (err, files) => {
-			response.push({
-				imgFile: {
-					pathClient: 'src/vectorial/pattern-images/',
-					pathServer: './public/assets/vectorial/pattern-images/',
-					pattFiles: files,
-				},
-			});
-		});
+		imgFile.pathClient = imgFileDir.replace('./public/assets/', 'src/');
+		imgFile.pathServer = imgFileDir;
+		imgFile.pattFiles = fs.readdirSync(imgFileDir);
 
+		response.push(pattFile);
+		response.push(imgFile);
 		res.status(200).json(response);
 	})
 	.delete((req, res) => {
@@ -198,13 +188,14 @@ httpRequestHandling.route('/model')
 	.post(multipartyMiddleware, FileUploadController.uploadFile)
 
 httpRequestHandling.route('/model/:id')
-	.get((req, res) => {
-		fs.readdir('./public/assets/model/', (err, files) => {
+	.post((req, res) => {
+		const path = req.body.path;
+		fs.readdir(path, (err, files) => {
 			res.status(200).json({
 				status: 200,
 				pathFilesName: files,
-				pathClient: 'src/model/',
-				pathServer: './public/assets/model/',
+				pathClient: path.replace('./public/assets/', 'src'),
+				pathServer: path,
 			});
 		});
 	});

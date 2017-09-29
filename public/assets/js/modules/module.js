@@ -295,4 +295,40 @@ angular.module('app',
 				.catch(e => console.error(e.stack));
 		};
 		/* FIN de Generate Marker */
+
+		$rootScope.imgFileLoad = () => {
+			$http({
+				method: 'POST',
+				url: '/createMarker/:3',
+				data: { pattFileDir: $rootScope.pathTmp.pathPattTmp, imgFileDir: $rootScope.pathTmp.pathImageTmp },
+				headers: { 'Content-Type': 'application/json;charset=utf-8' },
+
+			}).then((data) => {
+				
+				let pathServer = data.data[0].pathServer;
+				let pathClient = data.data[0].pathClient;
+				let files = data.data[0].pattFiles;
+				const markers = [];
+
+				files.map((obj) => {
+					const marker = {
+						pattFileDir: pathServer + obj,
+						pattFilePath: pathClient + obj,
+					};
+					markers.push(marker);
+				});
+
+				pathServer = data.data[1].pathServer;
+				pathClient = data.data[1].pathClient;
+				files = data.data[1].pattFiles;
+
+				files.map((obj, index) => {
+					markers[index].imgFileDir = pathServer + obj;
+					markers[index].imgFilePath = pathClient + obj;
+				});
+
+				localStorage.setItem('markers', JSON.parse(markers));
+				$rootScope.markers = markers;
+			});
+		};
 	});

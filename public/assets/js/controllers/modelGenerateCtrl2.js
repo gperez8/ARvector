@@ -10,6 +10,10 @@ angular.module('app')
 
 		$rootScope.login = localStorage.getItem('token');
 		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.login = localStorage.getItem('token');
+		$rootScope.rolUser = localStorage.getItem('rolUser');
+		$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
+		$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
 		$rootScope.path = '/createModel2';
 
 		$rootScope.graph($rootScope.zFuncTextR, $rootScope.customOption);
