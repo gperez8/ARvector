@@ -224,6 +224,19 @@ httpRequestHandling.route('/signup')
 		auth.emailSignup(req, res);
 	});
 
+httpRequestHandling.route('/image64')
+	.post((req, res) => {
+		fs.readFile(req.body.path, (err, data) => {
+			if (err) {
+				return res.status(500).json({ err: 'imagen no encontrada' });
+			}
+
+			let file = new Buffer(data, 'Uint8array').toString('base64');
+			file = 'data:image/png;base64,'+ file;
+			res.status(200).json({ img: file });
+		});
+	});
+
 /*httpRequestHandling.route('/login')
 	.post((req, res) => {
 		auth.emailLogin(req, res);
