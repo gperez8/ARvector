@@ -14,8 +14,6 @@ angular.module('app')
         $scope.models = [];
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
-        $rootScope.login = localStorage.getItem('token');
-        $rootScope.rolUser = localStorage.getItem('rolUser');
         $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
         $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
         $rootScope.markers = JSON.parse(localStorage.getItem('markers'));
@@ -336,19 +334,23 @@ angular.module('app')
                                 localStorage.setItem('markers', JSON.stringify(markers));
                             });
                 })();
-
-               
             }
 
-            const file = new FileReader();
-            const doc = document.querySelector('.ql-editor');
-            const image = document.createElement('img');
-            image.setAttribute('src', $rootScope.markers[index].markerImage);
+            (async () => {
+                await $timeout(() => {
+                    const file = new FileReader();
+                    const doc = document.querySelector('.ql-editor');
+                    const image = document.createElement('img');
+                    image.setAttribute('src', $rootScope.markers[index].markerImage);
 
-            const p = document.createElement('p');
-            p.appendChild(image);
-            doc.appendChild(p);
+                    const p = document.createElement('p');
+                    p.appendChild(image);
+                    doc.appendChild(p);
+                }, 1000);
+            })();
         };
+
+
 
         $scope.pdfGenerate = () => {
             const mathEditor = document.querySelector('.ql-editor');
@@ -357,8 +359,15 @@ angular.module('app')
         };
 
         $scope.saveResource = () => {
-            console.log('markers', $rootScope.markers); 
-        };  
+            $http({
+                method: 'POST',
+                url: '/image64',
+                //data: { path:  },
+                headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            }).then((response) => {
+
+            }); 
+       };  
 
         $scope.sortableOptions = {
             placeholder: 'app',
