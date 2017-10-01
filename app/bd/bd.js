@@ -16,12 +16,9 @@ client.on('end', () => { client.end(); });
 /* CRUD TABLA career*/
 httpRequestHandling.route('/career')
 	.post((req, resp) => {
-		console.log('hola POST');
-
 		const text = 'INSERT INTO bd.career(code_career,school) VALUES ($1,$2)';
 		const values = ['0006', 'X'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -33,21 +30,19 @@ httpRequestHandling.route('/career')
 	.get((req, resp) => {
 		const text = 'select * from bd.career';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 		const text = 'UPDATE bd.career SET school=($1) WHERE code_career=($2)';
 		const values = ['Y', '0006'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -56,11 +51,10 @@ httpRequestHandling.route('/career')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.career WHERE code_career=($1)';
 		const values = ['0006'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -73,12 +67,11 @@ httpRequestHandling.route('/career')
 /* CRUD TABLA careerStudent*/
 httpRequestHandling.route('/careerStudent')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.careerStudent(code_career,ci_student) VALUES ($1,$2)';
 		const values = ['0006', '20242434'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -90,7 +83,6 @@ httpRequestHandling.route('/careerStudent')
 	.get((req, resp) => {
 		const text = 'select * from bd.careerStudent';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
 				console.log('error', err.stack);
@@ -100,11 +92,10 @@ httpRequestHandling.route('/careerStudent')
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 		const text = 'UPDATE bd.careerStudent SET ci_student=($1) WHERE code_career=($2) and ci_student=($3)';
 		const values = ['169247475','0006','20242434'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -113,11 +104,10 @@ httpRequestHandling.route('/careerStudent')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.careerStudent WHERE code_career=($1) and ci_student =($2)';
 		const values = ['0006', '169247475'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -130,12 +120,11 @@ httpRequestHandling.route('/careerStudent')
 /* CRUD TABLA careerAsignature*/
 httpRequestHandling.route('/careerAsignature')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.careerAsignature(code_career,code_asignature) VALUES ($1,$2)';
 		const values = ['0006', '99571901499'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -147,22 +136,20 @@ httpRequestHandling.route('/careerAsignature')
 	.get((req, resp) => {
 		const text = 'select * from bd.careerAsignature';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.careerAsignature SET code_asignature=($1) WHERE code_career=($2) and code_asignature=($3)';
 		const values = ['45357565099', '0006', '99571901499'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -171,11 +158,11 @@ httpRequestHandling.route('/careerAsignature')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.careerAsignature WHERE code_career=($1) and code_asignature=($2)';
 		const values = ['0006', '45357565099'];
 
-		// client.connect();
+		
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -190,12 +177,11 @@ httpRequestHandling.route('/careerAsignature')
 /* CRUD TABLA teacher*/
 httpRequestHandling.route('/teacher')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.teacher(name,last_name,ci,email,phone) VALUES ($1,$2,$3,$4,$5)';
 		const values = ['carmen', 'araque', '21065369', 'cdaraque@gmail.com', '04244180652'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -207,22 +193,20 @@ httpRequestHandling.route('/teacher')
 	.get((req, resp) => {
 		const text = 'select * from bd.teacher';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.teacher SET name=($1), last_name=($2) WHERE ci=($3)';
 		const values = ['Carmen', 'Araque', '21065369'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -231,11 +215,10 @@ httpRequestHandling.route('/teacher')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.teacher WHERE ci=($1)';
 		const values = ['21065369'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -248,14 +231,13 @@ httpRequestHandling.route('/teacher')
 /* CRUD TABLA student*/
 httpRequestHandling.route('/student')
 	.post((req, resp) => {		
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
 		//const values = ['carmen', 'araque', '21065987', '9', 'cdaraque@gmail.com',''];
 		const values = Object.keys(req.body).map(key => req.body[key]);
 
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -267,22 +249,20 @@ httpRequestHandling.route('/student')
 	.get((req, resp) => {
 		const text = 'select * from bd.student';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.student SET name=($1), last_name=($2) WHERE ci=($3)';
 		const values = ['Carmen', 'Araque', '21065987'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -291,11 +271,10 @@ httpRequestHandling.route('/student')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.student WHERE ci=($1)';
 		const values = ['21065987'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -309,12 +288,11 @@ httpRequestHandling.route('/student')
 /* CRUD TABLA section*/
 httpRequestHandling.route('/section')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.section(ci_teacher,ci_student,code_asignature,num_section,schedule) VALUES ($1,$2,$3,$4,$5)';
 		const values = ['007539372', '20242434', '18615945399','02','dfjsdjfkdsjlkf'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -326,17 +304,16 @@ httpRequestHandling.route('/section')
 	.get((req, resp) => {
 		const text = 'select * from bd.section';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		/*
 		code_asignature,num_section,schedule*/
@@ -344,7 +321,6 @@ httpRequestHandling.route('/section')
 		const text = 'UPDATE bd.section SET num_section=($1) WHERE ci_teacher=($2) and ci_student=($3) and num_section=($4)';
 		const values = ['03', '007539372', '20242434', '02'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -353,11 +329,10 @@ httpRequestHandling.route('/section')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.section WHERE ci_teacher=($1) and ci_student=($2) and num_section=($3)';
 		const values = ['007539372', '20242434', '03'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -372,12 +347,11 @@ httpRequestHandling.route('/section')
 /* CRUD TABLA Asignature */
 httpRequestHandling.route('/asignature')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.asignature(name, code_asignature) VALUES ($1,$2)';
 		const values = ['IA', '20369852147'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -389,22 +363,20 @@ httpRequestHandling.route('/asignature')
 	.get((req, resp) => {
 		const text = 'select * from bd.asignature';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.asignature SET name=($1) WHERE code_asignature=($2)';
 		const values = ['ai','20369852147'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -413,11 +385,10 @@ httpRequestHandling.route('/asignature')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.asignature WHERE code_asignature=($1)';
 		const values = ['20369852147'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -430,12 +401,11 @@ httpRequestHandling.route('/asignature')
 /* CRUD TABLA teacherAsignature */
 httpRequestHandling.route('/teacherAsignature')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.teacherAsignature(ci_teacher, code_asignature) VALUES ($1,$2)';
 		const values = ['007539372', '18615945399'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -447,22 +417,20 @@ httpRequestHandling.route('/teacherAsignature')
 	.get((req, resp) => {
 		const text = 'select * from bd.teacherAsignature';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.teacherAsignature SET code_asignature=($1) WHERE ci_teacher=($2) and code_asignature=($3)';
 		const values = ['19913004499', '007539372', '18615945399'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -471,11 +439,10 @@ httpRequestHandling.route('/teacherAsignature')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.teacherAsignature WHERE ci_teacher=($1) and code_asignature=($2)';
 		const values = ['007539372', '19913004499'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -488,12 +455,11 @@ httpRequestHandling.route('/teacherAsignature')
 /* CRUD TABLA studentAsignature */
 httpRequestHandling.route('/studentAsignature')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.studentAsignature(ci_student, code_asignature) VALUES ($1,$2)';
 		const values = ['20242434', '99583631599'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -505,22 +471,20 @@ httpRequestHandling.route('/studentAsignature')
 	.get((req, resp) => {
 		const text = 'select * from bd.studentAsignature';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 
 		const text = 'UPDATE bd.studentAsignature SET name=($1) WHERE ci=($2) and code_asignature=($3)';
 		const values = ['20242434', '45357565099'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -529,11 +493,10 @@ httpRequestHandling.route('/studentAsignature')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.studentAsignature WHERE ci_student=($1) and code_asignature=($2)';
 		const values = ['20242434', '45357565099'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -548,12 +511,12 @@ httpRequestHandling.route('/studentAsignature')
 /* CRUD TABLA Guide */
 httpRequestHandling.route('/guide')
 	.post((req, resp) => {
-		console.log('hola POST');
+		
 
 		const text = 'INSERT INTO bd.guide(type_name,exercise_number,path_guide,num_guide,code_asignature,num_section) VALUES ($1,$2,$3,$4,$5,$6)';
 		const values = ['guia 1', 10, 'http://resource', 1, '18615945399', 10];
 
-		// client.connect();
+		
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -565,21 +528,19 @@ httpRequestHandling.route('/guide')
 	.get((req, resp) => {
 		const text = 'select * from bd.guide';
 
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
+		
 		const text = 'UPDATE bd.guide SET type_name=($1) WHERE code_asignature=($2) and num_section=($3) and num_guide=($4)';
 		const values = ['hola MUNDo', '18615945399', 10, 1];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -588,11 +549,10 @@ httpRequestHandling.route('/guide')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
+		
 		const text = 'DELETE FROM bd.guide WHERE code_asignature=($1) and num_section=($2) and num_guide=($3)';
 		const values = ['18615945399', 10, 1];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -605,12 +565,10 @@ httpRequestHandling.route('/guide')
 /* CRUD TABLA ResourceMarker */
 httpRequestHandling.route('/resourceMarker')
 	.post((req, resp) => {
-		console.log('hola POST adsdkljl');
 
 		const text = 'INSERT INTO bd.resourceMarker(id,name_src,num_guide,code_asignature,path_marker,path_resource,date_created) VALUES ($1,$2,$3,$4,$5,$6,$7)';
 		const values = [7, 'marker xyz', 1, '78808471299', 'http://resource_marker', 'http://resource_resource', '2008/12/31 21:05:00.59'];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				console.log('err', err);
@@ -620,27 +578,19 @@ httpRequestHandling.route('/resourceMarker')
 		});
 	})
 	.get((req, resp) => {
-
-		console.log('hsdfhdskjhkj')
-
 		const text = 'select * from bd.resourceMarker';
-
-		// client.connect();
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('sdfsd', err.stack);
+				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
 		});
 	})
 	.patch((req, resp) => {
-		console.log('hola UPDATE');
-
 		const text = 'UPDATE bd.resourceMarker SET name_src=($1) WHERE code_asignature=($2) and num_guide=($3) and id=($4)';
 		const values = ['nombre X', '78808471299', 1, 7];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -649,11 +599,9 @@ httpRequestHandling.route('/resourceMarker')
 		});
 	})
 	.delete((req, resp) => {
-		console.log('hola DELETE');
 		const text = 'DELETE FROM bd.resourceMarker WHERE code_asignature=($1) and num_guide=($2) and id=($3)';
 		const values = ['78808471299', 1, 7];
 
-		// client.connect();
 		client.query(text, values, (err) => {
 			if (err) {
 				return resp.status(500).json({ success: false, res: err });
@@ -671,7 +619,7 @@ httpRequestHandling.route('/login')
 		values.push(req.body.email);
 		values.push(req.body.password);
 
-		// client.connect();
+		
 		client.query(text, values, (err, data) => {
 			if (err) {
 				return resp
@@ -701,11 +649,7 @@ httpRequestHandling.route('/login')
 				values.push(req.body.email);
 				values.push(req.body.password);
 
-				// client.connect();
 				const userData = await client.query(text, values);
-
-				console.log('userData', userData.rows.length);
-
 
 				if (userData.rows.length > 0) {
 
@@ -730,14 +674,9 @@ httpRequestHandling.route('/login')
 							if (!fs.existsSync(pathImage)) fs.mkdirSync(pathImage);
 							if (!fs.existsSync(pathPatt)) fs.mkdirSync(pathPatt);
 
-
 							pathModelTmp = pathModelTmp + ci + '/tmp/';
 							pathImageTmp = pathImageTmp + ci + '/tmp/';
 							pathPattTmp = pathPattTmp + ci + '/tmp/';
-
-							console.log('pathModelTmp', pathModelTmp);
-							console.log('pathImageTmp', pathImageTmp);
-							console.log('pathPattTmp', pathPattTmp);
 
 							if (!fs.existsSync(pathModelTmp)) fs.mkdirSync(pathModelTmp);
 							if (!fs.existsSync(pathImageTmp)) fs.mkdirSync(pathImageTmp);
@@ -795,9 +734,7 @@ httpRequestHandling.route('/logout')
 httpRequestHandling.route('/register')
 	.get((req, resp) => {
 		(async () => {
-
 			let text = 'select * from bd.career';
-			// client.connect();
 			let career = await client.query(text);
 
 			if (career.rows.length === 0) {
@@ -822,7 +759,6 @@ httpRequestHandling.route('/register/:id')
 		values.push(req.body.ci);
 
 		(async () => {
-			// client.connect();
 			const result = await client.query(text, values);
 
 			if (result.rows.length > 0) {
@@ -842,7 +778,6 @@ httpRequestHandling.route('/register/:id')
 			values.push(req.body.email);
 
 			await client.query(text, values, (err) => {
-				console.log('err', err);
 				if (err) {
 					resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
 				} else if (req.params.id === ':3') {
@@ -880,7 +815,7 @@ httpRequestHandling.route('/register/:id')
 		values.push(req.body.ci);
 
 		(async () => {
-			// client.connect();
+			
 			const result = await client.query(text, values);
 
 			if (typeof result.rows[0] === 'object') {

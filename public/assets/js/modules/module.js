@@ -328,6 +328,7 @@ angular.module('app',
 				files.map((obj, index) => {
 					markers[index].imgFileDir = pathServer + obj;
 					markers[index].imgFilePath = pathClient + obj;
+					markers[index].markerImage = data.data[1].markerImage[index];
 				});
 
 				localStorage.setItem('markers', JSON.stringify(markers));

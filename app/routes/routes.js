@@ -59,6 +59,7 @@ httpRequestHandling.route('/createMarker/:id')
 	.post((req, res) => {
 		const pattFile = {};
 		const imgFile = {};
+		imgFile.markerImage = [];
 
 		const pattFileDir = req.body.pattFileDir;
 		const imgFileDir = req.body.imgFileDir;
@@ -72,10 +73,13 @@ httpRequestHandling.route('/createMarker/:id')
 		imgFile.pathServer = imgFileDir;
 		imgFile.pattFiles = fs.readdirSync(imgFileDir);
 
+
+		imgFile.pattFiles.map((obj) => {
+			imgFile.markerImage.push('data:image/png;base64,' + new Buffer(fs.readFileSync(imgFile.pathServer+obj), 'Uint8array').toString('base64'));
+		});
+
 		response.push(pattFile);
 		response.push(imgFile);
-
-		console.log('response',response);
 
 		res.status(200).json(response);
 	})
@@ -222,19 +226,6 @@ httpRequestHandling.route('/model/:id')
 httpRequestHandling.route('/signup')
 	.post((req, res) => {
 		auth.emailSignup(req, res);
-	});
-
-httpRequestHandling.route('/image64')
-	.post((req, res) => {
-		fs.readFile(req.body.path, (err, data) => {
-			if (err) {
-				return res.status(500).json({ err: 'imagen no encontrada' });
-			}
-
-			let file = new Buffer(data, 'Uint8array').toString('base64');
-			file = 'data:image/png;base64,'+ file;
-			res.status(200).json({ img: file });
-		});
 	});
 
 /*httpRequestHandling.route('/login')

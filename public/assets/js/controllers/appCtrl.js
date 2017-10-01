@@ -320,37 +320,14 @@ angular.module('app')
         };
 
         $scope.insertImage = (index) => {
-            if (!angular.isDefined($rootScope.markers[index].markerImage)) {
-               (async () => {
-                    await   $http({
-                                method: 'POST',
-                                url: '/image64',
-                                data: { path: $rootScope.markers[index].imgFileDir },
-                                headers: { 'Content-Type': 'application/json;charset=utf-8' },
-                            }).then((response) => {
-                                const markers = JSON.parse(localStorage.getItem('markers'));
-                                markers[index].markerImage = response.data.img;
-                                $rootScope.markers[index].markerImage = response.data.img;
-                                localStorage.setItem('markers', JSON.stringify(markers));
-                            });
-                })();
-            }
+            const doc = document.querySelector('.ql-editor');
+            const image = document.createElement('img');
+            image.setAttribute('src', $rootScope.markers[index].markerImage);
 
-            (async () => {
-                await $timeout(() => {
-                    const file = new FileReader();
-                    const doc = document.querySelector('.ql-editor');
-                    const image = document.createElement('img');
-                    image.setAttribute('src', $rootScope.markers[index].markerImage);
-
-                    const p = document.createElement('p');
-                    p.appendChild(image);
-                    doc.appendChild(p);
-                }, 1000);
-            })();
+            const p = document.createElement('p');
+            p.appendChild(image);
+            doc.appendChild(p);
         };
-
-
 
         $scope.pdfGenerate = () => {
             const mathEditor = document.querySelector('.ql-editor');
