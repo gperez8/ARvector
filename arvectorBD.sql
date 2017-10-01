@@ -37,7 +37,7 @@ create table BD.teacher(
 	name BD.type_name not null,
 	last_name BD.type_last_name not null,
 	ci BD.type_ci primary key,
-	email text not null,
+	email BD.type_email not null,
 );
 
 create table BD.student(
