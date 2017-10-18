@@ -10,6 +10,12 @@ angular.module('app')
 			.then((data) =>  {
 				console.log(data);
 				$scope.view = data.data;
+
+				$scope.view.teachers.map((obj) => {
+					return obj.fullName = obj.name + ' ' + obj.last_name;
+				});
+
+				console.log('json register', $scope.view);
 			});
 
 		$scope.register = () => {
@@ -20,6 +26,7 @@ angular.module('app')
 			//$scope.form.semester = Number($scope.form.semester);
 			console.log('register scope.form', $scope.form);
 
+			console.log('json', $scope.form);
 			$http.post('/register/:'+$scope.form.rol, $scope.form, 'json')
 				.then((data) => {
 					console.log('data', data);

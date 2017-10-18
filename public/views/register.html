@@ -135,26 +135,29 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-6">
-                        <div 
-                        class="form-group"
-                        ng-class="{ 
+                         <div 
+                            class="form-group"
+                            ng-class="{ 
                                 'error' : 
-                                !formRegister.semester.$pristine &&
-                                formRegister.semester.$error.required, 
+                                !formRegister.teacher.$pristine &&
+                                formRegister.teacher.$error.required, 
                                 
                                 'success': 
-                                !formRegister.semester.$pristine && !formRegister.semester.$error.required
+                                !formRegister.teacher.$pristine && !formRegister.teacher.$error.required
                             }">
-                            <input 
-                                type="text"
-                                name="semester"
-                                id="semester"
+                            <select 
+                                name="teacher"
+                                id="teacher"
                                 class="form-control input-md"
-                                placeholder="Semestre" 
-                                maxlength="1" 
-                                ng-model="form.semester" 
-                                ng-keypress="filterNumberOnly($event)" 
-                                required>
+                                required="required"
+                                ng-model="form.ci_teacher">
+                                    <option value="">Seleccione Profesor</option>
+                                    <option 
+                                        class="text-capitalize"
+                                        ng-repeat="option in view.teachers | orderBy: '+fullName'"
+                                        value="{{option.ci_teacher}}">{{ option.fullName | capitalize }}
+                                    </option>
+                            </select>
                         </div>
                     </div>
                 </div>

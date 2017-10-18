@@ -177,8 +177,6 @@ httpRequestHandling.route('/careerAsignature')
 /* CRUD TABLA teacher*/
 httpRequestHandling.route('/teacher')
 	.post((req, resp) => {
-		
-
 		const text = 'INSERT INTO bd.teacher(name,last_name,ci,email,phone) VALUES ($1,$2,$3,$4,$5)';
 		const values = ['carmen', 'araque', '21065369', 'cdaraque@gmail.com', '04244180652'];
 
@@ -347,8 +345,6 @@ httpRequestHandling.route('/section')
 /* CRUD TABLA Asignature */
 httpRequestHandling.route('/asignature')
 	.post((req, resp) => {
-		
-
 		const text = 'INSERT INTO bd.asignature(name, code_asignature) VALUES ($1,$2)';
 		const values = ['IA', '20369852147'];
 
@@ -372,8 +368,6 @@ httpRequestHandling.route('/asignature')
 		});
 	})
 	.patch((req, resp) => {
-		
-
 		const text = 'UPDATE bd.asignature SET name=($1) WHERE code_asignature=($2)';
 		const values = ['ai','20369852147'];
 
@@ -385,7 +379,6 @@ httpRequestHandling.route('/asignature')
 		});
 	})
 	.delete((req, resp) => {
-		
 		const text = 'DELETE FROM bd.asignature WHERE code_asignature=($1)';
 		const values = ['20369852147'];
 
@@ -401,8 +394,6 @@ httpRequestHandling.route('/asignature')
 /* CRUD TABLA teacherAsignature */
 httpRequestHandling.route('/teacherAsignature')
 	.post((req, resp) => {
-		
-
 		const text = 'INSERT INTO bd.teacherAsignature(ci_teacher, code_asignature) VALUES ($1,$2)';
 		const values = ['007539372', '18615945399'];
 
@@ -426,8 +417,6 @@ httpRequestHandling.route('/teacherAsignature')
 		});
 	})
 	.patch((req, resp) => {
-		
-
 		const text = 'UPDATE bd.teacherAsignature SET code_asignature=($1) WHERE ci_teacher=($2) and code_asignature=($3)';
 		const values = ['19913004499', '007539372', '18615945399'];
 
@@ -747,7 +736,10 @@ httpRequestHandling.route('/register')
 			if (roles.rows.length === 0) {
 				return resp.status(500).json({ success: false, res: 'no existen roles' });
 			}
-			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows });
+
+			text = 'select * from bd.teacherasignature';
+			let teachers = await client.query(text);
+			return resp.status(200).json({ success: true, career: career.rows, rol: roles.rows, teachers: teachers.rows });
 		})();
 	});
 
@@ -766,20 +758,42 @@ httpRequestHandling.route('/register/:id')
 			}
 
 			const insert = 'INSERT INTO ';
-			const table = req.params.id === ':2' ? 'bd.student(name,last_name,ci,semester,email) ' : 'bd.teacher(name,last_name,ci,email) ';
-			const introValues = req.params.id === ':2' ? 'values ($1,$2,$3,$4,$5)' : 'values ($1,$2,$3,$4)';
+			let table = req.params.id === ':2' ? 'bd.student(name,last_name,ci,email) ' : 'bd.teacher(name,last_name,ci,email) ';
+			let introValues = req.params.id === ':2' ? 'values ($1,$2,$3,$4)' : 'values ($1,$2,$3,$4)';
 			text = insert + table + introValues;
 
 			values = new Array();
 			values.push(req.body.name);
 			values.push(req.body.lastName);
 			values.push(req.body.ci);
-			if (req.params.id === ':2') values.push(req.body.semester);
 			values.push(req.body.email);
+
+			console.log('values', values);
+
+			console.log('values', text);
 
 			await client.query(text, values, (err) => {
 				if (err) {
 					resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
+				} else if (req.params.id === ':2') {
+
+					console.log('req', req.body);
+					values = new Array();
+					values.push(req.body.ci);
+					values.push(req.body.ci_teacher);
+					values.push('cal3');
+
+					table = 'INSERT INTO bd.studentasignature(ci_student,ci_teacher,code_asignature)';
+					introValues = ' values ($1,$2,$3)';
+					text =  table + introValues;
+
+					client.query(text, values, (err) => {
+						if (err) {
+							console.log('err', err);
+							return resp.status(500).json({ success: false, msj: 'error al registrar usuario en teacherasignature' });
+						}
+					});
+
 				} else if (req.params.id === ':3') {
 					const pathModel = './public/assets/vectorial/models/' + req.body.ci;
 					const pathImage = './public/assets/vectorial/imgFiles/' + req.body.ci;
@@ -788,6 +802,22 @@ httpRequestHandling.route('/register/:id')
 					if (!fs.existsSync(pathModel)) fs.mkdirSync(pathModel);
 					if (!fs.existsSync(pathImage)) fs.mkdirSync(pathImage);
 					if (!fs.existsSync(pathPatt)) fs.mkdirSync(pathPatt);
+
+					values = Array();
+					values.push(req.body.name);
+					values.push(req.body.lastName);
+					values.push(req.body.ci);
+					values.push('cal3');
+					table = 'INSERT INTO bd.teacherasignature(name,last_name,ci_teacher,code_asignature)';
+					introValues = ' values ($1,$2,$3,$4)';
+					text =  table + introValues;
+
+					client.query(text, values, (err) => {
+						if (err) {
+							console.log('err', err);
+							return resp.status(500).json({ success: false, msj: 'error al registrar usuario en teacherasignature' });
+						}
+					});
 				}
 			});
 
@@ -798,7 +828,9 @@ httpRequestHandling.route('/register/:id')
 			values.push(req.body.rol);
 
 			client.query(text, values, (err) => {
-				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
+				if (err) {
+					resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
+				}
 				return resp.status(200).json({ status: 200 });
 			});
 

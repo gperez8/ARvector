@@ -97,6 +97,9 @@ angular.module('app')
                 data: { path: $rootScope.pathTmp.pathModelTmp },
                 headers: { 'Content-Type': 'application/json;charset=utf-8' },
             }).then((data) => {
+
+                console.log('data',data);
+
                 const pathClient = data.data.pathClient;
                 const pathServer = data.data.pathServer;
                 const models = data.data.pathFilesName;
@@ -221,15 +224,32 @@ angular.module('app')
                     newAMarker.setAttribute('id', $rootScope.markers[index].src[0].name);
                     newAMarker.setAttribute('type', 'pattern');
                     newAMarker.setAttribute('url', $rootScope.markers[index].pattFilePath);
+                    newAMarker.setAttribute('minConfidence', 1);
 
-                    /* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
-                    const newGltfModel = document.createElement('a-gltf-model');
-                    newGltfModel.setAttribute('src', `#${$rootScope.markers[index].src[0].name}`);
-                    newGltfModel.setAttribute('position', '0 0.5 0');
-                    newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
-
-                    newAMarker.appendChild(newGltfModel);
+                    /* se inserta a-marker como hijo de target */
                     target.appendChild(newAMarker);
+
+                    $timeout(() => {
+                        /* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
+                        const newGltfModel = document.createElement('a-gltf-model');
+                        newGltfModel.setAttribute('src', `#${$rootScope.markers[index].src[0].name}`);
+                        newGltfModel.setAttribute('position', '0 0.5 0');
+                        newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
+
+                        let nameModel = $rootScope.markers[index].src[0].name;
+
+                        const children = target.childNodes;
+                        children.forEach((element, index) => {
+                            if (typeof element.id === 'string' && element.id === nameModel) {
+                                target.childNodes[index].appendChild(newGltfModel);                            
+                                return;
+                            }
+                        });
+                    },500);
+                    
+
+                   /* newAMarker.appendChild(newGltfModel);
+                    target.appendChild(newAMarker);*/
 
                     if ($rootScope.markers[index].src.length > 1) {
                         $scope.deleteOfScene($rootScope.markers[index].src[1].name);

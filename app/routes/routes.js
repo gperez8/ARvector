@@ -112,7 +112,7 @@ httpRequestHandling.route('/createModel2')
 	.post((req, res) => {
 		const model = lzma.decompress(req.body.model);
 		// carpetas para archivos .patt y png
-		const modelFileDir = './public/assets/model';
+		const modelFileDir = './public/assets/vectorial/models/8050767/tmp';
 
 		// ruta y nombres de archivos .patt y png
 		const modelFilePath = `${modelFileDir}` +
@@ -200,11 +200,14 @@ httpRequestHandling.route('/model')
 httpRequestHandling.route('/model/:id')
 	.post((req, res) => {
 		const path = req.body.path;
+
+		console.log('pathClient', path.replace('./public/assets/', 'src/'));
+
 		fs.readdir(path, (err, files) => {
 			res.status(200).json({
 				status: 200,
 				pathFilesName: files,
-				pathClient: path.replace('./public/assets/', 'src'),
+				pathClient: path.replace('./public/assets/', 'src/'),
 				pathServer: path,
 			});
 		});
