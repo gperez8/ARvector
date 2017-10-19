@@ -15,7 +15,7 @@
 		            <div class="sidebar-brand">
 		                <img src="src/images/carmen.jpg" class="img-responsive img-circle" alt="Cinque Terre" width="40" height="40"> 
 
-		                <p>Carmen Araque  
+		                <p>{{ fullName }} 
 		                	<span ng-click="arrow.profile=!arrow.profile">
 			                	<i ng-class="{
 				                		'glyphicon glyphicon-chevron-left': !arrow.profile,
@@ -370,24 +370,14 @@
 			            	</div>			            			        	
 		            	</div>
 
-		            	<div class="col-sm-12 col-xs-12 margin-botton">
-		            		<div class="col-sm-6 col-xs-6 margin-not">
+		            	<div class="col-sm-12 col-xs-12 margin-botton ">
+		            		<div class="col-sm-offset-3 col-xs-offset-3 col-sm-6 col-xs-6 margin-not">
 				            	<a 	
-				            		id="bottomLeft"
 				            		href="" 
 				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="generatePdf()">PDF
+				            		ng-click="generatePdf()">Generar PDF
 				            	</a>
 			            	</div>		
-
-		            		<div class="col-sm-6 col-xs-6 margin-not">
-				            	<a 	
-				            		id="bottomRight"
-				            		href="" 
-				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="saveResource()">Guardar
-				            	</a>
-			            	</div>
 		            	</div>
 		            </div>
 		            <!-- FIN Funcionalidad TestMarker Profesor -->
@@ -553,7 +543,7 @@
 				            		id="bottomRight"
 				            		href="" 
 				            		class="btn btn-mds btn-primary btn-block"
-				            		ng-click="">Guardar
+				            		ng-click="saveResource()">Guardar
 				            	</a>
 			            	</div>
 		            	</div>

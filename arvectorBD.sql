@@ -136,33 +136,38 @@ create table BD.section(
 
 create table BD.guide(
 	type_name BD.type_name,
-	exercise_number int,
-	path_guide text,
 	num_guide int,
-	code_asignature text, 
-	num_section int,
+	code_asignature text,
+	ci_teacher BD.type_ci,
+
+	foreign key (ci_teacher) references BD.teacher(ci)
+	on delete cascade
+	on update cascade,
 
 	foreign key (code_asignature) references BD.asignature(code_asignature)
 	on delete cascade
 	on update cascade,
 
-	primary key (code_asignature,num_section,num_guide)
+	primary key (code_asignature, num_guide, ci_teacher)
 );
 
 create table BD.resourceMarker(
-	id int,
-	name_src text,
-	num_guide int,
-	code_asignature text,
-	path_marker text,
-	path_resource text,
-	date_created timestamp,
+	id serial,
+	pattFileSrc text, 
+	gltfFileSrc text, 
+	code_asignature text, 
+	num_guide int, 
+	ci_teacher BD.type_ci,
 
 	foreign key (code_asignature) references BD.asignature(code_asignature)
 	on delete cascade
 	on update cascade,
 
-	primary key(code_asignature,num_guide,id)
+	foreign key (ci_teacher) references BD.teacher(ci)
+	on delete cascade
+	on update cascade,
+
+	primary key(code_asignature, num_guide, ci_teacher, id)
 );
 
 create table BD.users(

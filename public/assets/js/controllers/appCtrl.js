@@ -12,6 +12,7 @@ angular.module('app')
         $scope.customOption = $rootScope.customOption;
         $scope.file = '';
         $scope.models = [];
+        $rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');     
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
         $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
@@ -81,6 +82,9 @@ angular.module('app')
             localStorage.removeItem('rol');
             localStorage.removeItem('pathTeacher');
             localStorage.removeItem('pathTmp');
+            localStorage.removeItem('name');
+            localStorage.removeItem('lastName');
+            localStorage.removeItem('ci_teacher');
             localStorage.clear();
             $scope.home();
         };
@@ -356,15 +360,36 @@ angular.module('app')
         };
 
         $scope.saveResource = () => {
+            let resources = JSON.parse(localStorage.getItem('markers')).filter((obj) => {
+                if (obj.src.length > 0) {
+                    return obj;
+                }
+            });
+
+            resources = resources.map((obj) => {
+                return {
+                    pattFilePath: obj.pattFilePath,
+                    gltfFilePath: obj.src[0].src,
+                };
+            });
+
+            const json = {
+                resources: resources,
+                ci_teacher: localStorage.getItem('ci_teacher'),
+            };
+        
+            console.log('json', json);
+
             $http({
                 method: 'POST',
-                url: '/image64',
-                //data: { path:  },
+                url: '/guide',
+                data: json,
                 headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            }).then((response) => {
+            }).then((data) => {
+                console.log('response', data);
+            });
 
-            }); 
-       };  
+        };
 
         $scope.sortableOptions = {
             placeholder: 'app',

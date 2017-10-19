@@ -500,9 +500,8 @@ httpRequestHandling.route('/studentAsignature')
 /* CRUD TABLA Guide */
 httpRequestHandling.route('/guide')
 	.post((req, resp) => {
-		
-
-		const text = 'INSERT INTO bd.guide(type_name,exercise_number,path_guide,num_guide,code_asignature,num_section) VALUES ($1,$2,$3,$4,$5,$6)';
+	
+		/*const text = 'INSERT INTO bd.guide(type_name,exercise_number,path_guide,num_guide,code_asignature,num_section) VALUES ($1,$2,$3,$4,$5,$6)';
 		const values = ['guia 1', 10, 'http://resource', 1, '18615945399', 10];
 
 		
@@ -512,7 +511,81 @@ httpRequestHandling.route('/guide')
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
-		});
+		});*/
+
+
+		function insertResources(index, resources, codAsignature, numGuide) {
+			if (index <= resources.length-1) {
+				const text = 'INSERT INTO bd.resourceMarker(pattFileSrc, gltfFileSrc, code_asignature, num_guide, ci_teacher) values ($1,$2,$3,$4,$5)';
+				const values = [];
+				values.push(resources[index].pattFilePath);
+				values.push(resources[index].gltfFilePath);
+				values.push(codAsignature.rows[0].code_asignature);
+				values.push(numGuide.rows[0].count);
+				values.push(req.body.ci_teacher);
+				client.query(text, values)
+					.then(() => {
+						index = index + 1;
+						console.log('index', index);
+						insertResources(Number(index), resources, codAsignature, numGuide);
+					})
+					.catch((e) => {
+						console.log(e);
+						return false;
+					});
+			} else {
+				return true;
+			}
+		}
+
+		(async () => {
+			const resources = req.body.resources;
+
+			let text = 'select code_asignature from bd.teacherAsignature where ci_teacher=($1)';
+			let values = [];
+			values.push(req.body.ci_teacher);
+			const codAsignature = await client.query(text, values);
+			
+			text = 'select COUNT(*) from bd.guide where code_asignature=($1) and ci_teacher=($2)';
+			values = [];
+			values.push(codAsignature.rows[0].code_asignature);
+			values.push(req.body.ci_teacher);
+
+			const numGuide = await client.query(text, values);
+
+			text = 'INSERT INTO bd.guide(type_name,num_guide,code_asignature,ci_teacher) values ($1,$2,$3,$4)';
+			values = new Array();
+			values.push('Guia #' + numGuide.rows[0].count);
+			values.push(numGuide.rows[0].count);
+			values.push(codAsignature.rows[0].code_asignature);
+			values.push(req.body.ci_teacher);
+
+			await client.query(text, values);
+
+			let index = 0;
+
+			band = await insertResources(Number(index), resources, codAsignature, numGuide);
+			
+			if (band) {
+				return resp.status(200).json({ success: true });
+			} else {
+				return resp.status(500).json({ success: true });
+			}
+
+			/*resources.forEach((obj) => {
+				text = 'INSERT INTO bd.resourceMarker(pattFileSrc, gltfFileSrc, code_asignature, num_guide, ci_teacher) values ($1,$2,$3,$4,$5)';
+				values = [];
+				values.push(obj.pattFilePath);
+				values.push(obj.gltfFilePath);
+				values.push(codAsignature.rows[0].code_asignature);
+				values.push(numGuide.rows[0].count);
+				values.push(req.body.ci_teacher);
+				console.log('values', values);
+				client.query(text, values);
+			});*/
+		})();
+
+		resp.status(200).json({ success: true });
 	})
 	.get((req, resp) => {
 		const text = 'select * from bd.guide';
@@ -678,8 +751,9 @@ httpRequestHandling.route('/login')
 								status: 200,
 								token: service.createToken(userData.rows[0]),
 								rol: userData.rows[0].rol,
-								name: userData.rows[0].name,
-								lastName: userData.rows[0].last_name,
+								name: user.rows[0].name,
+								lastName: user.rows[0].last_name,
+								ci: user.rows[0].ci,
 								pathTeacher: {
 									pathModel: pathModel,
 									pathImage: pathImage,
@@ -696,13 +770,11 @@ httpRequestHandling.route('/login')
 							.status(500)
 							.send({ status: 500, err: 'error no registrado en tabla teacher o student' });
 					}
-				} 
+				}
 
 				return resp
 					.status(500)
 					.send({ status: 500, err: 'usuario no registrado' });
-
-
 			})();
 
 		//});
