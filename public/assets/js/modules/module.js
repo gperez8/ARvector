@@ -307,7 +307,6 @@ angular.module('app',
 				headers: { 'Content-Type': 'application/json;charset=utf-8' },
 
 			}).then((data) => {
-				console.log('recuperando hjkhkjhjk', data);
 				let pathServer = data.data[0].pathServer;
 				let pathClient = data.data[0].pathClient;
 				let files = data.data[0].pattFiles;

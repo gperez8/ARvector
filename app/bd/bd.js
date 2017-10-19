@@ -700,6 +700,54 @@ httpRequestHandling.route('/login')
 			}*/
 
 			(async () => {
+				var guides = new Array();
+				var nameAsignatures = new Array();
+				async function getGuide(index, asignatures) {
+					if (index <= asignatures.length-1) {
+						let data;
+						const text = 'select type_name, num_guide from bd.guide where code_asignature=($1) and ci_teacher=($2)';
+						const values = [];
+						values.push(asignatures[index].code_asignature);
+						values.push(asignatures[index].ci_teacher);
+						
+						try {
+							data = await client.query(text, values);
+						} catch (e) {
+							console.log(e);
+
+							return false;
+						}
+
+						guides.push(data.rows);
+						index = index + 1;
+
+						return getGuide(Number(index), asignatures, guides);
+					} else {
+						return true;
+					}
+				}
+
+				async function getNameAsignature(index, asignatures) {
+					if (index <= asignatures.length-1) {
+						let data;
+						const text = 'select name from bd.asignature where code_asignature=($1)';
+						const values = [];
+						values.push(asignatures[index].code_asignature);
+
+						try {
+							data = await client.query(text, values);
+						} catch (e) {
+							console.log(e);
+							return false;
+						}
+						nameAsignatures.push(data.rows);
+						index = index + 1;
+						return getGuide(Number(index), asignatures, nameAsignatures);
+					} else {
+						return true;
+					}
+				}
+
 				let pathModel = './public/assets/vectorial/models/';
 				let pathImage = './public/assets/vectorial/imgFiles/';
 				let pathPatt = './public/assets/vectorial/pattFiles/';
@@ -745,26 +793,57 @@ httpRequestHandling.route('/login')
 							if (!fs.existsSync(pathPattTmp)) fs.mkdirSync(pathPattTmp);
 						}
 
-						return resp
-							.status(200)
-							.json({
-								status: 200,
-								token: service.createToken(userData.rows[0]),
-								rol: userData.rows[0].rol,
-								name: user.rows[0].name,
-								lastName: user.rows[0].last_name,
-								ci: user.rows[0].ci,
-								pathTeacher: {
-									pathModel: pathModel,
-									pathImage: pathImage,
-									pathPatt: pathPatt,
-								},
-								pathTmp: {
-									pathModelTmp: pathModelTmp,
-									pathImageTmp: pathImageTmp,
-									pathPattTmp: pathPattTmp,
-								},
-							});
+						if (userData.rows[0].rol === 3) {
+								return resp
+									.status(200)
+									.json({
+										status: 200,
+										token: service.createToken(userData.rows[0]),
+										rol: userData.rows[0].rol,
+										name: user.rows[0].name,
+										lastName: user.rows[0].last_name,
+										ci: user.rows[0].ci,
+										pathTeacher: {
+											pathModel: pathModel,
+											pathImage: pathImage,
+											pathPatt: pathPatt,
+										},
+										pathTmp: {
+											pathModelTmp: pathModelTmp,
+											pathImageTmp: pathImageTmp,
+											pathPattTmp: pathPattTmp,
+										},
+									});
+							} else if (userData.rows[0].rol === 2) {
+								const ci = user.rows[0].ci;
+								let text = 'select ci_teacher, code_asignature from bd.studentAsignature where ci_student=($1)';
+								let values = new Array();
+								values.push(ci);
+
+								let asignatures = await client.query(text, values);
+								asignatures = asignatures.rows;
+
+								const bandGuide = await getGuide(0, asignatures);
+								const bandAsignature = await getNameAsignature(0, asignatures);
+								console.log('asignaturesGuides', guides[0]);
+								console.log('nameAsignatures', nameAsignatures[0]);
+
+								if (bandGuide && bandAsignature) {
+									return resp
+										.status(200)
+										.json({
+											status: 200,
+											token: service.createToken(userData.rows[0]),
+											rol: userData.rows[0].rol,
+											name: user.rows[0].name,
+											lastName: user.rows[0].last_name,
+											guidesNames: guides[0],
+											asignatureName: nameAsignatures[0],
+										});
+								} else {
+									return resp.status(500).json({ status: 500, msj: 'error al obtener guides' });
+								}
+							}
 					} else {
 						return resp
 							.status(500)
