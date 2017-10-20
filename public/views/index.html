@@ -386,7 +386,7 @@
 		            <div ng-if="path === '/testMarker' && rolUser === '2'">
 			            <div id="markers" class="box-content-student">
 			            	<!-- carpetas de Materias -->
-			            	<div class="zone">
+			            	<div class="zone" ng-repeat="asignature in asignatures">
 			            		<p ng-if="!arrow.folderGuide" class="guide">
 					            	<span 
 					            		id="folder"
@@ -399,7 +399,7 @@
 						                	}">	
 						                </i>
 						            </span> 
-						            <span id="guideName">MAT 1</span>
+						            <span id="guideName">{{ asignature.name }} </span>
 				            		<span 
 				            			id="arrow"
 				            			ng-click="arrow.folderResource=!arrow.folderResource">
@@ -416,42 +416,15 @@
 						            <ul 
 						            	id="markerNameList" 
 						            	ng-if="arrow.folderResource">
-						            	<li> 
-						            		Guía #1
+						            	<li ng-repeat="guide in guides" >
+						            		<span ng-click="getResource(guide.num_guide)">
+						            			{{ guide.type_name }}
+						            		</span>
 						            	</li>				            	
 						            </ul>
 					        	</div>
-					            <p ng-if="!arrow.folderGuide" class="guide">
-					            	<span 
-					            		id="folder"
-					            		class="folder" 
-					            		ng-click="arrow.folderResource = !arrow.folderResource">
-					            		<i ng-class="{
-						                		'glyphicon glyphicon-folder-close': !arrow.folderResource,
-
-						                		'glyphicon glyphicon-folder-open': arrow.folderResource,
-						                	}">	
-						                </i>
-						            </span> 
-						            <span id="guideName">MAT 2</span>
-				            		<span 
-				            			id="arrow"
-				            			ng-click="arrow.folderResource=!arrow.folderResource">
-					                	<i ng-class="{
-						                		'glyphicon glyphicon-chevron-left': !arrow.folderResource,
-
-						                		'glyphicon glyphicon-chevron-down': arrow.folderResource
-						                	}"> 	
-						                </i>
-				                	</span>
-					            </p>
 			            	</div>
 			            </div>
-
-			            <!-- Listado de recursos de guias -->
-		            	<div class="col-xs-12 col-sm-12 box-content-student">
-		            		<h1>HOLA<h1>
-		            	</div>
 		            </div>
 		            <!-- FIN Funcionalidad TestMarker Estudiante-->
 

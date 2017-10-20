@@ -671,6 +671,24 @@ httpRequestHandling.route('/resourceMarker')
 			return resp.json({ success: true });
 		});
 	});
+
+httpRequestHandling.route('/resourceMarker/:id')
+	.post((req, resp) => {
+		(async () => {
+			const id = req.body.id;
+			const text = 'select pattFileSrc, gltfFileSrc from bd.resourceMarker where num_guide=($1)';
+			const values = [];
+			values.push(id);
+
+			const result = await client.query(text, values);
+
+			if (result.rows.length > 0) {
+				return resp.status(200).json({ success: true, resources: result.rows });
+			} else {
+				return resp.status(500).json({ success: false, msj: 'error al obtener recursos' });
+			}
+		})();
+	});
 /* FIN CRUD TABLA ResourceMarker */
 
 /* ENDPOINT LOGIN */
@@ -681,7 +699,6 @@ httpRequestHandling.route('/login')
 		values.push(req.body.email);
 		values.push(req.body.password);
 
-		
 		client.query(text, values, (err, data) => {
 			if (err) {
 				return resp
@@ -709,7 +726,7 @@ httpRequestHandling.route('/login')
 						const values = [];
 						values.push(asignatures[index].code_asignature);
 						values.push(asignatures[index].ci_teacher);
-						
+					
 						try {
 							data = await client.query(text, values);
 						} catch (e) {
@@ -825,9 +842,7 @@ httpRequestHandling.route('/login')
 
 								const bandGuide = await getGuide(0, asignatures);
 								const bandAsignature = await getNameAsignature(0, asignatures);
-								console.log('asignaturesGuides', guides[0]);
-								console.log('nameAsignatures', nameAsignatures[0]);
-
+								
 								if (bandGuide && bandAsignature) {
 									return resp
 										.status(200)
@@ -837,9 +852,8 @@ httpRequestHandling.route('/login')
 											rol: userData.rows[0].rol,
 											name: user.rows[0].name,
 											lastName: user.rows[0].last_name,
-											guidesNames: guides[0],
-											asignatureName: nameAsignatures[0],
-										});
+											guidesNames: guides,
+											asignatureName: nameAsignatures[0],										});
 								} else {
 									return resp.status(500).json({ status: 500, msj: 'error al obtener guides' });
 								}
@@ -920,7 +934,6 @@ httpRequestHandling.route('/register/:id')
 			values.push(req.body.email);
 
 			console.log('values', values);
-
 			console.log('values', text);
 
 			await client.query(text, values, (err) => {

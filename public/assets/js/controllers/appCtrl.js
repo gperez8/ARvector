@@ -15,9 +15,16 @@ angular.module('app')
         $rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');     
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
-        $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
-        $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
-        $rootScope.markers = JSON.parse(localStorage.getItem('markers'));
+
+        if (localStorage.getItem('rolUser') === 3) {
+            $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
+            $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
+            $rootScope.markers = JSON.parse(localStorage.getItem('markers'));
+        } else if (localStorage.getItem('rolUser') === 2) {
+            $rootScope.guides = JSON.parse(localStorage.getItem('guides'));
+            $rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
+        }
+
         $rootScope.path = '/testMarker';
 
         $scope.home = () => {
@@ -249,7 +256,7 @@ angular.module('app')
                                 return;
                             }
                         });
-                    },500);
+                    }, 500);
                     
 
                    /* newAMarker.appendChild(newGltfModel);
@@ -260,6 +267,55 @@ angular.module('app')
                         $scope.models.unshift($rootScope.markers[index].src.pop()); 
                     }
             }, 0);
+        };
+
+        $scope.insertResourceStudent = (index, obj) => {
+
+            console.log('index', index);
+            console.log('obj', obj);
+
+
+            $timeout(() => {
+                const scene = document.querySelector('a-scene');
+                const assets = scene.querySelector('#a-assets');
+                const target = scene.querySelector('#target');
+
+                /* se crea un nuevo a-asset-item */
+                const newAssetItem = document.createElement('a-asset-item');
+                newAssetItem.setAttribute('id', `${String(index)}`);
+                newAssetItem.setAttribute('src', obj.gltffilesrc);
+
+                /* se inserta a-asset-item como hijo de a-assets */
+                assets.appendChild(newAssetItem);
+
+                /* se crea un nuevo a-marker */
+                const newAMarker = document.createElement('a-marker');
+                newAMarker.setAttribute('id', `${String(index)}`);
+                newAMarker.setAttribute('type', 'pattern');
+                newAMarker.setAttribute('url', obj.pattfilesrc);
+                newAMarker.setAttribute('minConfidence', 1);
+
+                /* se inserta a-marker como hijo de target */
+                target.appendChild(newAMarker);
+
+                $timeout(() => {
+                    /* se crea un nuevo a-gltf-model (recurso a ser proyectado) */
+                    const newGltfModel = document.createElement('a-gltf-model');
+                    newGltfModel.setAttribute('src', `#${String(index)}`);
+                    newGltfModel.setAttribute('position', '0 0.5 0');
+                    newGltfModel.setAttribute('scale', '0.5 0.5 0.5');
+
+                    let nameModel = String(index);
+
+                    const children = target.childNodes;
+                    children.forEach((element, index) => {
+                        if (typeof element.id === 'string' && element.id === nameModel) {
+                            target.childNodes[index].appendChild(newGltfModel);                           
+                            return;
+                        }
+                    });
+                }, 1000);
+            },1000);
         };
 
         $scope.deleteOfScene = (nameModel) => {
@@ -395,4 +451,21 @@ angular.module('app')
             placeholder: 'app',
             connectWith: '.apps-container',
         };
+
+        $scope.getResource = (index) => {
+            const json = {};
+            json.id = index;
+            $http({
+                method: 'POST',
+                url: '/resourceMarker/:index',
+                data: json,
+                headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            }).then((data) => {
+                console.log('response', data);
+
+                data.data.resources.map((obj,index) => {
+                    $scope.insertResourceStudent(index, obj);
+                });
+            });
+        }
     });

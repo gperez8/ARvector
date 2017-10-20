@@ -21,7 +21,7 @@ angular.module('app')
 
 					$rootScope.login = localStorage.getItem('token');
 					$rootScope.rolUser = localStorage.getItem('rolUser');
-					$rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');  
+					$rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName'); 
 					$rootScope.path = '/testMarker';
 
 					if (data.data.rol === 3 ) {
@@ -29,8 +29,14 @@ angular.module('app')
 						localStorage.setItem('pathTeacher', JSON.stringify(data.data.pathTeacher));
 						localStorage.setItem('pathTmp', JSON.stringify(data.data.pathTmp));
 						$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
-						$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));	
+						$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
 						$rootScope.imgFileLoad();
+
+					} else if (data.data.rol === 2) {
+						localStorage.setItem('guides', JSON.stringify(data.data.guidesNames[0]));
+						localStorage.setItem('asignatures', JSON.stringify(data.data.asignatureName));
+						$rootScope.guides = JSON.parse(localStorage.getItem('guides'));
+						$rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
 					}
 					$location.path('/testMarker');
 
