@@ -518,6 +518,7 @@ httpRequestHandling.route('/guide')
 			if (index <= resources.length-1) {
 				const text = 'INSERT INTO bd.resourceMarker(pattFileSrc, gltfFileSrc, code_asignature, num_guide, ci_teacher) values ($1,$2,$3,$4,$5)';
 				const values = [];
+
 				values.push(resources[index].pattFilePath);
 				values.push(resources[index].gltfFilePath);
 				values.push(codAsignature.rows[0].code_asignature);
@@ -539,7 +540,7 @@ httpRequestHandling.route('/guide')
 		}
 
 		(async () => {
-			const resources = req.body.resources;
+			let resources = req.body.resources;
 
 			let text = 'select code_asignature from bd.teacherAsignature where ci_teacher=($1)';
 			let values = [];
@@ -552,6 +553,32 @@ httpRequestHandling.route('/guide')
 			values.push(req.body.ci_teacher);
 
 			const numGuide = await client.query(text, values);
+
+			fs.rename(
+				`./public/assets/vectorial/imgFiles/${req.body.ci_teacher}/tmp`,
+				`./public/assets/vectorial/imgFiles/${req.body.ci_teacher}/${numGuide.rows[0].count}/`);
+			fs.rename(
+				`./public/assets/vectorial/models/${req.body.ci_teacher}/tmp`,
+				`./public/assets/vectorial/models/${req.body.ci_teacher}/${numGuide.rows[0].count}`);
+			fs.rename(
+				`./public/assets/vectorial/pattFiles/${req.body.ci_teacher}/tmp`,
+				`./public/assets/vectorial/pattFiles/${req.body.ci_teacher}/${numGuide.rows[0].count}`);
+
+			const pathModelTmp = `./public/assets/vectorial/models/${req.body.ci_teacher}/tmp`;
+			const pathImageTmp = `./public/assets/vectorial/imgFiles/${req.body.ci_teacher}/tmp`;
+			const pathPattTmp = `./public/assets/vectorial/pattFiles/${req.body.ci_teacher}/tmp`;
+
+			if (!fs.existsSync(pathModelTmp)) fs.mkdirSync(pathModelTmp);
+			if (!fs.existsSync(pathImageTmp)) fs.mkdirSync(pathImageTmp);
+			if (!fs.existsSync(pathPattTmp)) fs.mkdirSync(pathPattTmp);
+
+			let numFolder = numGuide.rows[0].count;
+			numFolder = numFolder.toString();
+			resources = resources.map((obj) => {
+				obj.pattFilePath = obj.pattFilePath.replace('tmp', numFolder);
+				obj.gltfFilePath = obj.gltfFilePath.replace('tmp', numFolder);
+				return obj;
+			});
 
 			text = 'INSERT INTO bd.guide(type_name,num_guide,code_asignature,ci_teacher) values ($1,$2,$3,$4)';
 			values = new Array();
@@ -571,21 +598,8 @@ httpRequestHandling.route('/guide')
 			} else {
 				return resp.status(500).json({ success: true });
 			}
-
-			/*resources.forEach((obj) => {
-				text = 'INSERT INTO bd.resourceMarker(pattFileSrc, gltfFileSrc, code_asignature, num_guide, ci_teacher) values ($1,$2,$3,$4,$5)';
-				values = [];
-				values.push(obj.pattFilePath);
-				values.push(obj.gltfFilePath);
-				values.push(codAsignature.rows[0].code_asignature);
-				values.push(numGuide.rows[0].count);
-				values.push(req.body.ci_teacher);
-				console.log('values', values);
-				client.query(text, values);
-			});*/
 		})();
-
-		resp.status(200).json({ success: true });
+		return resp.status(200).json({ success: true });
 	})
 	.get((req, resp) => {
 		const text = 'select * from bd.guide';

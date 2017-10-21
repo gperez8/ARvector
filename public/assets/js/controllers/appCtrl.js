@@ -442,9 +442,10 @@ angular.module('app')
                 data: json,
                 headers: { 'Content-Type': 'application/json;charset=utf-8' },
             }).then((data) => {
-                console.log('response', data);
+                localStorage.removeItem('markers');
+                $rootScope.markers = [];
+                $scope.models = [];
             });
-
         };
 
         $scope.sortableOptions = {
