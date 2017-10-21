@@ -272,7 +272,7 @@
 				            			ng-init="markers[$index].src = []"
 				            			ng-model="markers[$index].src"
 				            			ng-class="{ 
-				            				'first-marker' : markers.length === 1, 
+				            				'first-marker' : markers.length === 1 || markers.length === 2, 
 				            				'marker-selected' :  markers[$index].src.length >= 1
 				            			}"
 				            			ui-sortable="sortableOptions"

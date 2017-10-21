@@ -20,6 +20,7 @@ angular.module('app')
             $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
             $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
             $rootScope.markers = JSON.parse(localStorage.getItem('markers'));
+            $scope.models.push(JSON.parse(localStorage.getItem('models')));
         } else if (localStorage.getItem('rolUser') === 2) {
             $rootScope.guides = JSON.parse(localStorage.getItem('guides'));
             $rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
@@ -92,6 +93,7 @@ angular.module('app')
             localStorage.removeItem('name');
             localStorage.removeItem('lastName');
             localStorage.removeItem('ci_teacher');
+            localStorage.removeItem('models');
             localStorage.clear();
             $scope.home();
         };
@@ -102,6 +104,8 @@ angular.module('app')
         };
 
         $scope.modelFileLoad = () => {
+            $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
+
             $http({
                 method: 'POST',
                 url: '/model/:3',
@@ -121,6 +125,7 @@ angular.module('app')
                         deleteSrc: pathServer + obj,
                     };
                 });
+                localStorage.setItem('models', JSON.stringify($scope.models));
             });
         };
 
@@ -145,7 +150,10 @@ angular.module('app')
                     name: response.data.pathFilesName,
                     src: response.data.pathClient + response.data.pathFilesName,
                     deleteSrc: response.data.pathServer + response.data.pathFilesName,
-                })
+                });
+
+                localStorage.setItem('models', JSON.stringify($scope.models));
+
             }).catch((err) => {
                 console.log('err', err.data.error);
             });
@@ -213,7 +221,6 @@ angular.module('app')
 
         $scope.updateScene = (index) => {
             $timeout(() => {
-
                     $rootScope.markers[index].name = $rootScope.markers[index].src[0].name;
 
                     localStorage.setItem('markers', JSON.stringify($rootScope.markers));
@@ -273,7 +280,6 @@ angular.module('app')
 
             console.log('index', index);
             console.log('obj', obj);
-
 
             $timeout(() => {
                 const scene = document.querySelector('a-scene');

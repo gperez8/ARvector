@@ -173,7 +173,7 @@ div[id="page-content-wrapper"] {
   border: 7px solid white;
   width: 100%;
   left: -12vw;
-  height: 12.2vh;
+  height: 8.7vh;
 }
 
 .box-content-student > .zone > div[class="col-sm-5 col-xs-5"] > #resource {
@@ -183,15 +183,21 @@ div[id="page-content-wrapper"] {
   height: 12.2vh;
 }
 
-.first-marker {
-  height: 13.2vh !important;
+.first-marker{
+ height: 9.6vh !important;
 }
 
- @media(min-width:320px) and (max-width:768px){
-    #resource {
-       height: 12.9vh !important;
-    }
+@media(min-width:320px) and (max-width:691px){
+  .first-marker {
+    height: 9.9vh !important;
   }
+}
+
+@media(min-width:691px) and (max-width:1009px){
+  .first-marker {
+    height: 9.7vh !important;
+  }
+}
 
 .makers{
   border: 2px solid white;
