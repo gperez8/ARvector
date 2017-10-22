@@ -127,23 +127,35 @@ angular.module('app')
         };
 
         $scope.importFileObj = (file) => {
-            Upload.upload({
-                url: '/model',
-                method: 'POST',
-                data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
-                file: file,
-            }).then((response) => {
-                $scope.models.push({
-                    name: response.data.pathFilesName,
-                    src: response.data.pathClient + response.data.pathFilesName,
-                    deleteSrc: response.data.pathServer + response.data.pathFilesName,
+            $scope.progressPercentage = 0;
+            if (angular.isDefined(file) && (typeof file == 'object') && file !== null) {
+                Upload.upload({
+                    url: '/model',
+                    method: 'POST',
+                    data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
+                    file: file,
+                }).then((response) => {
+                    $rootScope.loading = false;
+                    $scope.file = '';
+                    $scope.models.push({
+                        name: response.data.pathFilesName,
+                        src: response.data.pathClient + response.data.pathFilesName,
+                        deleteSrc: response.data.pathServer + response.data.pathFilesName,
+                    });
+
+                    localStorage.setItem('models', JSON.stringify($scope.models));
+
+                },function (resp) {
+                    console.log('Error status: ' + resp.status);
+                },function (evt) {
+                    $rootScope.loading = true;
+                    $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                    console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+                }).catch((err) => {
+                    $rootScope.loading = false;
+                    console.log('err', err.data.error);
                 });
-
-                localStorage.setItem('models', JSON.stringify($scope.models));
-
-            }).catch((err) => {
-                console.log('err', err.data.error);
-            });
+            }
         };
 
         $scope.modelFileDelete = () => {
