@@ -112,9 +112,6 @@ angular.module('app')
                 data: { path: $rootScope.pathTmp.pathModelTmp },
                 headers: { 'Content-Type': 'application/json;charset=utf-8' },
             }).then((data) => {
-
-                console.log('data',data);
-
                 const pathClient = data.data.pathClient;
                 const pathServer = data.data.pathServer;
                 const models = data.data.pathFilesName;
@@ -129,23 +126,13 @@ angular.module('app')
             });
         };
 
-        $scope.print = () => {
-            console.log('marker', $rootScope.markers);
-        };
-
         $scope.importFileObj = (file) => {
-
-            console.log('$rootScope.pathTmp.pathModelTmp', $rootScope.pathTmp.pathModelTmp );
-
             Upload.upload({
                 url: '/model',
                 method: 'POST',
                 data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
                 file: file,
             }).then((response) => {
-
-                console.log('response.data.pathClient', response.data.pathClient);
-                console.log('response.data.pathFilesName', response.data.pathFilesName);
                 $scope.models.push({
                     name: response.data.pathFilesName,
                     src: response.data.pathClient + response.data.pathFilesName,
@@ -163,8 +150,6 @@ angular.module('app')
             const selectModel = $scope.models.filter((obj) => {
                 if (obj.check) return obj;
             });
-
-            console.log('selectModel',selectModel);
 
             $http({
                 method: 'DELETE',
@@ -279,10 +264,6 @@ angular.module('app')
         };
 
         $scope.insertResourceStudent = (index, obj) => {
-
-            console.log('index', index);
-            console.log('obj', obj);
-
             $timeout(() => {
                 const scene = document.querySelector('a-scene');
                 const assets = scene.querySelector('#a-assets');
@@ -441,8 +422,6 @@ angular.module('app')
                 resources: resources,
                 ci_teacher: localStorage.getItem('ci_teacher'),
             };
-        
-            console.log('json', json);
 
             $http({
                 method: 'POST',
@@ -470,8 +449,6 @@ angular.module('app')
                 data: json,
                 headers: { 'Content-Type': 'application/json;charset=utf-8' },
             }).then((data) => {
-                console.log('response', data);
-
                 data.data.resources.map((obj,index) => {
                     $scope.insertResourceStudent(index, obj);
                 });

@@ -5,9 +5,6 @@ FileUploadController = function() {};
 FileUploadController.prototype.uploadFile = function(req, res) {
     fs.readFile(req.files.file.path, function (err, data) {
         // set the correct path for the file not the temporary one from the API:
-    
-        console.log('req', req.body.dirToSave);
-
         const file = {};
         file.path = req.body.dirToSave + req.files.file.originalFilename;
 
@@ -22,10 +19,8 @@ FileUploadController.prototype.uploadFile = function(req, res) {
                     if (err) {
                         return console.warn(err);
                     }
-                    console.log("The file: " + file.name + " was saved to " + file.path);
 
                     const modelGltfFilePath = req.body.dirToSave + req.files.file.originalFilename.replace('.obj', '.gltf');
-
                     const options = {
                         separateTextures: true,
                         kmc: { doubleSided: true },
@@ -39,12 +34,11 @@ FileUploadController.prototype.uploadFile = function(req, res) {
                                 if (error) {
                                     throw error;
                                 }
-                                console.log('Deleted file .obj');
                             });
 
                             return res.status(200).json({
                                 pathFilesName: req.files.file.originalFilename.replace('.obj', '.gltf'),
-                                pathClient: req.body.dirToSave.replace('./public/assets/','src/'),
+                                pathClient: req.body.dirToSave.replace('./public/assets/', 'src/'),
                                 pathServer: req.body.dirToSave,
                             });
                         })

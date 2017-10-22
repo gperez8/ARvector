@@ -61,8 +61,6 @@ angular.module('app')
 				colorLight: '#ffffff',
 			});
 
-			console.log('container', container);
-
 			/* çSe dibuja el codigo QR sobre la imagen base */
 			const canvasImg = container.querySelector('canvas');
 			const image = canvasImg.toDataURL('image/png');

@@ -8,28 +8,20 @@ angular.module('app')
 
 		$http.get('/register')
 			.then((data) =>  {
-				console.log(data);
 				$scope.view = data.data;
-
 				$scope.view.teachers.map((obj) => {
 					return obj.fullName = obj.name + ' ' + obj.last_name;
 				});
-
-				console.log('json register', $scope.view);
 			});
 
 		$scope.register = () => {
-
-
 			$scope.form.rol = Number($scope.form.rol);
 			$scope.form.school = Number($scope.form.school);
 			//$scope.form.semester = Number($scope.form.semester);
-			console.log('register scope.form', $scope.form);
 
-			console.log('json', $scope.form);
 			$http.post('/register/:'+$scope.form.rol, $scope.form, 'json')
 				.then((data) => {
-					console.log('data', data);
+					//console.log('data', data);
 				})
 				.catch((response) => {
 					console.log('log incorrecto');

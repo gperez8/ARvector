@@ -21,7 +21,6 @@ httpRequestHandling.route('/career')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -32,7 +31,6 @@ httpRequestHandling.route('/career')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -74,7 +72,6 @@ httpRequestHandling.route('/careerStudent')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -85,7 +82,6 @@ httpRequestHandling.route('/careerStudent')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('error', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -127,7 +123,6 @@ httpRequestHandling.route('/careerAsignature')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -138,7 +133,6 @@ httpRequestHandling.route('/careerAsignature')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -182,7 +176,6 @@ httpRequestHandling.route('/teacher')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -193,7 +186,6 @@ httpRequestHandling.route('/teacher')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -238,7 +230,6 @@ httpRequestHandling.route('/student')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -249,7 +240,6 @@ httpRequestHandling.route('/student')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -293,7 +283,6 @@ httpRequestHandling.route('/section')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -304,7 +293,6 @@ httpRequestHandling.route('/section')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -350,7 +338,6 @@ httpRequestHandling.route('/asignature')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -361,7 +348,6 @@ httpRequestHandling.route('/asignature')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -399,7 +385,6 @@ httpRequestHandling.route('/teacherAsignature')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -410,7 +395,6 @@ httpRequestHandling.route('/teacherAsignature')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -451,7 +435,6 @@ httpRequestHandling.route('/studentAsignature')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -462,7 +445,6 @@ httpRequestHandling.route('/studentAsignature')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -500,20 +482,6 @@ httpRequestHandling.route('/studentAsignature')
 /* CRUD TABLA Guide */
 httpRequestHandling.route('/guide')
 	.post((req, resp) => {
-	
-		/*const text = 'INSERT INTO bd.guide(type_name,exercise_number,path_guide,num_guide,code_asignature,num_section) VALUES ($1,$2,$3,$4,$5,$6)';
-		const values = ['guia 1', 10, 'http://resource', 1, '18615945399', 10];
-
-		
-		client.query(text, values, (err) => {
-			if (err) {
-				console.log('err', err);
-				return resp.status(500).json({ success: false, res: err });
-			}
-			return resp.json({ success: true });
-		});*/
-
-
 		function insertResources(index, resources, codAsignature, numGuide) {
 			if (index <= resources.length-1) {
 				const text = 'INSERT INTO bd.resourceMarker(pattFileSrc, gltfFileSrc, code_asignature, num_guide, ci_teacher) values ($1,$2,$3,$4,$5)';
@@ -527,11 +495,9 @@ httpRequestHandling.route('/guide')
 				client.query(text, values)
 					.then(() => {
 						index = index + 1;
-						console.log('index', index);
 						insertResources(Number(index), resources, codAsignature, numGuide);
 					})
 					.catch((e) => {
-						console.log(e);
 						return false;
 					});
 			} else {
@@ -606,7 +572,6 @@ httpRequestHandling.route('/guide')
 
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true, res: res.rows });
@@ -647,7 +612,6 @@ httpRequestHandling.route('/resourceMarker')
 
 		client.query(text, values, (err) => {
 			if (err) {
-				console.log('err', err);
 				return resp.status(500).json({ success: false, res: err });
 			}
 			return resp.json({ success: true });
@@ -657,7 +621,6 @@ httpRequestHandling.route('/resourceMarker')
 		const text = 'select * from bd.resourceMarker';
 		client.query(text, (err, res) => {
 			if (err) {
-				console.log('err', err.stack);
 				return resp.status(500).json({ success: false, res: err });
 			} 
 			return resp.json({ success: true, res: res.rows });
@@ -744,8 +707,6 @@ httpRequestHandling.route('/login')
 						try {
 							data = await client.query(text, values);
 						} catch (e) {
-							console.log(e);
-
 							return false;
 						}
 
@@ -768,7 +729,6 @@ httpRequestHandling.route('/login')
 						try {
 							data = await client.query(text, values);
 						} catch (e) {
-							console.log(e);
 							return false;
 						}
 						nameAsignatures.push(data.rows);
@@ -947,15 +907,10 @@ httpRequestHandling.route('/register/:id')
 			values.push(req.body.ci);
 			values.push(req.body.email);
 
-			console.log('values', values);
-			console.log('values', text);
-
 			await client.query(text, values, (err) => {
 				if (err) {
 					resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
 				} else if (req.params.id === ':2') {
-
-					console.log('req', req.body);
 					values = new Array();
 					values.push(req.body.ci);
 					values.push(req.body.ci_teacher);
@@ -967,7 +922,6 @@ httpRequestHandling.route('/register/:id')
 
 					client.query(text, values, (err) => {
 						if (err) {
-							console.log('err', err);
 							return resp.status(500).json({ success: false, msj: 'error al registrar usuario en teacherasignature' });
 						}
 					});
@@ -992,7 +946,6 @@ httpRequestHandling.route('/register/:id')
 
 					client.query(text, values, (err) => {
 						if (err) {
-							console.log('err', err);
 							return resp.status(500).json({ success: false, msj: 'error al registrar usuario en teacherasignature' });
 						}
 					});
@@ -1014,47 +967,6 @@ httpRequestHandling.route('/register/:id')
 
 		})();
 	});
-
-/*	.post((req, resp) => {
-		let text = 'select * from bd.student where email=($1) or ci=($2)';
-		let values = [];
-		values.push(req.body.email);
-		values.push(req.body.ci);
-		values.push(req.body.ci);
-		values.push(req.body.ci);
-		values.push(req.body.ci);
-
-		(async () => {
-			
-			const result = await client.query(text, values);
-
-			if (typeof result.rows[0] === 'object') {
-				return resp.status(500).json({ success: false, msj: 'usuario registrado' });
-			}
-
-			text = 'INSERT INTO bd.student(name,last_name,ci,semester,email,phone) VALUES ($1,$2,$3,$4,$5,$6)';
-			values = Object.keys(req.body).map(key => req.body[key]);
-			values.pop();
-			values.pop();
-			await client.query(text, values, (err) => {
-				if (err) resp.status(500).json({ success: false, msj: 'error al registrar usuario' });
-			});
-
-			text = 'INSERT INTO bd.users(email,password,rol) VALUES ($1,$2,$3)';
-			values = [];
-			values.push(req.body.email);
-			values.push(req.body.password1);
-			values.push('student');
-			console.log('values', values);
-
-			client.query(text, values, (err) => {
-				if (err) resp.status(500).json({ success: false, msj: 'error al insertar en tabla user', err: err.stack });
-			
-				return resp.status(200).json({ status: 200 });
-			});
-		})();
-		
-	})*/
 
 httpRequestHandling.route('/createMarker')
 	.get((req, resp) => {

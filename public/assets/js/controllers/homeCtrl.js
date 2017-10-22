@@ -5,14 +5,12 @@ angular.module('app')
 		$scope.form;
 		$http.get('/register')
 			.then((data) => {
-				console.log(data);
 				$scope.view = data.data;
 			});
 
 		$scope.login = () => {
 			$http.post('/login', $scope.form, 'json')
 				.then((data) => {
-					console.log('DATA', data.data);
 
 					localStorage.setItem('name', data.data.name);
 					localStorage.setItem('lastName', data.data.lastName);
@@ -37,9 +35,6 @@ angular.module('app')
 						localStorage.setItem('asignatures', JSON.stringify(data.data.asignatureName));
 						$rootScope.guides = JSON.parse(localStorage.getItem('guides'));
 						$rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
-
-						console.log('$rootScope.guides', $rootScope.guides);
-						console.log('$rootScope.asignatures', $rootScope.asignatures);
 					}
 					$location.path('/testMarker');
 

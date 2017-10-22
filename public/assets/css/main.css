@@ -229,7 +229,7 @@ div[id="page-content-wrapper"] {
 
 .apps-container {
   padding: 5px;
-  width: 23vw;
+  width: 18vw;
   height: 18vh;
 }
 
@@ -247,6 +247,9 @@ div[id="page-content-wrapper"] {
 
 .box-content-teacher > p[class="text-right"]:hover {
   cursor: pointer;
+}
+.box-content-teacher > p[class="text-right"] {
+  color: white;
 }
 
 .box-content-student > p[class="text-right"]:hover {

@@ -252,7 +252,6 @@ angular.module('app',
 		};
 
 		$rootScope.pattFileGenerate = (imageQr, markerGenerated, fileName) => {
-			console.log('pattFileGenerate');
 			if (imageQr !== null &&
 				imageQr !== undefined &&
 				markerGenerated !== null &&

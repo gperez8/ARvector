@@ -13,9 +13,6 @@ const httpRequestHandling = express();
 
 httpRequestHandling.route('/createMarker')
 	.post((req, res) => {
-
-		console.log('name', req.body.name);
-
 		const file = req.body.pattFile;
 		const img = req.body.pattFileImage;
 
@@ -34,15 +31,11 @@ httpRequestHandling.route('/createMarker')
 
 		fs.writeFile(pattFilePath, new Buffer(file, 'base64'), 'ascii', (err) => {
 			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
-			console.log('The file was succesfully saved!');
 		});
 
 		fs.writeFile(imgFilePath, new Buffer(img, 'base64'), 'ascii', (err) => {
 			if (err) return console.log(`error al escribir archivo (.patt) ${err}`);
-			console.log('The file IMG was succesfully saved!');
 		});
-
-		console.log('pattFilePath', pattFilePath);
 
 		res.status('200').json({ 
 			status: 200, 
@@ -85,9 +78,6 @@ httpRequestHandling.route('/createMarker/:id')
 	})
 	.delete((req, res) => {
 		const deleteToModel = req.body.path;
-
-		console.log('deleteToModel',deleteToModel);
-
 		deleteToModel.map((obj) => {
 			fs.unlink(obj.pattFileDir, (error) => {
 				if (error) {
@@ -137,8 +127,6 @@ httpRequestHandling.route('/createModel2')
 				return console.log(`error al escribir archivo (.patt) ${err}`);
 			}
 
-			console.log('The file was succesfully saved!');
-
 			const options = {
 				separateTextures: true,
 				kmc: { doubleSided: true },
@@ -148,33 +136,10 @@ httpRequestHandling.route('/createModel2')
 
 			obj2gltf(modelFilePath, modelGltfFilePath, options)
 				.then(function() {
-					console.log('Converted model');
-					/*fs.readFile(modelGltfFilePath, (err, data) => {
-						const file = new Buffer(data, 'Uint8array');
-						const compressFile = lzma.compress(file, 9);
-					
-						fs.writeFile(modelFilePath+'.lzma', compressFile, 'ascii', (err) => {
-							if (err) {
-								res.status(500);
-								res.send({
-									error: {
-										message: err.message,
-										stack: err.stack,
-									},
-								});
-								return console.log('compress lzma');
-							}
-						});
-
-
-						const result2 = lzma.decompress(result1);
-						console.log('result2', result2);
-					});*/
 					fs.unlink(modelFilePath, function(error) {
                         if (error) {
                             throw error;
                         }
-                        console.log('Deleted file .obj');
                     });
 					res.send('200'); // Mover la respuesta dentro del `then`, porque las promesas son asíncronas.
 				})
@@ -200,8 +165,6 @@ httpRequestHandling.route('/model')
 httpRequestHandling.route('/model/:id')
 	.post((req, res) => {
 		const path = req.body.path;
-
-		console.log('pathClient', path.replace('./public/assets/', 'src/'));
 
 		fs.readdir(path, (err, files) => {
 			res.status(200).json({

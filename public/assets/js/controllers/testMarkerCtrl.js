@@ -2,9 +2,6 @@
 
 angular.module('app')
 	.controller('testMarkerCtrl', ($scope, $rootScope) => {
-
-		console.log('testMarkerCtrl');
-
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
