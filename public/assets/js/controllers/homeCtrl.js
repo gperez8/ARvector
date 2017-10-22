@@ -37,6 +37,9 @@ angular.module('app')
 						localStorage.setItem('asignatures', JSON.stringify(data.data.asignatureName));
 						$rootScope.guides = JSON.parse(localStorage.getItem('guides'));
 						$rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
+
+						console.log('$rootScope.guides', $rootScope.guides);
+						console.log('$rootScope.asignatures', $rootScope.asignatures);
 					}
 					$location.path('/testMarker');
 

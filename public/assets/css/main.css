@@ -387,6 +387,13 @@ h2 {
   left: calc(100% + -7pc);
 }
 
+.guide > span#arrowGuide {
+  position: absolute;
+  margin-top: 1vh;
+  font-size: 18px;
+  left: calc(100% - 5pc);
+}
+
 .guide > ul > li > span#markerName:hover {
   cursor:pointer;
 }

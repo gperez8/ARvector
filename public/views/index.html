@@ -384,10 +384,9 @@
 
 		            <!-- Funcionalidad TestMarker Estudiante-->
 		            <div ng-if="path === '/testMarker' && rolUser === '2'">
-			            <div id="markers" class="box-content-student">
-			            	<!-- carpetas de Materias -->
-			            	<div class="zone" ng-repeat="asignature in asignatures">
-			            		<p ng-if="!arrow.folderGuide" class="guide">
+			            <div class="col-xs-12 col-sm-12">
+	            			<div ng-repeat="asignature in asignatures">
+					            <p ng-if="!arrow.folderGuide" class="guide">
 					            	<span 
 					            		id="folder"
 					            		class="folder" 
@@ -399,9 +398,9 @@
 						                	}">	
 						                </i>
 						            </span> 
-						            <span id="guideName">{{ asignature.name }} </span>
+						            <span id="guideName">{{ asignature.name }}</span>
 				            		<span 
-				            			id="arrow"
+				            			id="arrowGuide"
 				            			ng-click="arrow.folderResource=!arrow.folderResource">
 					                	<i ng-class="{
 						                		'glyphicon glyphicon-chevron-left': !arrow.folderResource,
@@ -423,8 +422,8 @@
 						            	</li>				            	
 						            </ul>
 					        	</div>
-			            	</div>
-			            </div>
+	            			</div>
+		            	</div>
 		            </div>
 		            <!-- FIN Funcionalidad TestMarker Estudiante-->
 
