@@ -402,3 +402,7 @@ h2 {
   height: calc(100vh - 48vh);
   overflow: auto;
 }
+
+.guide > ul#markerNameList > li > span {
+  cursor: pointer;
+}
