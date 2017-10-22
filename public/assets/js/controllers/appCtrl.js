@@ -12,16 +12,16 @@ angular.module('app')
         $scope.customOption = $rootScope.customOption;
         $scope.file = '';
         $scope.models = [];
-        $rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');     
+        $rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');    
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
 
-        if (localStorage.getItem('rolUser') === 3) {
+        if (localStorage.getItem('rolUser') === '3') {
             $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
             $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
             $rootScope.markers = JSON.parse(localStorage.getItem('markers'));
             $scope.models.push(JSON.parse(localStorage.getItem('models')));
-        } else if (localStorage.getItem('rolUser') === 2) {
+        } else if (localStorage.getItem('rolUser') === '2') {
             $rootScope.guides = JSON.parse(localStorage.getItem('guides'));
             $rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
         }
@@ -176,6 +176,8 @@ angular.module('app')
                 $scope.models = $scope.models.filter((obj) => {
                     if (!obj.check) return obj;
                 });
+
+                localStorage.setItem('models', JSON.stringify($scope.models));
             }).catch((err) => {
                 console.log('err', err);
             }); 

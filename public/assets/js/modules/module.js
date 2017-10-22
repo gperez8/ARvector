@@ -220,8 +220,16 @@ angular.module('app',
 			const model = LZMA.compress(exporter.parse(scene.children[3]), 3);
 			const data = {};
 
+			const models =  JSON.parse(localStorage.getItem('models'));
+
+			if (models != null && models.length > 0) {
+				data.name = `model_${models.length+1}`;
+			} else {
+				data.name = 'model_1';
+			}
+
 			data.model = model;
-			data.name = 'model';
+			data.ci = localStorage.getItem('ci_teacher');
 			data.asignature = 'vectorial';
 			$http.post('/createModel2', data, 'json')
 				.then((response) => {

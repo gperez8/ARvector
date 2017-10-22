@@ -173,7 +173,7 @@ div[id="page-content-wrapper"] {
   border: 7px solid white;
   width: 100%;
   left: -12vw;
-  height: 8.7vh;
+  height: calc(12vh - 3.2vh);
 }
 
 .box-content-student > .zone > div[class="col-sm-5 col-xs-5"] > #resource {
@@ -184,20 +184,26 @@ div[id="page-content-wrapper"] {
 }
 
 .first-marker{
- height: 9.6vh !important;
+  height: calc(10.6vh - 1vh) !important;;
 }
 
-@media(min-width:320px) and (max-width:691px){
+/*@media(min-width:691px) and (max-width:1023px){
   .first-marker {
-    height: 9.9vh !important;
+    height: calc(10.9vh - 1vh) !important;
   }
 }
 
-@media(min-width:691px) and (max-width:1009px){
+@media(min-width:1024px) and (max-width:1439px){
   .first-marker {
-    height: 9.7vh !important;
+    height: calc(9.3vh - 1vh) !important;
   }
 }
+
+@media(min-width:1440px) and (max-width:1519px) {
+  .first-marker {
+    height: calc(8.1vh - 1vh) !important;
+  }
+}*/
 
 .makers{
   border: 2px solid white;
@@ -378,7 +384,7 @@ h2 {
   position: absolute;
   margin-top: 1vh;
   font-size: 18px;
-  margin-left: 8vw;
+  left: calc(100% + -7pc);
 }
 
 .guide > ul > li > span#markerName:hover {

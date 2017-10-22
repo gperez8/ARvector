@@ -112,7 +112,7 @@ httpRequestHandling.route('/createModel2')
 	.post((req, res) => {
 		const model = lzma.decompress(req.body.model);
 		// carpetas para archivos .patt y png
-		const modelFileDir = './public/assets/vectorial/models/8050767/tmp';
+		const modelFileDir = `./public/assets/vectorial/models/${req.body.ci}/tmp`;
 
 		// ruta y nombres de archivos .patt y png
 		const modelFilePath = `${modelFileDir}` +

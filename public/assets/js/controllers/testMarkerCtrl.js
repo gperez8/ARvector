@@ -3,18 +3,13 @@
 angular.module('app')
 	.controller('testMarkerCtrl', ($scope, $rootScope) => {
 
+		console.log('testMarkerCtrl');
+
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
 			$("#wrapper").toggleClass("toggled");
 		});
 
-		$rootScope.login = localStorage.getItem('token');
-		$rootScope.rolUser = localStorage.getItem('rolUser');
-		$rootScope.login = localStorage.getItem('token');
-		$rootScope.rolUser = localStorage.getItem('rolUser');
-		$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
-		$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
-		$scope.models = JSON.parse(localStorage.getItem('models'));
 		$rootScope.path = '/testMarker';
 
 		function handleSceneLoaded() {
