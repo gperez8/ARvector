@@ -184,7 +184,7 @@ div[id="page-content-wrapper"] {
 }
 
 .first-marker{
-  height: calc(10.6vh - 1vh) !important;;
+  height: calc(10.6vh - 1vh) !important;
 }
 
 /*@media(min-width:691px) and (max-width:1023px){
@@ -234,7 +234,8 @@ div[id="page-content-wrapper"] {
 }
 
 .box-content-teacher > .apps-container {
-  margin-top: -4vh !important; 
+  margin-top: -4vh !important;
+  width: 100% !important;
 }
 
 .box-content-student > .apps-container {
