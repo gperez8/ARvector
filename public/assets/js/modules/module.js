@@ -217,27 +217,38 @@ angular.module('app',
 		$rootScope.exporter = () => {
 			console.time('file');
 			const exporter = new THREE.OBJExporter();
-			const model = LZMA.compress(exporter.parse(scene.children[3]), 3);
-			const data = {};
-
-			const models =  JSON.parse(localStorage.getItem('models'));
-
-			if (models != null && models.length > 0) {
-				data.name = `model_${models.length+1}`;
-			} else {
-				data.name = 'model_1';
+			$rootScope.progressPercentageModel = 0;
+			
+			function pogress(percent){
+				const element = document.querySelector('#progressBar');
+				element.setAttribute("style", `width: ${parseInt(100.0 * percent)}%`);
+				document.querySelector('#spanProgressBar').textContent =`${parseInt(100.0 * percent)}% comprimiendo`;
 			}
 
-			data.model = model;
-			data.ci = localStorage.getItem('ci_teacher');
-			data.asignature = 'vectorial';
-			$http.post('/createModel2', data, 'json')
-				.then((response) => {
-					console.timeEnd('file end');
-					console.log('response', response);
-				}, (error) => {
-					console.log('error', error);
-				});
+			function on_finish(result, error) {
+				$rootScope.loadingCreateModel = false;
+				const data = {};
+				const models =  JSON.parse(localStorage.getItem('models'));
+
+				if (models != null && models.length > 0) {
+					data.name = `model_${models.length+1}`;
+				} else {
+					data.name = 'model_1';
+				}
+
+				data.model = result;
+				data.ci = localStorage.getItem('ci_teacher');
+				data.asignature = 'vectorial';
+				$http.post('/createModel2', data, 'json')
+					.then((response) => {
+						console.timeEnd('file end');
+						console.log('response', response);
+					}, (error) => {
+						console.log('error', error);
+					});
+			};
+			$rootScope.loadingCreateModel = true;
+			LZMA.compress(exporter.parse(scene.children[3]), 3, on_finish, pogress);
 		};
 		/* FIN de Generar Grafica */
 

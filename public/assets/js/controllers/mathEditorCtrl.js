@@ -59,4 +59,7 @@ angular.module('app')
 
 			parent.insertBefore(remove, editor);
 		};
+
+		const node = document.getElementsByClassName("ql-toolbar ql-snow");
+		node[0].setAttribute("style", "background: white");
 	});

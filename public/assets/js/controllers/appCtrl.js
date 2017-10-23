@@ -16,6 +16,7 @@ angular.module('app')
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
 
+
         if (localStorage.getItem('rolUser') === '3') {
             $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
             $rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
@@ -135,7 +136,7 @@ angular.module('app')
                     data: { dirToSave: $rootScope.pathTmp.pathModelTmp },
                     file: file,
                 }).then((response) => {
-                    $rootScope.loading = false;
+                    $rootScope.loadingModel = false;
                     $scope.file = '';
                     $scope.models.push({
                         name: response.data.pathFilesName,
@@ -146,14 +147,12 @@ angular.module('app')
                     localStorage.setItem('models', JSON.stringify($scope.models));
 
                 },function (resp) {
-                    console.log('Error status: ' + resp.status);
+                    $rootScope.loadingModel = false;
+                    alert('Modelo Repetido');
                 },function (evt) {
-                    $rootScope.loading = true;
+                    $rootScope.loadingModel = true;
                     $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
                     console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-                }).catch((err) => {
-                    $rootScope.loading = false;
-                    console.log('err', err.data.error);
                 });
             }
         };
@@ -465,5 +464,9 @@ angular.module('app')
                     $scope.insertResourceStudent(index, obj);
                 });
             });
-        }
+        };
+
+
+
+       // <canvas width="1137" height="753" style="width: 1137px; height: 753px;"></canvas>
     });
