@@ -1,3 +1,5 @@
+import swal from 'sweetalert2';
+
 angular.module('app',
 	[
 		'ngRoute',
@@ -215,6 +217,15 @@ angular.module('app',
 		};
 
 		$rootScope.exporter = () => {
+
+			swal({
+                title: 'Comprimiendo Archivo!',
+                text: 'Por favor espere un momento.',
+                allowOutsideClick: false,
+                onOpen: function () {
+                    swal.showLoading();
+                },
+            });
 			console.time('file');
 			const exporter = new THREE.OBJExporter();
 			$rootScope.progressPercentageModel = 0;
@@ -226,6 +237,17 @@ angular.module('app',
 			}
 
 			function on_finish(result, error) {
+				swal.hideLoading();
+
+				swal({
+	                title: 'Subiendo Archivo!',
+	                text: 'Por favor espere un momento.',
+	                allowOutsideClick: false,
+	                onOpen: function () {
+	                    swal.showLoading();
+	                },
+	            });
+
 				$rootScope.loadingCreateModel = false;
 				const data = {};
 				const models =  JSON.parse(localStorage.getItem('models'));
@@ -241,11 +263,23 @@ angular.module('app',
 				data.asignature = 'vectorial';
 				$http.post('/createModel2', data, 'json')
 					.then((response) => {
-						console.timeEnd('file end');
-						console.log('response', response);
+						swal.hideLoading();
+						swal({
+	                        title: 'Operación Existosa!',
+	                        text: 'Archivo cargado con exito',
+	                        type: 'success',
+	                        confirmButtonText: 'Aceptar'
+	                    });   
 					}, (error) => {
-						console.log('error', error);
+						swal({
+	                        title: 'Error!',
+	                        text: 'Ha ocurrido un Error al subir el archivo',
+	                        type: 'error',
+	                        confirmButtonText: 'Aceptar'
+	                    });   
 					});
+				
+				
 			};
 			$rootScope.loadingCreateModel = true;
 			LZMA.compress(exporter.parse(scene.children[3]), 3, on_finish, pogress);

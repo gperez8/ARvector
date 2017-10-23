@@ -130,6 +130,16 @@ angular.module('app')
         $scope.importFileObj = (file) => {
             $scope.progressPercentage = 0;
             if (angular.isDefined(file) && (typeof file == 'object') && file !== null) {
+                
+                swal({
+                    title: 'Importando Archivo!',
+                    text: 'Por favor espere un momento.',
+                    allowOutsideClick: false,
+                    onOpen: function () {
+                        swal.showLoading();
+                    },
+                });
+
                 Upload.upload({
                     url: '/model',
                     method: 'POST',
@@ -146,9 +156,22 @@ angular.module('app')
 
                     localStorage.setItem('models', JSON.stringify($scope.models));
 
+                    swal.hideLoading();
+                    swal({
+                        title: 'Operación Existosa!',
+                        text: 'Archivo cargado con exito',
+                        type: 'success',
+                        confirmButtonText: 'Aceptar'
+                    });     
+
                 },function (resp) {
                     $rootScope.loadingModel = false;
-                    alert('Modelo Repetido');
+                    swal({
+                      title: 'Error!',
+                      text: 'Archivo ya existente',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                    });                    
                 },function (evt) {
                     $rootScope.loadingModel = true;
                     $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
@@ -174,8 +197,20 @@ angular.module('app')
                 });
 
                 localStorage.setItem('models', JSON.stringify($scope.models));
+
+                swal({
+                    title: 'Operación Existosa!',
+                    text: 'Se ha eliminado correctamente el archivo',
+                    type: 'success',
+                    confirmButtonText: 'Aceptar'
+                });   
             }).catch((err) => {
-                console.log('err', err);
+                swal({
+                      title: 'Error!',
+                      text: 'Ocurrio un error al eliminar Archivo',
+                      type: 'error',
+                      confirmButtonText: 'Aceptar'
+                });    
             }); 
         };
 
@@ -430,34 +465,49 @@ angular.module('app')
         };
 
         $scope.saveResource = () => {
-            let resources = JSON.parse(localStorage.getItem('markers')).filter((obj) => {
-                if (obj.src.length > 0) {
-                    return obj;
-                }
-            });
+            swal({
+              title: 'Esta seguro de guardar los recursos de esta guia',
+              text: "Una vez guardado no podra modificarlos!",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si guardar!'
+            }).then(function () {
+                let resources = JSON.parse(localStorage.getItem('markers')).filter((obj) => {
+                    if (obj.src.length > 0) {
+                        return obj;
+                    }
+                });
 
-            resources = resources.map((obj) => {
-                return {
-                    pattFilePath: obj.pattFilePath,
-                    gltfFilePath: obj.src[0].src,
+                resources = resources.map((obj) => {
+                    return {
+                        pattFilePath: obj.pattFilePath,
+                        gltfFilePath: obj.src[0].src,
+                    };
+                });
+
+                const json = {
+                    resources: resources,
+                    ci_teacher: localStorage.getItem('ci_teacher'),
                 };
-            });
 
-            const json = {
-                resources: resources,
-                ci_teacher: localStorage.getItem('ci_teacher'),
-            };
-
-            $http({
-                method: 'POST',
-                url: '/guide',
-                data: json,
-                headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            }).then((data) => {
-                localStorage.removeItem('markers');
-                $rootScope.markers = [];
-                $scope.models = [];
-            });
+                $http({
+                    method: 'POST',
+                    url: '/guide',
+                    data: json,
+                    headers: { 'Content-Type': 'application/json;charset=utf-8' },
+                }).then((data) => {
+                    localStorage.removeItem('markers');
+                    $rootScope.markers = [];
+                    $scope.models = [];
+                    swal(
+                        'Guardado con exito!',
+                        'Ha creado una nueva guia',
+                        'success',
+                    );
+                });
+            })
         };
 
         $scope.sortableOptions = {
