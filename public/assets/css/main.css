@@ -2,6 +2,7 @@
 @import url('../../../src/css/katex/katex.min.css');
 @import url('../../../node_modules/bootstrap/dist/css/bootstrap.min.css');
 @import url('../../../src/css/simple-sidebar.css');
+@import url('../../../node_modules/sweetalert2/dist/sweetalert2.min.css');
 
 .colorgraph {
   height: 5px;

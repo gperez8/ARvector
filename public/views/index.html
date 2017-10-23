@@ -272,7 +272,7 @@
 		             <!-- Funcionalidad TestMarker Profesor-->
 		            <div ng-if="path === '/testMarker' && rolUser==='3'">
 			            <div id="markers" class="box-content-teacher">
-			            	<div class="zone" ng-repeat="marker in markers">
+			            	<div class="zone" ng-repeat="marker in markers" id="marker{{$index}}">
 			            		<div class="col-sm-5 col-xs-5">
 				            		<img class="img-responsive" src="{{marker.imgFilePath}}" alt="">
 				            	</div>
@@ -293,7 +293,7 @@
 				            			}"
 				            			ui-sortable="sortableOptions"
 				            			ui-sortable-receive="updateScene($index)"
-				            			ui-sortable-remove="deleteOfScene(markers[$index].name)">
+				            			ui-sortable-remove="deleteOfScene(markers[$index].name,$index)">
 
 					            		<div ng-repeat="item in markers[$index].src"> 
 					            			<span> GLTF 
@@ -618,9 +618,9 @@
 		<script src="node_modules/satellizer/dist/satellizer.min.js"></script>
 		<!--Fin de manejo de Token -->
 
-		<!-- TestMarker -->
-		
-		<!-- FIn TestMarker-->
+		<!-- Modales -->
+		<script src="node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+		<!-- Fin Modales -->
 
 		<!-- FIN Javascript Propios -->
 		<script src="dist/bundle.js"></script>

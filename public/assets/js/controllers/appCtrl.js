@@ -1,3 +1,4 @@
+import swal from 'sweetalert2';
 import regeneratorRuntime from "regenerator-runtime";
 
 angular.module('app')
@@ -15,7 +16,6 @@ angular.module('app')
         $rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName');    
         $rootScope.login = localStorage.getItem('token');
         $rootScope.rolUser = localStorage.getItem('rolUser');
-
 
         if (localStorage.getItem('rolUser') === '3') {
             $rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
@@ -318,20 +318,34 @@ angular.module('app')
             },1000);
         };
 
-        $scope.deleteOfScene = (nameModel) => {
+        $scope.deleteOfScene = (nameModel, index) => {
+            $rootScope.markers[index].check = true;
+            $scope.markerDelete();
+
             const scene = document.querySelector('a-scene');
             const assetItemParent = scene.querySelector('#a-assets');
             const markersParent = scene.querySelector('#target');
             let position;
 
             const assetItemParentNodes = assetItemParent.childNodes;
-
             assetItemParentNodes.forEach((element, index) => {
                 if (typeof element.id === 'string' && element.id === nameModel) {
                     assetItemParent.removeChild(assetItemParent.childNodes[index]);
                     markersParent.removeChild(markersParent.childNodes[index]);
                     return;
                 }
+            });
+        };
+
+        $scope.deleteOfSceneStudent = () => {
+            const scene = document.querySelector('a-scene');
+            const assetItemParent = scene.querySelector('#a-assets');
+            const markersParent = scene.querySelector('#target');
+
+            const assetItemParentNodes = assetItemParent.childNodes;
+            assetItemParentNodes.forEach((element, index) => {
+                    assetItemParent.removeChild(assetItemParent.childNodes[index]);
+                    markersParent.removeChild(markersParent.childNodes[index]);
             });
         };
 
@@ -452,6 +466,7 @@ angular.module('app')
         };
 
         $scope.getResource = (index) => {
+            $scope.deleteOfSceneStudent();
             const json = {};
             json.id = index;
             $http({
@@ -465,8 +480,4 @@ angular.module('app')
                 });
             });
         };
-
-
-
-       // <canvas width="1137" height="753" style="width: 1137px; height: 753px;"></canvas>
     });
