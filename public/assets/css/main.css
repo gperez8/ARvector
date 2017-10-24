@@ -81,7 +81,7 @@ div[id="page-content-wrapper"] {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  width: 100vw;
+  width: 100vw !important;
   height: 100vh;
 }
 
