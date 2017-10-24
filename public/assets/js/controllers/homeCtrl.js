@@ -1,3 +1,4 @@
+import swal from 'sweetalert2';
  /* global $, angular, document, localStorage */
 
 angular.module('app')
@@ -44,10 +45,17 @@ angular.module('app')
 						$rootScope.guides = JSON.parse(localStorage.getItem('guides'));
 						$rootScope.asignatures = JSON.parse(localStorage.getItem('asignatures'));
 					}
+
 					$location.path('/testMarker');
 
 				}, (error) => {
 					console.log('error', error);
+					swal({
+						title: 'Ha ocurrido un error',
+						text: 'Revise su email y contraseña',
+						type: 'error',
+						confirmButtonText: 'Aceptar'
+					});       
 				});
 		};
 

@@ -15,17 +15,36 @@ angular.module('app')
 			});
 
 		$scope.register = () => {
-			$scope.form.rol = Number($scope.form.rol);
-			$scope.form.school = Number($scope.form.school);
-			//$scope.form.semester = Number($scope.form.semester);
+			swal({
+              title: 'Esta a punto de registrarse',
+              text: "¿Esta seguro de los datos suministrados?",
+              type: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si, guardar!'
+            }).then(function () {
+				$scope.form.rol = Number($scope.form.rol);
+				$scope.form.school = Number($scope.form.school);
+				//$scope.form.semester = Number($scope.form.semester);
 
-			$http.post('/register/:'+$scope.form.rol, $scope.form, 'json')
-				.then((data) => {
-					//console.log('data', data);
-				})
-				.catch((response) => {
-					console.log('log incorrecto');
-				});
+				$http.post('/register/:'+$scope.form.rol, $scope.form, 'json')
+					.then((data) => {
+						swal(
+	                        'Se ha registrado con exito!',
+	                        'Felicidades ya es parte de nuestra comunidad',
+	                        'success',
+	                    );
+	                    $location.path('/');
+					})
+					.catch((response) => {
+						swal(
+	                        'Ha ocurrido un error al registralo!',
+	                        'Por favor verifique sus datos',
+	                        'error',
+	                    );
+					});  
+            })
 		};
 
 		$scope.login = () => {
