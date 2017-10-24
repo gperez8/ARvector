@@ -22,6 +22,13 @@ angular.module('app')
 					$rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName'); 
 					$rootScope.path = '/testMarker';
 
+					$rootScope.customOption.x.min = -3;
+					$rootScope.customOption.x.max = 3;
+					$rootScope.customOption.y.min = -3;
+					$rootScope.customOption.y.max = 3;
+					$rootScope.customOption.z.min = -3;
+					$rootScope.customOption.z.max = 3;
+
 					if (data.data.rol === 3 ) {
 						localStorage.setItem('ci_teacher', data.data.ci);
 						localStorage.setItem('pathTeacher', JSON.stringify(data.data.pathTeacher));
@@ -29,6 +36,7 @@ angular.module('app')
 						$rootScope.pathTeacher = JSON.parse(localStorage.getItem('pathTeacher'));
 						$rootScope.pathTmp = JSON.parse(localStorage.getItem('pathTmp'));
 						$rootScope.imgFileLoad();
+
 
 					} else if (data.data.rol === 2) {
 						localStorage.setItem('guides', JSON.stringify(data.data.guidesNames[0]));

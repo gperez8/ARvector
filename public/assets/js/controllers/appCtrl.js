@@ -158,7 +158,7 @@ angular.module('app')
 
                     swal.hideLoading();
                     swal({
-                        title: 'Operación Existosa!',
+                        title: 'Operación Exitosa!',
                         text: 'Archivo cargado con exito',
                         type: 'success',
                         confirmButtonText: 'Aceptar'
@@ -199,7 +199,7 @@ angular.module('app')
                 localStorage.setItem('models', JSON.stringify($scope.models));
 
                 swal({
-                    title: 'Operación Existosa!',
+                    title: 'Operación Exitosa!',
                     text: 'Se ha eliminado correctamente el archivo',
                     type: 'success',
                     confirmButtonText: 'Aceptar'
@@ -207,7 +207,7 @@ angular.module('app')
             }).catch((err) => {
                 swal({
                       title: 'Error!',
-                      text: 'Ocurrio un error al eliminar Archivo',
+                      text: 'Ocurrió un error al eliminar Archivo',
                       type: 'error',
                       confirmButtonText: 'Aceptar'
                 });    
@@ -466,13 +466,13 @@ angular.module('app')
 
         $scope.saveResource = () => {
             swal({
-              title: 'Esta seguro de guardar los recursos de esta guia',
+              title: '¿Esta seguro de guardar los recursos de esta guia?',
               text: "Una vez guardado no podra modificarlos!",
               type: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#3085d6',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Si guardar!'
+              confirmButtonText: 'Si, guardar!'
             }).then(function () {
                 let resources = JSON.parse(localStorage.getItem('markers')).filter((obj) => {
                     if (obj.src.length > 0) {

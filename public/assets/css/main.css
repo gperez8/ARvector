@@ -133,7 +133,7 @@ div[id="page-content-wrapper"] {
 }
 
 .box-content-teacher {
-  border: 2px solid white;
+  background: #6084aa;
   width: 100%;
   height: 23vh;
   padding-top: 5%;
@@ -174,7 +174,7 @@ div[id="page-content-wrapper"] {
   border: 7px solid white;
   width: 100%;
   left: -12vw;
-  height: calc(12vh - 3.2vh);
+  height: calc(12vh - 2.2vh);
 }
 
 .box-content-student > .zone > div[class="col-sm-5 col-xs-5"] > #resource {
@@ -338,7 +338,6 @@ h2 {
   position: relative;
   overflow: hidden;
   vertical-align: middle;
-  background-color: #337ab7;
 }
 .btn-file > input {
   position: absolute;
@@ -404,10 +403,16 @@ h2 {
 }
 
 .guide > ul#markerNameList{
+  background-color: #6084aa;
   height: calc(100vh - 48vh);
   overflow: auto;
 }
 
 .guide > ul#markerNameList > li > span {
   cursor: pointer;
+}
+
+.color-button {
+  background-color: #1390fb !important;
+  border-color: #1390fb !important;   
 }
