@@ -49,6 +49,8 @@ angular.module('app',
 		$rootScope.customOption.planeSize = 6;
 		$rootScope.customOption.planeSubdivition = 10;
 		$rootScope.customOption.axisSize = 10;
+		$rootScope.$apply();
+
 
 		$rootScope.graph = (zFuncTextR, customOption) => {
 			let graphMesh;

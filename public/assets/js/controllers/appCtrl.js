@@ -219,6 +219,8 @@ angular.module('app')
                 if (obj.check) return obj;
             });
 
+            console.log('selectMarker', $scope.selectMarker);
+
             selectMarker.map((obj) => {
                 if (obj.src.length >= 1) {
                     $scope.models.unshift(obj.src[0]);
@@ -234,15 +236,20 @@ angular.module('app')
                 
                 selectMarker.map((obj) => {
                     if (obj.src.length >= 1) {
-                        $scope.deleteOfScene(obj.src[0].name);
+                        $scope.deleteOfScene(obj.src[0].name,'band');
                     }
                 });
 
+
                 $rootScope.markers = $rootScope.markers.filter((obj) => {
                     if (!angular.isDefined(obj.check) || !obj.check) {
+                        console.log('!angular.isDefined(obj.check)',!angular.isDefined(obj.check));
+                        console.log('!obj.check',!obj.check);
                         return (obj);
                     }
                 });
+
+                $rootScope.$apply();
 
                 //localStorage.removeItem('markers');
                 localStorage.setItem('markers', JSON.stringify($rootScope.markers));
@@ -303,7 +310,7 @@ angular.module('app')
                     target.appendChild(newAMarker);*/
 
                     if ($rootScope.markers[index].src.length > 1) {
-                        $scope.deleteOfScene($rootScope.markers[index].src[1].name);
+                        $scope.deleteOfScene($rootScope.markers[index].src[1].name, 'band');
                         $scope.models.unshift($rootScope.markers[index].src.pop()); 
                     }
             }, 0);
@@ -354,8 +361,12 @@ angular.module('app')
         };
 
         $scope.deleteOfScene = (nameModel, index) => {
-            $rootScope.markers[index].check = true;
-            $scope.markerDelete();
+            
+            if (typeof index == 'number') {
+                console.log(' $rootScope.markers[index].check',  $rootScope.markers[index].check);
+                $rootScope.markers[index].check = true;
+                $scope.markerDelete();
+            }
 
             const scene = document.querySelector('a-scene');
             const assetItemParent = scene.querySelector('#a-assets');

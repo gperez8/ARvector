@@ -23,6 +23,7 @@ angular.module('app')
 					$rootScope.fullName = localStorage.getItem('name') + ' ' + localStorage.getItem('lastName'); 
 					$rootScope.path = '/testMarker';
 
+					
 					$rootScope.customOption.x.min = -3;
 					$rootScope.customOption.x.max = 3;
 					$rootScope.customOption.y.min = -3;
